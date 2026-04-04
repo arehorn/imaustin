@@ -6,15 +6,11 @@ import type { BlogPostData } from "../../types/emdash";
 
 const { id } = Astro.params;
 
-if (!id) {
-  return Astro.redirect("/blog");
-}
+if (!id) return Astro.redirect("/blog");
 
-const entry = await getEmDashEntry("posts", id);
+const { entry } = await getEmDashEntry("posts", id);
 
-if (!entry) {
-  return Astro.redirect("/blog");
-}
+if (!entry) return Astro.redirect("/blog");
 
 const post = { id: entry.id, ...(entry.data as BlogPostData) };
 
