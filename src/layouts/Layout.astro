@@ -1,7 +1,6 @@
 ---
-// src/layouts/Layout.astro
-// TODO: import Nav from "../components/Nav" and add <Nav client:load /> here — done in Task 4
 import "../styles/globals.css";
+import Nav from "../components/Nav";
 
 interface Props {
   title?: string;
@@ -27,6 +26,7 @@ const {
     />
   </head>
   <body class="min-h-full flex flex-col bg-[#E0E5EC]">
+    <Nav client:load />
     <slot />
     <footer class="py-10">
       <div class="max-w-6xl mx-auto px-6 flex items-center justify-between">
