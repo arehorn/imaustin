@@ -1,6 +1,7 @@
 ---
 // src/layouts/Layout.astro
 // TODO: import Nav from "../components/Nav" and add <Nav client:load /> here — done in Task 4
+import "../styles/globals.css";
 
 interface Props {
   title?: string;
@@ -24,12 +25,6 @@ const {
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=DM+Sans:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <style>
-      :root {
-        --font-display: "Plus Jakarta Sans", sans-serif;
-        --font-body: "DM Sans", sans-serif;
-      }
-    </style>
   </head>
   <body class="min-h-full flex flex-col bg-[#E0E5EC]">
     <slot />
@@ -44,6 +39,3 @@ const {
     </footer>
   </body>
 </html>
-<style is:global>
-  @import "../styles/globals.css";
-</style>
