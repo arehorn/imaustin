@@ -29,6 +29,8 @@
     "vite": "^7"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.2.2"
+    "@astrojs/check": "^0.9.8",
+    "@tailwindcss/vite": "^4.2.2",
+    "typescript": "^5.9.3"
   }
 }
