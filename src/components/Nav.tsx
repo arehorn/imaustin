@@ -7,8 +7,8 @@ export default function Nav() {
     <nav className="neu-nav fixed top-0 left-0 right-0 z-50">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <a href="#hero" className="text-2xl font-bold text-md-primary tracking-tighter" style={{ opacity: 1, transform: "none" }}>
-          AUSTIN<span className="text-gray-900">REHORN</span>
+        <a href="#hero" className="text-2xl font-bold tracking-tighter">
+          <span className="text-md-primary">AUSTIN</span><span className="text-gray-900">REHORN</span>
         </a>
 
         {/* Desktop links */}
