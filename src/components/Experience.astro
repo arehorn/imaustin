@@ -1,0 +1,232 @@
+---
+import type { ExperienceRole, StatItem, ExperienceIconType } from "../types/emdash";
+
+interface Props {
+  sectionHeading: string;
+  sectionSubheading: string;
+  roles: ExperienceRole[];
+  stats: StatItem[];
+  ctaHeading: string;
+  ctaSubheading: string;
+  headshotUrl: string;
+  headshotAlt: string;
+}
+
+const {
+  sectionHeading,
+  sectionSubheading,
+  roles,
+  stats,
+  ctaHeading,
+  ctaSubheading,
+  headshotUrl,
+  headshotAlt,
+} = Astro.props;
+
+const EXPERIENCE_ICON_PATHS: Record<ExperienceIconType, string> = {
+  search: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z",
+  team: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z",
+  settings: "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z",
+  briefcase: "M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
+};
+---
+
+<section id="experience" class="py-28">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <!-- Header -->
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10 mb-20">
+      <div class="max-w-xl">
+        <div class="inline-flex items-center gap-2 neu-label px-4 py-2 rounded-full mb-6">
+          <span class="text-xs font-semibold tracking-widest text-[#6B7280] uppercase">Experience</span>
+        </div>
+        <h2 class="font-display font-extrabold text-[#3D4852] text-5xl lg:text-[3.5rem] leading-[1.0] tracking-tight mb-5">
+          {sectionHeading}
+        </h2>
+        <p class="text-[#6B7280] text-base leading-relaxed max-w-sm">{sectionSubheading}</p>
+      </div>
+
+      <div class="flex gap-4 shrink-0">
+        {stats.map((stat: StatItem) => (
+          <div
+            class="rounded-[24px] bg-[#E0E5EC] px-6 py-5 text-center"
+            style="box-shadow: 9px 9px 16px rgb(163 177 198 / 0.6), -9px -9px 16px rgba(255 255 255 / 0.55)"
+          >
+            <p class="font-display font-extrabold text-[#6C63FF] text-3xl leading-none mb-1">{stat.value}</p>
+            <p class="text-[10px] font-semibold tracking-widest text-[#6B7280] uppercase leading-snug">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Timeline (desktop) -->
+    <div class="hidden lg:block relative">
+      <div
+        class="absolute left-1/2 -translate-x-px top-0 bottom-0 w-px"
+        style="background: linear-gradient(to bottom, transparent, rgb(163 177 198 / 0.4) 10%, rgb(163 177 198 / 0.4) 90%, transparent)"
+      />
+      <div class="space-y-14">
+        {roles.map((role: ExperienceRole) => (
+          <div class="relative grid grid-cols-[1fr_48px_1fr] items-center">
+            {role.side === "left" ? (
+              <div class="pr-8">
+                <!-- RoleCard -->
+                <div class="neu-card rounded-[28px] bg-[#E0E5EC] p-6">
+                  <div class="flex items-start gap-4 mb-4">
+                    <div
+                      class="shrink-0 w-12 h-12 rounded-2xl bg-[#E0E5EC] flex items-center justify-center"
+                      style="box-shadow: inset 5px 5px 10px rgb(163 177 198 / 0.65), inset -5px -5px 10px rgba(255 255 255 / 0.55)"
+                    >
+                      <svg class="w-6 h-6 text-[#6C63FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={EXPERIENCE_ICON_PATHS[role.icon_type] ?? EXPERIENCE_ICON_PATHS.briefcase} />
+                      </svg>
+                    </div>
+                    <div class="min-w-0">
+                      <p class="font-display font-bold text-[#3D4852] text-base leading-snug">{role.company}</p>
+                      <p class="text-xs font-semibold tracking-widest text-[#6C63FF] uppercase mt-0.5">{role.title}</p>
+                    </div>
+                  </div>
+                  <p class="text-sm text-[#6B7280] leading-relaxed">{role.highlights}</p>
+                  <div class="mt-4 flex flex-wrap items-center gap-2">
+                    <span
+                      class="text-xs font-medium px-2.5 py-1 rounded-full bg-[#E0E5EC] text-[#6B7280]"
+                      style="box-shadow: inset 2px 2px 4px rgb(163 177 198 / 0.5), inset -2px -2px 4px rgba(255 255 255 / 0.6)"
+                    >
+                      {role.dates}
+                    </span>
+                    <span class="text-xs text-[#9CA3AF]">{role.division}</span>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div class="pr-8 flex justify-end items-center">
+                {role.era && (
+                  <span class="font-display font-extrabold text-[1.6rem] text-[#D1D8E0] tracking-tight select-none">
+                    {role.era}
+                  </span>
+                )}
+              </div>
+            )}
+
+            <div class="flex items-center justify-center relative z-10">
+              <div
+                class="w-4 h-4 rounded-full bg-[#E0E5EC]"
+                style="box-shadow: 3px 3px 7px rgb(163 177 198 / 0.7), -3px -3px 7px rgba(255 255 255 / 0.85), 0 0 0 3px rgba(108, 99, 255, 0.18)"
+              />
+            </div>
+
+            {role.side === "right" ? (
+              <div class="pl-8">
+                <!-- RoleCard -->
+                <div class="neu-card rounded-[28px] bg-[#E0E5EC] p-6">
+                  <div class="flex items-start gap-4 mb-4">
+                    <div
+                      class="shrink-0 w-12 h-12 rounded-2xl bg-[#E0E5EC] flex items-center justify-center"
+                      style="box-shadow: inset 5px 5px 10px rgb(163 177 198 / 0.65), inset -5px -5px 10px rgba(255 255 255 / 0.55)"
+                    >
+                      <svg class="w-6 h-6 text-[#6C63FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={EXPERIENCE_ICON_PATHS[role.icon_type] ?? EXPERIENCE_ICON_PATHS.briefcase} />
+                      </svg>
+                    </div>
+                    <div class="min-w-0">
+                      <p class="font-display font-bold text-[#3D4852] text-base leading-snug">{role.company}</p>
+                      <p class="text-xs font-semibold tracking-widest text-[#6C63FF] uppercase mt-0.5">{role.title}</p>
+                    </div>
+                  </div>
+                  <p class="text-sm text-[#6B7280] leading-relaxed">{role.highlights}</p>
+                  <div class="mt-4 flex flex-wrap items-center gap-2">
+                    <span
+                      class="text-xs font-medium px-2.5 py-1 rounded-full bg-[#E0E5EC] text-[#6B7280]"
+                      style="box-shadow: inset 2px 2px 4px rgb(163 177 198 / 0.5), inset -2px -2px 4px rgba(255 255 255 / 0.6)"
+                    >
+                      {role.dates}
+                    </span>
+                    <span class="text-xs text-[#9CA3AF]">{role.division}</span>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div class="pl-8 flex items-center">
+                {role.era && (
+                  <span class="font-display font-extrabold text-[1.6rem] text-[#D1D8E0] tracking-tight select-none">
+                    {role.era}
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Timeline (mobile stacked) -->
+    <div class="lg:hidden space-y-5">
+      {roles.map((role: ExperienceRole) => (
+        <div class="neu-card rounded-[28px] bg-[#E0E5EC] p-6">
+          <div class="flex items-start gap-4 mb-4">
+            <div
+              class="shrink-0 w-12 h-12 rounded-2xl bg-[#E0E5EC] flex items-center justify-center"
+              style="box-shadow: inset 5px 5px 10px rgb(163 177 198 / 0.65), inset -5px -5px 10px rgba(255 255 255 / 0.55)"
+            >
+              <svg class="w-6 h-6 text-[#6C63FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={EXPERIENCE_ICON_PATHS[role.icon_type] ?? EXPERIENCE_ICON_PATHS.briefcase} />
+              </svg>
+            </div>
+            <div class="min-w-0">
+              <p class="font-display font-bold text-[#3D4852] text-base leading-snug">{role.company}</p>
+              <p class="text-xs font-semibold tracking-widest text-[#6C63FF] uppercase mt-0.5">{role.title}</p>
+            </div>
+          </div>
+          <p class="text-sm text-[#6B7280] leading-relaxed">{role.highlights}</p>
+          <div class="mt-4 flex flex-wrap items-center gap-2">
+            <span
+              class="text-xs font-medium px-2.5 py-1 rounded-full bg-[#E0E5EC] text-[#6B7280]"
+              style="box-shadow: inset 2px 2px 4px rgb(163 177 198 / 0.5), inset -2px -2px 4px rgba(255 255 255 / 0.6)"
+            >
+              {role.dates}
+            </span>
+            <span class="text-xs text-[#9CA3AF]">{role.division}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- CTA Banner -->
+    <div
+      class="mt-20 rounded-[32px] bg-[#E0E5EC] overflow-hidden"
+      style="box-shadow: 9px 9px 18px rgb(163 177 198 / 0.6), -9px -9px 18px rgba(255 255 255 / 0.55)"
+    >
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto] items-stretch">
+        <div class="p-10 lg:p-14">
+          <h3 class="font-display font-extrabold text-[#3D4852] text-3xl lg:text-[2.25rem] leading-tight mb-4">
+            {ctaHeading}
+          </h3>
+          <p class="text-[#6B7280] text-base leading-relaxed mb-8 max-w-md">{ctaSubheading}</p>
+          <div class="flex flex-wrap gap-4">
+            <a href="#connect" class="neu-btn-primary inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl text-sm font-semibold">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              Get In Touch
+            </a>
+          </div>
+        </div>
+
+        {headshotUrl && (
+          <div
+            class="hidden lg:block relative w-56 m-6 rounded-2xl overflow-hidden"
+            style="box-shadow: inset 6px 6px 14px rgb(163 177 198 / 0.55), inset -6px -6px 14px rgba(255 255 255 / 0.6)"
+          >
+            <img
+              src={headshotUrl}
+              alt={headshotAlt || "Austin Rehorn"}
+              class="w-full h-full object-cover object-top"
+              style="filter: grayscale(100%) contrast(1.12) brightness(0.92)"
+            />
+          </div>
+        )}
+      </div>
+    </div>
+
+  </div>
+</section>
