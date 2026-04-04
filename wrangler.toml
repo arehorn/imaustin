@@ -1,8 +1,0 @@
-name = "austinrehorn-site-v2"
-compatibility_date = "2024-09-23"
-pages_build_output_dir = "./dist"
-
-[[d1_databases]]
-binding = "DB"
-database_name = "austinrehorn-site"
-database_id = "a70318ce-95a8-4d18-a9a2-e509518c71bb"
