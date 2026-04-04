@@ -1,0 +1,34 @@
+# Astro
+dist/
+.astro/
+
+# emdash
+.emdash/
+.emdash.db
+
+# Node
+node_modules/
+.pnpm/
+yarn.lock
+package-lock.json
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+.DS_Store
+
+# Logs
+npm-debug.log
+pnpm-debug.log
+yarn-error.log
+
+# OS
+Thumbs.db

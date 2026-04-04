@@ -1,0 +1,85 @@
+---
+import Section from '@/components/common/Section.astro';
+import GlassPanel from '@/components/common/GlassPanel.astro';
+import Button from '@/components/common/Button.astro';
+---
+
+<Section id="hero" class="hero-section">
+  <GlassPanel accent="purple" class="hero-panel">
+    <h1 class="hero-title">
+      AI Enthusiast.<br />
+      Survivor Strategist.<br />
+      Digital Builder.
+    </h1>
+    <p class="hero-subtitle">
+      Welcome to my corner of the internet. I'm Austin, and I believe great products come from curiosity, obsession, and a little bit of chaos. Whether it's building with AI, scheming like I'm on Survivor, or perfecting my Georgia Bulldogs takes—I do things with intention.
+    </p>
+    <div class="hero-cta">
+      <Button href="#projects" variant="secondary">Explore My Work</Button>
+      <Button href="#connect" variant="outline">Let's Talk</Button>
+    </div>
+  </GlassPanel>
+</Section>
+
+<style>
+  .hero-section {
+    padding: calc(var(--spacing-3xl) * 2) var(--spacing-lg);
+    background: linear-gradient(180deg, rgba(15, 58, 125, 0) 0%, rgba(15, 58, 125, 0.1) 100%);
+  }
+
+  .hero-panel {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .hero-title {
+    font-size: var(--font-size-3xl);
+    color: white;
+    margin-bottom: var(--spacing-xl);
+    line-height: 1.1;
+    font-weight: 800;
+  }
+
+  .hero-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-2xl);
+    line-height: var(--line-height-relaxed);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: var(--spacing-lg);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 768px) {
+    .hero-section {
+      padding: var(--spacing-2xl) var(--spacing-lg);
+    }
+
+    .hero-title {
+      font-size: var(--font-size-2xl);
+    }
+
+    .hero-subtitle {
+      font-size: var(--font-size-base);
+    }
+
+    .hero-cta {
+      flex-direction: column;
+      gap: var(--spacing-md);
+    }
+
+    .hero-cta button,
+    .hero-cta a {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

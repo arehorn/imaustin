@@ -1,0 +1,82 @@
+/* Glassmorphism Styles */
+
+.glass-panel {
+  background: rgba(15, 58, 125, 0.1);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  transition: all 0.3s ease;
+}
+
+.glass-panel:hover {
+  background: rgba(15, 58, 125, 0.15);
+  box-shadow: 0 8px 32px rgba(15, 58, 125, 0.2);
+  transform: translateY(-4px);
+}
+
+/* Glassmorphism Accent - Red */
+.glass-panel-red {
+  background: rgba(164, 22, 26, 0.05);
+  border-color: rgba(164, 22, 26, 0.2);
+}
+
+.glass-panel-red:hover {
+  background: rgba(164, 22, 26, 0.1);
+  box-shadow: 0 8px 32px rgba(164, 22, 26, 0.15);
+}
+
+/* Glassmorphism Accent - Amber */
+.glass-panel-amber {
+  background: rgba(245, 158, 11, 0.05);
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.glass-panel-amber:hover {
+  background: rgba(245, 158, 11, 0.1);
+  box-shadow: 0 8px 32px rgba(245, 158, 11, 0.15);
+}
+
+/* Glassmorphism Accent - Green */
+.glass-panel-green {
+  background: rgba(16, 185, 129, 0.05);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.glass-panel-green:hover {
+  background: rgba(16, 185, 129, 0.1);
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.15);
+}
+
+/* Glassmorphism Accent - Purple */
+.glass-panel-purple {
+  background: rgba(124, 58, 237, 0.05);
+  border-color: rgba(124, 58, 237, 0.2);
+}
+
+.glass-panel-purple:hover {
+  background: rgba(124, 58, 237, 0.1);
+  box-shadow: 0 8px 32px rgba(124, 58, 237, 0.15);
+}
+
+/* Strong glassmorphism (more opaque) */
+.glass-panel-strong {
+  background: rgba(15, 58, 125, 0.15);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+.glass-panel-strong:hover {
+  background: rgba(15, 58, 125, 0.25);
+}
+
+/* Subtle glassmorphism (more transparent) */
+.glass-panel-subtle {
+  background: rgba(15, 58, 125, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-panel-subtle:hover {
+  background: rgba(15, 58, 125, 0.1);
+}

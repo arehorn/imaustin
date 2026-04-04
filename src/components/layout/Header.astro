@@ -1,0 +1,77 @@
+---
+---
+
+<header class="header">
+  <nav class="nav-container">
+    <div class="logo">
+      <a href="/">austin</a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#connect">connect</a></li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(15, 58, 125, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-lg) var(--spacing-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo a {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .logo a:hover {
+    color: var(--color-accent-amber);
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-xl);
+    margin: 0;
+  }
+
+  .nav-links a {
+    color: white;
+    font-size: var(--font-size-base);
+    transition: color 0.2s ease;
+    text-decoration: none;
+  }
+
+  .nav-links a:hover {
+    color: var(--color-accent-amber);
+  }
+
+  @media (max-width: 640px) {
+    .nav-container {
+      padding: var(--spacing-md);
+    }
+
+    .nav-links {
+      gap: var(--spacing-lg);
+      font-size: var(--font-size-sm);
+    }
+  }
+</style>

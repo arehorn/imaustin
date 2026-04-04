@@ -1,0 +1,128 @@
+---
+import Section from '@/components/common/Section.astro';
+import GlassPanel from '@/components/common/GlassPanel.astro';
+import Button from '@/components/common/Button.astro';
+
+// Placeholder projects (will be replaced with emdash collection in Phase 2)
+const projects = [
+  {
+    id: '1',
+    title: 'AI-Powered Project Management',
+    description: 'Intelligent task automation using natural language processing',
+    technologies: ['AI', 'TypeScript', 'React'],
+    link: '#',
+  },
+  {
+    id: '2',
+    title: 'Real-time Data Visualization',
+    description: 'Beautiful dashboards for complex data analysis',
+    technologies: ['D3.js', 'React', 'Node.js'],
+    link: '#',
+  },
+  {
+    id: '3',
+    title: 'Experimental ML Experiments',
+    description: 'Exploring edge cases in machine learning applications',
+    technologies: ['Python', 'TensorFlow', 'Astro'],
+    link: '#',
+  },
+];
+---
+
+<Section id="projects" class="projects-section">
+  <h2>Selected Projects</h2>
+  <p class="projects-subtitle">A few things I've built that I'm proud of</p>
+
+  <div class="projects-grid">
+    {projects.map((project) => (
+      <GlassPanel class="project-card">
+        <h3>{project.title}</h3>
+        <p class="project-description">{project.description}</p>
+
+        <div class="project-tech">
+          {project.technologies.map((tech) => (
+            <span class="tech-tag">{tech}</span>
+          ))}
+        </div>
+
+        <Button href={project.link} variant="outline" size="sm" class="project-link">
+          View Project →
+        </Button>
+      </GlassPanel>
+    ))}
+  </div>
+</Section>
+
+<style>
+  .projects-section {
+    padding: var(--spacing-3xl) var(--spacing-lg);
+    background: linear-gradient(180deg, rgba(15, 58, 125, 0) 0%, rgba(15, 58, 125, 0.05) 100%);
+  }
+
+  .projects-section h2 {
+    color: white;
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+  }
+
+  .projects-subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+    font-size: var(--font-size-lg);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .project-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-card h3 {
+    color: white;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .project-description {
+    color: rgba(255, 255, 255, 0.9);
+    flex-grow: 1;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .tech-tag {
+    background: rgba(37, 99, 235, 0.2);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 4px 12px;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    border: 1px solid rgba(37, 99, 235, 0.3);
+  }
+
+  .project-link {
+    align-self: flex-start;
+  }
+
+  @media (max-width: 768px) {
+    .projects-section {
+      padding: var(--spacing-2xl) var(--spacing-md);
+    }
+
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

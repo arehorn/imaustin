@@ -1,0 +1,20 @@
+---
+interface Props {
+  class?: string;
+  accent?: 'red' | 'amber' | 'green' | 'purple' | 'strong' | 'subtle';
+  id?: string;
+}
+
+const { class: className = '', accent = 'blue', id } = Astro.props;
+
+const accentClass = accent ? `glass-panel-${accent}` : '';
+const finalClass = `glass-panel ${accentClass} ${className}`.trim();
+---
+
+<div class={finalClass} {id}>
+  <slot />
+</div>
+
+<style>
+  @import '@/styles/glassmorphism.css';
+</style>

@@ -1,0 +1,60 @@
+---
+import Section from '@/components/common/Section.astro';
+import GlassPanel from '@/components/common/GlassPanel.astro';
+
+const bullets = [
+  { text: 'Writes code that plays nice with AI', accent: 'green' },
+  { text: 'Can predict Survivor winners before the finale airs', accent: 'amber' },
+  { text: 'Thinks college football strategy deserves a PhD', accent: 'purple' },
+  { text: 'Dog dad to Barkley & Margo (they have more followers than me)', accent: 'red' },
+];
+---
+
+<Section id="about" class="bullets-section">
+  <h2>Austin in 10 Seconds</h2>
+  <div class="bullets-grid">
+    {bullets.map((bullet) => (
+      <GlassPanel accent={bullet.accent as 'red' | 'amber' | 'green' | 'purple'}>
+        <p class="bullet-text">{bullet.text}</p>
+      </GlassPanel>
+    ))}
+  </div>
+</Section>
+
+<style>
+  .bullets-section {
+    padding: var(--spacing-3xl) var(--spacing-lg);
+  }
+
+  .bullets-section h2 {
+    color: white;
+    margin-bottom: var(--spacing-2xl);
+    text-align: center;
+  }
+
+  .bullets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .bullet-text {
+    color: white;
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .bullets-section {
+      padding: var(--spacing-2xl) var(--spacing-md);
+    }
+
+    .bullets-grid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+  }
+</style>

@@ -1,0 +1,32 @@
+---
+interface Props {
+  class?: string;
+  id?: string;
+}
+
+const { class: className = '', id } = Astro.props;
+---
+
+<div class={`container ${className}`.trim()} {id}>
+  <slot />
+</div>
+
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 var(--spacing-md);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .container {
+      padding: 0 var(--spacing-sm);
+    }
+  }
+</style>

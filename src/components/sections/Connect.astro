@@ -1,0 +1,133 @@
+---
+import Section from '@/components/common/Section.astro';
+import GlassPanel from '@/components/common/GlassPanel.astro';
+import Button from '@/components/common/Button.astro';
+---
+
+<Section id="connect" class="connect-section">
+  <GlassPanel accent="strong" class="connect-panel">
+    <h2>Let's Connect</h2>
+    <p class="connect-description">
+      I'm always interested in talking about AI, product strategy, Survivor conspiracy theories, or building cool things. Reach out—I respond to everyone.
+    </p>
+
+    <div class="connect-methods">
+      <div class="contact-option">
+        <h3>Email</h3>
+        <Button href="mailto:austin@example.com" variant="primary">Send an Email</Button>
+      </div>
+
+      <div class="contact-option">
+        <h3>Follow Along</h3>
+        <div class="social-links">
+          <Button
+            href="https://twitter.com"
+            variant="outline"
+            size="sm"
+            class="social-button"
+          >
+            Twitter
+          </Button>
+          <Button
+            href="https://github.com"
+            variant="outline"
+            size="sm"
+            class="social-button"
+          >
+            GitHub
+          </Button>
+          <Button
+            href="https://linkedin.com"
+            variant="outline"
+            size="sm"
+            class="social-button"
+          >
+            LinkedIn
+          </Button>
+        </div>
+      </div>
+
+      <div class="contact-option">
+        <h3>Schedule Time</h3>
+        <Button href="#" variant="primary">Book a Call</Button>
+      </div>
+    </div>
+
+    <p class="connect-footer">
+      P.S. — If you're here, you've made it to the end. That means you actually care. I respect that. Let's talk.
+    </p>
+  </GlassPanel>
+</Section>
+
+<style>
+  .connect-section {
+    padding: var(--spacing-3xl) var(--spacing-lg) calc(var(--spacing-3xl) * 2);
+  }
+
+  .connect-panel {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .connect-panel h2 {
+    color: white;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .connect-description {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-2xl);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .connect-methods {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2xl);
+    margin: var(--spacing-2xl) 0;
+  }
+
+  .contact-option h3 {
+    color: white;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .social-links {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .social-button {
+    font-size: var(--font-size-sm);
+  }
+
+  .connect-footer {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-2xl);
+    padding-top: var(--spacing-2xl);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  @media (max-width: 768px) {
+    .connect-section {
+      padding: var(--spacing-2xl) var(--spacing-md) var(--spacing-2xl);
+    }
+
+    .connect-methods {
+      gap: var(--spacing-xl);
+    }
+
+    .social-links {
+      flex-direction: column;
+    }
+
+    .social-button {
+      width: 100%;
+    }
+  }
+</style>

@@ -1,0 +1,114 @@
+---
+import Section from '@/components/common/Section.astro';
+import GlassPanel from '@/components/common/GlassPanel.astro';
+import Button from '@/components/common/Button.astro';
+---
+
+<Section id="vibe-project" class="vibe-section">
+  <h2>Current Vibe Project</h2>
+  <div class="vibe-container">
+    <div class="vibe-content">
+      <GlassPanel accent="amber">
+        <h3>HolliWeather</h3>
+        <p class="tagline">It's a weather probability engine for your vacation</p>
+
+        <h4>The Problem</h4>
+        <p>
+          Standard weather apps show you a single prediction: "70° and sunny." But that's not how weather works. You need to know: what's the chance of rain during my lake day? How confident is the forecast?
+        </p>
+
+        <h4>The Solution</h4>
+        <p>
+          HolliWeather visualizes probability distributions, not point predictions. See the confidence levels. Plan better vacations. Actually trust your forecast.
+        </p>
+
+        <h4>Why It's Cool</h4>
+        <ul>
+          <li>Real meteorological data + probability visualization</li>
+          <li>Built for the humans who care about nuance</li>
+          <li>Fun, interactive interface (because weather analysis shouldn't be boring)</li>
+        </ul>
+
+        <div class="vibe-cta">
+          <Button href="https://holliweather.com" variant="secondary">See HolliWeather</Button>
+        </div>
+      </GlassPanel>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .vibe-section {
+    padding: var(--spacing-3xl) var(--spacing-lg);
+  }
+
+  .vibe-section h2 {
+    color: white;
+    margin-bottom: var(--spacing-2xl);
+    text-align: center;
+  }
+
+  .vibe-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .vibe-content h3 {
+    color: white;
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .tagline {
+    color: var(--color-accent-amber);
+    font-weight: 600;
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .vibe-content h4 {
+    color: white;
+    font-size: var(--font-size-lg);
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .vibe-content p {
+    color: white;
+    line-height: var(--line-height-relaxed);
+  }
+
+  .vibe-content ul {
+    list-style: none;
+    padding: 0;
+    margin: var(--spacing-md) 0;
+  }
+
+  .vibe-content li {
+    color: white;
+    padding-left: var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
+    position: relative;
+  }
+
+  .vibe-content li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent-amber);
+  }
+
+  .vibe-cta {
+    margin-top: var(--spacing-xl);
+  }
+
+  @media (max-width: 768px) {
+    .vibe-section {
+      padding: var(--spacing-2xl) var(--spacing-md);
+    }
+
+    .vibe-content h4 {
+      font-size: var(--font-size-base);
+    }
+  }
+</style>
