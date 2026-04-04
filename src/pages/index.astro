@@ -1,17 +1,71 @@
 ---
+import { getEmDashCollection } from "emdash";
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import WhatIDo from "../components/WhatIDo.astro";
+import Projects from "../components/Projects.astro";
+import Experience from "../components/Experience.astro";
+import Connect from "../components/Connect.astro";
+import type {
+  HeroData, AboutData, StatItem, PersonalityCard, OffClockNote,
+  ServiceColumn, ProjectItem, ExperienceData, ExperienceRole,
+  ConnectData,
+} from "../types/emdash";
 
+// Fetch all section collections in parallel
+const [
+  { entries: heroEntries },
+  { entries: aboutEntries },
+  { entries: aboutStats },
+  { entries: personalityCards },
+  { entries: offClockNotes },
+  { entries: whatIDoColumns },
+  { entries: projects },
+  { entries: experienceEntries },
+  { entries: experienceRoles },
+  { entries: experienceStats },
+  { entries: connectEntries },
+] = await Promise.all([
+  getEmDashCollection("hero"),
+  getEmDashCollection("about"),
+  getEmDashCollection("about_stats"),
+  getEmDashCollection("about_personality_cards"),
+  getEmDashCollection("about_off_clock_notes"),
+  getEmDashCollection("what_i_do_columns"),
+  getEmDashCollection("projects"),
+  getEmDashCollection("experience"),
+  getEmDashCollection("experience_roles"),
+  getEmDashCollection("experience_stats"),
+  getEmDashCollection("connect"),
+]);
+
+const hero = heroEntries[0]?.data as HeroData;
+const about = aboutEntries[0]?.data as AboutData;
+const experience = experienceEntries[0]?.data as ExperienceData;
+const connect = connectEntries[0]?.data as ConnectData;
 ---
-
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+  <main>
+    <Hero hero={hero} />
+    <About
+      about={about}
+      stats={aboutStats.map(e => e.data as StatItem)}
+      personalityCards={personalityCards.map(e => e.data as PersonalityCard)}
+      offClockNotes={offClockNotes.map(e => e.data as OffClockNote)}
+    />
+    <WhatIDo columns={whatIDoColumns.map(e => e.data as ServiceColumn)} />
+    <Projects projects={projects.map(e => e.data as ProjectItem)} />
+    <Experience
+      sectionHeading={experience?.section_heading ?? ""}
+      sectionSubheading={experience?.section_subheading ?? ""}
+      roles={experienceRoles.map(e => e.data as ExperienceRole)}
+      stats={experienceStats.map(e => e.data as StatItem)}
+      ctaHeading={experience?.cta_heading ?? ""}
+      ctaSubheading={experience?.cta_subheading ?? ""}
+      headshotUrl={experience?.headshot_url ?? ""}
+      headshotAlt={experience?.headshot_alt ?? ""}
+    />
+    <Connect connect={connect} />
+  </main>
+</Layout>
