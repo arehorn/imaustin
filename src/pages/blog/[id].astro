@@ -1,0 +1,87 @@
+---
+import { getEmDashEntry } from "emdash";
+import { PortableText } from "@portabletext/react";
+import Layout from "../../layouts/Layout.astro";
+import type { BlogPostData } from "../../types/emdash";
+
+const { id } = Astro.params;
+
+if (!id) {
+  return Astro.redirect("/blog");
+}
+
+const entry = await getEmDashEntry("posts", id);
+
+if (!entry) {
+  return Astro.redirect("/blog");
+}
+
+const post = { id: entry.id, ...(entry.data as BlogPostData) };
+
+const tags = post.tags
+  ? [...new Set(post.tags.split(",").map((t: string) => t.trim()).filter(Boolean))]
+  : [];
+---
+
+<Layout title={`${post.title} — Austin Rehorn`} description={post.excerpt}>
+  <main class="min-h-screen pt-28 pb-20">
+    <div class="max-w-3xl mx-auto px-6">
+
+      <!-- Back Navigation -->
+      <a href="/blog" class="inline-flex items-center gap-2 text-sm text-[#6B7280] hover:text-[#3D4852] transition-colors mb-12">
+        <span>←</span>
+        <span>Back to Notes</span>
+      </a>
+
+      <!-- Header -->
+      <div class="mb-12">
+        <div class="flex flex-wrap gap-2 mb-6">
+          {tags.map((tag: string) => (
+            <span class="neu-tag px-3 py-1 rounded-full text-xs font-medium text-[#6B7280] bg-[#E0E5EC]">{tag}</span>
+          ))}
+        </div>
+
+        <h1 class="font-display font-extrabold text-[#3D4852] text-4xl lg:text-5xl leading-[1.1] tracking-tight mb-6">
+          {post.title}
+        </h1>
+
+        {post.published_date && (
+          <p class="text-sm text-[#9CA3AF]">
+            Published {new Date(post.published_date).toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
+          </p>
+        )}
+      </div>
+
+      <!-- Cover Image -->
+      {post.cover_image_url && (
+        <div class="relative w-full h-96 rounded-3xl overflow-hidden mb-12 neu-card">
+          <img
+            src={post.cover_image_url}
+            alt={post.cover_image_alt || post.title}
+            class="w-full h-full object-cover"
+          />
+        </div>
+      )}
+
+      <!-- Content -->
+      {post.body && (
+        <div class="prose prose-lg max-w-none mb-16">
+          <PortableText value={post.body} />
+        </div>
+      )}
+
+      <!-- Footer Navigation -->
+      <div class="pt-12 border-t border-[#D1D5DB]">
+        <a href="/blog" class="inline-flex items-center gap-2 px-6 py-3 rounded-full neu-btn-secondary text-sm font-medium text-[#3D4852] hover:scale-[1.02] transition-transform duration-200">
+          <span>←</span>
+          <span>Back to Notes</span>
+        </a>
+      </div>
+
+    </div>
+  </main>
+</Layout>

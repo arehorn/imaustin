@@ -1,0 +1,73 @@
+---
+import { getEmDashCollection } from "emdash";
+import Layout from "../../layouts/Layout.astro";
+import type { BlogPostData } from "../../types/emdash";
+
+const { entries } = await getEmDashCollection("posts");
+const posts = entries.map(e => ({ id: e.id, ...(e.data as BlogPostData) }));
+posts.sort((a, b) => new Date(b.published_date).getTime() - new Date(a.published_date).getTime());
+---
+<Layout title="Notes & Thinking — Austin Rehorn">
+  <main class="min-h-screen pt-28 pb-20">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="inline-flex items-center gap-2 neu-label px-4 py-2 rounded-full mb-12">
+        <span class="text-xs font-semibold tracking-widest text-[#6B7280] uppercase">Writing</span>
+      </div>
+
+      <h1 class="font-display font-extrabold text-[#3D4852] text-5xl lg:text-[3.5rem] leading-[1.0] tracking-tight mb-16">
+        Notes &amp; Thinking.
+      </h1>
+
+      {posts.length === 0 ? (
+        <p class="text-[#6B7280] text-lg">Nothing published yet — check back soon.</p>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {posts.map((post) => {
+            const tags = post.tags
+              ? [...new Set(post.tags.split(",").map((t: string) => t.trim()).filter(Boolean))]
+              : [];
+            return (
+              <a
+                href={`/blog/${post.id}`}
+                class="neu-card rounded-[32px] bg-[#E0E5EC] p-8 flex flex-col hover:scale-[1.01] transition-transform duration-200"
+              >
+                {post.cover_image_url && (
+                  <div class="relative w-full h-44 rounded-2xl overflow-hidden mb-6">
+                    <img
+                      src={post.cover_image_url}
+                      alt={post.cover_image_alt || post.title}
+                      class="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+                <div class="flex flex-wrap gap-2 mb-4">
+                  {tags.map((tag: string) => (
+                    <span class="neu-tag px-3 py-1 rounded-full text-xs font-medium text-[#6B7280] bg-[#E0E5EC]">{tag}</span>
+                  ))}
+                </div>
+                <h2 class="font-display font-bold text-[#3D4852] text-lg tracking-tight mb-3 flex-1">
+                  {post.title}
+                </h2>
+                {post.excerpt && (
+                  <p class="text-[#6B7280] text-sm leading-relaxed mb-4">{post.excerpt}</p>
+                )}
+                {post.published_date && (
+                  <p class="text-xs text-[#9CA3AF] mt-auto">
+                    {new Date(post.published_date).toLocaleDateString("en-US", {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </p>
+                )}
+              </a>
+            );
+          })}
+        </div>
+      )}
+
+    </div>
+  </main>
+</Layout>
