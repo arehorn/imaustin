@@ -12,7 +12,7 @@ export default defineConfig({
   integrations: [
     react(),
     emdash({
-      db: d1({ binding: "DB" }),
+      database: d1({ binding: "DB" }),
     }),
   ],
   vite: {
