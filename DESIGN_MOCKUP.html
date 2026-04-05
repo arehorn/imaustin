@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>imaustin.me - Design System Mockup</title>
+    <style>
+        /* Design Tokens */
+        :root {
+            /* Primary Colors */
+            --color-primary-dark: #0f3a7d;
+            --color-primary: #2563eb;
+            --color-primary-light: #3b82f6;
+            --color-secondary: #7c3aed;
+            --color-secondary-light: #a78bfa;
+
+            /* Accent Colors */
+            --color-accent-red: #a4161a;
+            --color-accent-amber: #f59e0b;
+            --color-accent-green: #10b981;
+
+            /* Neutrals */
+            --color-light: #f3f4f6;
+            --color-gray-100: #f3f4f6;
+            --color-dark: #1f2937;
+
+            /* Spacing */
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --spacing-2xl: 48px;
+            --spacing-3xl: 64px;
+
+            /* Typography */
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-size-base: 16px;
+            --font-size-lg: 18px;
+            --font-size-xl: 24px;
+            --font-size-2xl: 32px;
+            --font-size-3xl: 48px;
+
+            /* Border Radius */
+            --radius-lg: 12px;
+
+            /* Shadows */
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-base);
+            line-height: 1.5;
+            color: var(--color-dark);
+            background: linear-gradient(135deg, #0f3a7d 0%, #2563eb 50%, #7c3aed 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: var(--font-size-3xl);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        h2 {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-lg);
+            color: white;
+        }
+
+        h3 {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            color: white;
+        }
+
+        p {
+            margin-bottom: var(--spacing-md);
+            line-height: 1.75;
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(15, 58, 125, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: var(--spacing-lg) 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: var(--spacing-xl);
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-accent-amber);
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+        }
+
+        /* Glass Panel */
+        .glass-panel {
+            background: rgba(15, 58, 125, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            transition: all 0.3s ease;
+        }
+
+        .glass-panel:hover {
+            background: rgba(15, 58, 125, 0.15);
+            box-shadow: 0 8px 32px rgba(15, 58, 125, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .glass-panel-red {
+            background: rgba(164, 22, 26, 0.05);
+            border-color: rgba(164, 22, 26, 0.2);
+        }
+
+        .glass-panel-red:hover {
+            background: rgba(164, 22, 26, 0.1);
+            box-shadow: 0 8px 32px rgba(164, 22, 26, 0.15);
+        }
+
+        .glass-panel-amber {
+            background: rgba(245, 158, 11, 0.05);
+            border-color: rgba(245, 158, 11, 0.2);
+        }
+
+        .glass-panel-amber:hover {
+            background: rgba(245, 158, 11, 0.1);
+            box-shadow: 0 8px 32px rgba(245, 158, 11, 0.15);
+        }
+
+        .glass-panel-green {
+            background: rgba(16, 185, 129, 0.05);
+            border-color: rgba(16, 185, 129, 0.2);
+        }
+
+        .glass-panel-green:hover {
+            background: rgba(16, 185, 129, 0.1);
+            box-shadow: 0 8px 32px rgba(16, 185, 129, 0.15);
+        }
+
+        .glass-panel-purple {
+            background: rgba(124, 58, 237, 0.05);
+            border-color: rgba(124, 58, 237, 0.2);
+        }
+
+        .glass-panel-purple:hover {
+            background: rgba(124, 58, 237, 0.1);
+            box-shadow: 0 8px 32px rgba(124, 58, 237, 0.15);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+
+        /* Section */
+        .section {
+            padding: var(--spacing-3xl) var(--spacing-lg);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: calc(var(--spacing-3xl) * 2) var(--spacing-lg);
+            background: linear-gradient(180deg, rgba(15, 58, 125, 0) 0%, rgba(15, 58, 125, 0.1) 100%);
+        }
+
+        .hero-panel {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-panel h1 {
+            color: white;
+        }
+
+        .hero-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--spacing-2xl);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: var(--spacing-lg);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Button */
+        button, .btn {
+            display: inline-block;
+            padding: var(--spacing-md) var(--spacing-lg);
+            font-weight: 600;
+            border-radius: var(--radius-lg);
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: var(--font-size-base);
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--color-accent-amber);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #daa520;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--color-primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Bullets Grid */
+        .bullets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .bullet-text {
+            color: white;
+            font-size: var(--font-size-base);
+            line-height: 1.75;
+            margin: 0;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card h3 {
+            color: white;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .project-description {
+            color: rgba(255, 255, 255, 0.9);
+            flex-grow: 1;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .tech-tag {
+            background: rgba(37, 99, 235, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            border: 1px solid rgba(37, 99, 235, 0.3);
+        }
+
+        /* Connect Section */
+        .connect-panel {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .connect-panel h2 {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .connect-description {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .connect-methods {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-2xl);
+            margin: var(--spacing-2xl) 0;
+        }
+
+        .contact-option h3 {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .social-links {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(15, 58, 125, 0.1);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: var(--spacing-3xl) var(--spacing-lg);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: var(--spacing-lg);
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                gap: var(--spacing-md);
+            }
+
+            .hero-cta button, .hero-cta .btn {
+                width: 100%;
+            }
+
+            .bullets-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-links {
+                flex-direction: column;
+            }
+
+            .social-links .btn {
+                width: 100%;
+            }
+        }
+
+        /* Design System Demo */
+        .design-system-section {
+            padding: var(--spacing-3xl) var(--spacing-lg);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-2xl) 0;
+        }
+
+        .color-box {
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            color: white;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: var(--shadow-md);
+        }
+
+        .spacing-demo {
+            display: flex;
+            gap: var(--spacing-lg);
+            margin: var(--spacing-2xl) 0;
+            flex-wrap: wrap;
+        }
+
+        .spacing-item {
+            background: white;
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            color: var(--color-dark);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">austin</div>
+            <ul class="nav-links">
+                <li><a href="#about">about</a></li>
+                <li><a href="#projects">projects</a></li>
+                <li><a href="#connect">connect</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="glass-panel hero-panel glass-panel-purple">
+                    <h1>
+                        AI Enthusiast.<br>
+                        Survivor Strategist.<br>
+                        Digital Builder.
+                    </h1>
+                    <p class="hero-subtitle">
+                        Welcome to my corner of the internet. I'm Austin, and I believe great products come from curiosity, obsession, and a little bit of chaos. Whether it's building with AI, scheming like I'm on Survivor, or perfecting my Georgia Bulldogs takes—I do things with intention.
+                    </p>
+                    <div class="hero-cta">
+                        <button class="btn-secondary">Explore My Work</button>
+                        <button class="btn-outline">Let's Talk</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Personality Section -->
+            <section class="section">
+                <h2 style="text-align: center; margin-bottom: var(--spacing-2xl);">Austin in 10 Seconds</h2>
+                <div class="bullets-grid">
+                    <div class="glass-panel glass-panel-green">
+                        <p class="bullet-text">Writes code that plays nice with AI</p>
+                    </div>
+                    <div class="glass-panel glass-panel-amber">
+                        <p class="bullet-text">Can predict Survivor winners before the finale airs</p>
+                    </div>
+                    <div class="glass-panel glass-panel-purple">
+                        <p class="bullet-text">Thinks college football strategy deserves a PhD</p>
+                    </div>
+                    <div class="glass-panel glass-panel-red">
+                        <p class="bullet-text">Dog dad to Barkley & Margo (they have more followers)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vibe Project Section -->
+            <section class="section">
+                <h2 style="text-align: center; margin-bottom: var(--spacing-2xl);">Current Vibe Project</h2>
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <div class="glass-panel glass-panel-amber">
+                        <h3>HolliWeather</h3>
+                        <p style="color: var(--color-accent-amber); font-weight: 600; font-size: var(--font-size-lg); margin-bottom: var(--spacing-lg);">
+                            It's a weather probability engine for your vacation
+                        </p>
+                        <h4 style="color: white; font-size: var(--font-size-lg); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md);">The Problem</h4>
+                        <p style="color: white;">Standard weather apps show you a single prediction: "70° and sunny." But that's not how weather works. You need to know: what's the chance of rain during my lake day?</p>
+                        <h4 style="color: white; font-size: var(--font-size-lg); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md);">The Solution</h4>
+                        <p style="color: white;">HolliWeather visualizes probability distributions, not point predictions. See the confidence levels. Plan better vacations. Actually trust your forecast.</p>
+                        <div style="margin-top: var(--spacing-xl);">
+                            <button class="btn-secondary">See HolliWeather</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section class="section" style="background: linear-gradient(180deg, rgba(15, 58, 125, 0) 0%, rgba(15, 58, 125, 0.05) 100%);">
+                <h2 style="text-align: center; margin-bottom: var(--spacing-md);">Selected Projects</h2>
+                <p style="color: rgba(255, 255, 255, 0.7); text-align: center; margin-bottom: var(--spacing-2xl); font-size: var(--font-size-lg);">
+                    A few things I've built that I'm proud of
+                </p>
+                <div class="projects-grid">
+                    <div class="glass-panel project-card">
+                        <h3>AI-Powered Project Management</h3>
+                        <p class="project-description">Intelligent task automation using natural language processing</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">AI</span>
+                            <span class="tech-tag">TypeScript</span>
+                            <span class="tech-tag">React</span>
+                        </div>
+                        <button class="btn-outline" style="align-self: flex-start;">View Project →</button>
+                    </div>
+                    <div class="glass-panel project-card">
+                        <h3>Real-time Data Visualization</h3>
+                        <p class="project-description">Beautiful dashboards for complex data analysis</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">D3.js</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                        </div>
+                        <button class="btn-outline" style="align-self: flex-start;">View Project →</button>
+                    </div>
+                    <div class="glass-panel project-card">
+                        <h3>Experimental ML Experiments</h3>
+                        <p class="project-description">Exploring edge cases in machine learning applications</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">TensorFlow</span>
+                            <span class="tech-tag">Astro</span>
+                        </div>
+                        <button class="btn-outline" style="align-self: flex-start;">View Project →</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Connect Section -->
+            <section class="section">
+                <div class="glass-panel connect-panel glass-panel-purple">
+                    <h2>Let's Connect</h2>
+                    <p class="connect-description">
+                        I'm always interested in talking about AI, product strategy, Survivor conspiracy theories, or building cool things. Reach out—I respond to everyone.
+                    </p>
+                    <div class="connect-methods">
+                        <div class="contact-option">
+                            <h3>Email</h3>
+                            <button class="btn-primary">Send an Email</button>
+                        </div>
+                        <div class="contact-option">
+                            <h3>Follow Along</h3>
+                            <div class="social-links">
+                                <button class="btn-outline">Twitter</button>
+                                <button class="btn-outline">GitHub</button>
+                                <button class="btn-outline">LinkedIn</button>
+                            </div>
+                        </div>
+                        <div class="contact-option">
+                            <h3>Schedule Time</h3>
+                            <button class="btn-primary">Book a Call</button>
+                        </div>
+                    </div>
+                    <p style="color: rgba(255, 255, 255, 0.7); font-size: 14px; margin-top: var(--spacing-2xl); padding-top: var(--spacing-2xl); border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                        P.S. — If you're here, you've made it to the end. That means you actually care. I respect that. Let's talk.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Design System Reference -->
+            <section class="design-system-section">
+                <h2 style="text-align: center; color: white;">Design System Reference</h2>
+
+                <h3 style="color: white; margin-top: var(--spacing-2xl);">Color Palette</h3>
+                <div class="color-grid">
+                    <div class="color-box" style="background: var(--color-primary-dark);">Primary Dark<br>#0f3a7d</div>
+                    <div class="color-box" style="background: var(--color-primary);">Primary<br>#2563eb</div>
+                    <div class="color-box" style="background: var(--color-secondary);">Secondary<br>#7c3aed</div>
+                    <div class="color-box" style="background: var(--color-accent-red);">Red<br>#a4161a</div>
+                    <div class="color-box" style="background: var(--color-accent-amber);">Amber<br>#f59e0b</div>
+                    <div class="color-box" style="background: var(--color-accent-green);">Green<br>#10b981</div>
+                </div>
+
+                <h3 style="color: white; margin-top: var(--spacing-2xl);">Glassmorphism Variants</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-lg); margin: var(--spacing-2xl) 0;">
+                    <div class="glass-panel"><p style="color: white; margin: 0;">Standard Glass</p></div>
+                    <div class="glass-panel glass-panel-red"><p style="color: white; margin: 0;">Red Accent</p></div>
+                    <div class="glass-panel glass-panel-amber"><p style="color: white; margin: 0;">Amber Accent</p></div>
+                    <div class="glass-panel glass-panel-green"><p style="color: white; margin: 0;">Green Accent</p></div>
+                </div>
+
+                <h3 style="color: white; margin-top: var(--spacing-2xl);">Spacing System (8px base)</h3>
+                <div class="spacing-demo">
+                    <div class="spacing-item">sm: 8px</div>
+                    <div class="spacing-item">md: 16px</div>
+                    <div class="spacing-item">lg: 24px</div>
+                    <div class="spacing-item">xl: 32px</div>
+                </div>
+
+                <h3 style="color: white; margin-top: var(--spacing-2xl);">Button Variants</h3>
+                <div style="display: flex; gap: var(--spacing-lg); flex-wrap: wrap; margin: var(--spacing-2xl) 0;">
+                    <button class="btn-primary">Primary Button</button>
+                    <button class="btn-secondary">Secondary Button</button>
+                    <button class="btn-outline">Outline Button</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Austin. Built with Astro + emdash.</p>
+    </footer>
+</body>
+</html>
