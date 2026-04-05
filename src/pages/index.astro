@@ -10,7 +10,7 @@ import Connect from "../components/Connect.astro";
 import type {
   HeroData, AboutData, StatItem, PersonalityCard, OffClockNote,
   ServiceColumn, ProjectItem, ExperienceData, ExperienceRole,
-  ConnectData,
+  ConnectData, ContactItem,
 } from "../types/emdash";
 
 // Fetch all section collections in parallel
@@ -26,6 +26,7 @@ const [
   { entries: experienceRoles },
   { entries: experienceStats },
   { entries: connectEntries },
+  { entries: contactItemEntries },
 ] = await Promise.all([
   getEmDashCollection("hero"),
   getEmDashCollection("about"),
@@ -38,6 +39,7 @@ const [
   getEmDashCollection("experience_roles"),
   getEmDashCollection("experience_stats"),
   getEmDashCollection("connect"),
+  getEmDashCollection("contact_items"),
 ]);
 
 const hero = heroEntries[0]?.data as HeroData;
@@ -66,6 +68,6 @@ const connect = connectEntries[0]?.data as ConnectData;
       headshotUrl={experience?.headshot_url ?? ""}
       headshotAlt={experience?.headshot_alt ?? ""}
     />
-    <Connect connect={connect} />
+    <Connect connect={connect} contactItems={contactItemEntries.map(e => e.data as ContactItem)} />
   </main>
 </Layout>

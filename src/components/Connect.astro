@@ -4,9 +4,10 @@ import ContactForm from "./ContactForm";
 
 interface Props {
   connect: ConnectData;
+  contactItems: ContactItem[];
 }
 
-const { connect } = Astro.props;
+const { connect, contactItems } = Astro.props;
 
 const CONTACT_ICON_PATHS: Record<string, string> = {
   email: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
@@ -51,7 +52,7 @@ const quoteAccent = quoteParts[1]?.trim();
 
     <!-- Contact items grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
-      {connect.contact_items.map((item: ContactItem) => {
+      {contactItems.map((item: ContactItem) => {
         const iconPath = CONTACT_ICON_PATHS[item.icon_type] ?? CONTACT_ICON_PATHS.email;
         return (
           <div class="neu-card rounded-[32px] bg-[#E0E5EC] p-7 flex gap-5 items-center">
