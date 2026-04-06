@@ -46,7 +46,7 @@ const { hero } = Astro.props;
           </a>
           {hero.resume_file_url && (
             <a
-              href={hero.resume_file_url}
+              href={hero.resume_url}
               download
               class="neu-btn-secondary font-display font-semibold px-7 py-3.5 rounded-2xl text-sm tracking-wide inline-flex items-center gap-2"
             >
@@ -79,8 +79,8 @@ const { hero } = Astro.props;
                 style="width: 500px; height: 500px; box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.2), 8px 8px 18px rgb(163 177 198 / 0.5), -8px -8px 18px rgba(255 255 255 / 0.5);"
               >
                 <img
-                  src={hero.headshot_image_url}
-                  alt={hero.headshot_image_alt || "Austin Rehorn"}
+                  src={hero.headshot_url}
+                  alt={hero.headshot_alt || "Austin Rehorn"}
                   width="500"
                   height="500"
                   class="w-full h-full object-cover object-top"

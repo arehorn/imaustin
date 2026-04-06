@@ -69,9 +69,9 @@ export interface HeroData {
   headline: string;
   subheading: string;
   cta_text: string;
-  headshot_image_url: string;
-  headshot_image_alt: string;
-  resume_file_url: string;
+  headshot_url: string;
+  headshot_alt: string;
+  resume_url: string;
 }
 
 export interface AboutData {

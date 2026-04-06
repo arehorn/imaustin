@@ -10,7 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "generate-types": "wrangler types"
+    "generate-types": "wrangler types",
+    "deploy": "astro build && node -e \"const fs=require('fs');const p='dist/server/wrangler.json';const c=JSON.parse(fs.readFileSync(p,'utf8'));c.name='imaustin';c.workers_dev=true;if(c.assets)c.assets.run_worker_first=true;fs.writeFileSync(p,JSON.stringify(c,null,2));\" && rm -rf .wrangler/deploy && cd dist/server && npx wrangler deploy"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.1.7",
