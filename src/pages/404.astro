@@ -1,0 +1,55 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Page Not Found — Austin Rehorn">
+  <main class="min-h-screen flex items-center justify-center px-6">
+    <div class="max-w-2xl w-full">
+      <!-- Decorative elements -->
+      <div class="absolute top-20 left-0 w-96 h-96 bg-md-primary/10 blur-3xl rounded-full pointer-events-none" aria-hidden="true" />
+      <div class="absolute bottom-0 right-0 w-96 h-96 bg-[#38B2AC]/10 blur-3xl rounded-full pointer-events-none" aria-hidden="true" />
+
+      <div class="relative text-center">
+        <!-- Large 404 -->
+        <div class="mb-8">
+          <p class="font-display font-extrabold text-[14rem] md:text-[18rem] leading-none text-[#E0E5EC] tracking-tighter">
+            404
+          </p>
+        </div>
+
+        <!-- Message -->
+        <div class="mb-12">
+          <h1 class="font-display font-extrabold text-[#3D4852] text-3xl md:text-5xl leading-tight tracking-tight mb-4">
+            Oops, this page doesn't exist.
+          </h1>
+          <p class="text-[#6B7280] text-lg leading-relaxed max-w-md mx-auto">
+            The page you're looking for might have been moved or is temporarily unavailable. Let's get you back on track.
+          </p>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <a
+            href="/"
+            class="neu-btn-primary font-display font-semibold px-7 py-3.5 rounded-2xl text-sm tracking-wide hover:scale-[1.02] transition-transform duration-200"
+          >
+            Back to Home
+          </a>
+          <a
+            href="/blog"
+            class="neu-btn-secondary font-display font-semibold px-7 py-3.5 rounded-2xl text-sm tracking-wide hover:scale-[1.02] transition-transform duration-200"
+          >
+            Check Out My Writing
+          </a>
+        </div>
+
+        <!-- Decorative element -->
+        <div class="mt-16 pt-12 border-t border-[#D1D5DB]">
+          <p class="text-sm text-[#9CA3AF]">
+            If you think this is an error, feel free to <a href="#connect" class="text-[#6C63FF] hover:underline font-semibold">reach out</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
