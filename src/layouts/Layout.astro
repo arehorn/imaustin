@@ -21,19 +21,19 @@ const {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=DM+Sans:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body class="min-h-full flex flex-col bg-[#E0E5EC]">
+  <body class="min-h-full flex flex-col" style="background-color: #0b1326; color: #dae2fd;">
     <Nav client:load />
     <slot />
     <footer class="py-10">
       <div class="max-w-6xl mx-auto px-6 flex items-center justify-between">
-        <p class="text-sm text-[#6B7280]">© {new Date().getFullYear()} Austin Rehorn</p>
+        <p class="text-sm" style="color: #c6c6cd;">© {new Date().getFullYear()} Austin Rehorn</p>
         <div
           class="w-8 h-1 rounded-full"
-          style="background: linear-gradient(90deg, #6C63FF, #38B2AC)"
+          style="background: linear-gradient(90deg, #c3c0ff, #7bd0ff)"
         />
       </div>
     </footer>

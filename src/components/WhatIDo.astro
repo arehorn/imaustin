@@ -13,12 +13,10 @@ const COLUMN_ICON_PATHS: Record<string, string> = {
 };
 ---
 
-<section id="what-i-do" class="py-28">
+<section id="what-i-do" class="py-28" style="background-color: #0b1326;">
   <div class="max-w-6xl mx-auto px-6">
-    <div class="inline-flex items-center gap-2 neu-label px-4 py-2 rounded-full mb-12">
-      <span class="text-xs font-semibold tracking-widest text-[#6B7280] uppercase"
-        >What I Do</span
-      >
+    <div class="inline-flex items-center gap-2 label-pill px-4 py-2 mb-12">
+      <span class="text-xs font-semibold tracking-widest uppercase" style="color: #c6c6cd;">What I Do</span>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -30,19 +28,17 @@ const COLUMN_ICON_PATHS: Record<string, string> = {
 
           return (
             <div
-              class="neu-card rounded-[32px] bg-[#E0E5EC] p-10"
+              class="rounded-[32px] p-10"
+              style="background-color: #131b2e; box-shadow: 0 8px 24px rgba(195,192,255,0.04), 0 2px 8px rgba(0,0,0,0.3);"
             >
               <div
-                class="w-14 h-14 rounded-2xl bg-[#E0E5EC] flex items-center justify-center mb-8"
-                style={{
-                  boxShadow:
-                    "inset 8px 8px 16px rgb(163 177 198 / 0.7), inset -8px -8px 16px rgba(255 255 255 / 0.6)",
-                }}
+                class="w-14 h-14 rounded-2xl flex items-center justify-center mb-8"
+                style="background-color: rgba(195,192,255,0.1);"
               >
                 <svg
-                  class="w-6 h-6 text-[#6C63FF]"
+                  class="w-6 h-6"
                   fill="none"
-                  stroke="currentColor"
+                  stroke="#c3c0ff"
                   viewBox="0 0 24 24"
                 >
                   <path
@@ -54,20 +50,16 @@ const COLUMN_ICON_PATHS: Record<string, string> = {
                 </svg>
               </div>
 
-              <h3 class="font-display font-bold text-[#3D4852] text-xl mb-6 tracking-tight">
+              <h3 class="font-display font-bold text-xl mb-6 tracking-tight" style="color: #dae2fd;">
                 {col.title}
               </h3>
 
               <ul class="space-y-4">
-                {bullets.map((bullet, i) => (
-                  <li class="flex gap-3 text-[#6B7280] text-sm leading-relaxed">
+                {bullets.map((bullet) => (
+                  <li class="flex gap-3 text-sm leading-relaxed" style="color: #c6c6cd;">
                     <span
                       class="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0"
-                      style={{
-                        backgroundColor: "#6C63FF",
-                        boxShadow:
-                          "0 0 6px rgba(108 99 255 / 0.4)",
-                      }}
+                      style="background-color: #c3c0ff; box-shadow: 0 0 6px rgba(195,192,255,0.4);"
                     />
                     {bullet}
                   </li>

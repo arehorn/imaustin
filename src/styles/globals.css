@@ -2,155 +2,124 @@
 
 /* ─── Design Tokens ────────────────────────────────────────────────── */
 :root {
-  --neu-bg:           #E0E5EC;
-  --neu-fg:           #3D4852;
-  --neu-muted:        #6B7280;
-  --neu-accent:       #6C63FF;
-  --neu-accent-light: #8B84FF;
-  --neu-teal:         #38B2AC;
-  --font-display:     "Plus Jakarta Sans", sans-serif;
-  --font-body:        "DM Sans", sans-serif;
+  --surface:                  #0b1326;
+  --surface-container-low:    #131b2e;
+  --surface-container:        #1a2236;
+  --surface-container-high:   #222a3d;
+  --surface-container-highest:#2d3449;
+  --primary:                  #c3c0ff;
+  --on-primary:               #1d00a5;
+  --primary-container:        #0c005e;
+  --on-surface:               #dae2fd;
+  --on-surface-variant:       #c6c6cd;
+  --outline-variant:          rgba(255,255,255,0.15);
+  --tertiary:                 #7bd0ff;
+  --tertiary-container:       #001a27;
+  --font-display:             "Manrope", sans-serif;
+  --font-body:                "Inter", sans-serif;
 }
 
 @theme inline {
-  --color-background: var(--neu-bg);
-  --color-foreground: var(--neu-fg);
+  --color-background: var(--surface);
+  --color-foreground: var(--on-surface);
   --font-sans: var(--font-body);
-  --color-md-primary: var(--neu-accent);
+  --color-md-primary: var(--primary);
 }
 
 /* ─── Base ─────────────────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
-  background-color: #E0E5EC;
+  background-color: #0b1326;
 }
 
 body {
-  background-color: #E0E5EC;
-  color: #3D4852;
-  font-family: var(--font-body), 'DM Sans', sans-serif;
+  background-color: #0b1326;
+  color: #dae2fd;
+  font-family: var(--font-body), 'Inter', sans-serif;
 }
 
 /* ─── Typography Helpers ───────────────────────────────────────────── */
 .font-display {
-  font-family: var(--font-display), 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-display), 'Manrope', sans-serif;
 }
 
-/* ─── Neumorphic Shadow Utilities ──────────────────────────────────── */
-
-/* Extruded – default raised state */
-.neu-extruded {
-  box-shadow:
-    9px 9px 16px rgb(163 177 198 / 0.6),
-    -9px -9px 16px rgba(255 255 255 / 0.5);
-}
-
-/* Extruded with hover lift */
-.neu-card {
-  box-shadow:
-    9px 9px 16px rgb(163 177 198 / 0.6),
-    -9px -9px 16px rgba(255 255 255 / 0.5);
+/* ─── Glass Card ───────────────────────────────────────────────────── */
+.glass-card {
+  background-color: var(--surface-container-low);
+  border-radius: 0.75rem;
+  padding: 2.75rem;
+  box-shadow: 0 8px 24px rgba(195, 192, 255, 0.04), 0 2px 8px rgba(0, 0, 0, 0.3);
   transition: box-shadow 300ms ease-out, transform 300ms ease-out;
 }
-.neu-card:hover {
-  box-shadow:
-    12px 12px 20px rgb(163 177 198 / 0.7),
-    -12px -12px 20px rgba(255 255 255 / 0.6);
-  transform: translateY(-3px);
+.glass-card:hover {
+  box-shadow: 0 12px 32px rgba(195, 192, 255, 0.08), 0 4px 12px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
 }
 
-/* Small extruded – for tags, pills */
-.neu-extruded-sm {
-  box-shadow:
-    5px 5px 10px rgb(163 177 198 / 0.6),
-    -5px -5px 10px rgba(255 255 255 / 0.5);
+/* ─── Ambient Shadow ───────────────────────────────────────────────── */
+.ambient-shadow {
+  box-shadow: 0 8px 24px rgba(195, 192, 255, 0.04), 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Inset – shallow pressed */
-.neu-inset {
-  box-shadow:
-    inset 6px 6px 10px rgb(163 177 198 / 0.6),
-    inset -6px -6px 10px rgba(255 255 255 / 0.5);
-}
-
-/* Inset deep – icon wells, inputs */
-.neu-inset-deep {
-  box-shadow:
-    inset 10px 10px 20px rgb(163 177 198 / 0.7),
-    inset -10px -10px 20px rgba(255 255 255 / 0.6);
-}
-
-/* Inset small – tags, tracks */
-.neu-inset-sm {
-  box-shadow:
-    inset 3px 3px 6px rgb(163 177 198 / 0.6),
-    inset -3px -3px 6px rgba(255 255 255 / 0.5);
+/* ─── Glow Primary ─────────────────────────────────────────────────── */
+.glow-primary {
+  box-shadow: 0 0 24px rgba(195, 192, 255, 0.2);
 }
 
 /* ─── Button Variants ──────────────────────────────────────────────── */
-.neu-btn-primary {
-  background-color: #6C63FF;
-  color: #fff;
-  box-shadow:
-    5px 5px 12px rgb(163 177 198 / 0.6),
-    -5px -5px 12px rgba(255 255 255 / 0.5);
+.btn-primary {
+  background-color: #c3c0ff;
+  color: #1d00a5;
+  border-radius: 9999px;
+  font-family: var(--font-display);
+  font-weight: 600;
   transition: box-shadow 300ms ease-out, transform 300ms ease-out;
 }
-.neu-btn-primary:hover {
-  box-shadow:
-    8px 8px 16px rgb(163 177 198 / 0.7),
-    -8px -8px 16px rgba(255 255 255 / 0.6);
+.btn-primary:hover {
+  box-shadow: 0 0 24px rgba(195, 192, 255, 0.2);
   transform: translateY(-1px);
 }
-.neu-btn-primary:active {
-  box-shadow:
-    inset 4px 4px 8px rgba(0 0 0 / 0.25),
-    inset -4px -4px 8px rgba(255 255 255 / 0.1);
+.btn-primary:active {
   transform: translateY(0.5px);
 }
 
-.neu-btn-secondary {
-  background-color: #E0E5EC;
-  color: #3D4852;
-  box-shadow:
-    5px 5px 12px rgb(163 177 198 / 0.6),
-    -5px -5px 12px rgba(255 255 255 / 0.5);
-  transition: box-shadow 300ms ease-out, transform 300ms ease-out;
+.btn-secondary {
+  background-color: var(--surface-container-highest);
+  color: var(--on-surface);
+  border: 0.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  transition: box-shadow 300ms ease-out, transform 300ms ease-out, background-color 300ms ease-out;
 }
-.neu-btn-secondary:hover {
-  box-shadow:
-    8px 8px 16px rgb(163 177 198 / 0.7),
-    -8px -8px 16px rgba(255 255 255 / 0.6);
+.btn-secondary:hover {
+  background-color: var(--surface-container);
   transform: translateY(-1px);
 }
-.neu-btn-secondary:active {
-  box-shadow:
-    inset 4px 4px 8px rgb(163 177 198 / 0.6),
-    inset -4px -4px 8px rgba(255 255 255 / 0.5);
+.btn-secondary:active {
   transform: translateY(0.5px);
+}
+
+/* ─── Glass Nav ────────────────────────────────────────────────────── */
+.glass-nav {
+  background-color: rgba(19, 27, 46, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
 }
 
 /* ─── Section Label Pill ───────────────────────────────────────────── */
-.neu-label {
-  box-shadow:
-    inset 3px 3px 6px rgb(163 177 198 / 0.6),
-    inset -3px -3px 6px rgba(255 255 255 / 0.5);
-}
-
-/* ─── Nav ──────────────────────────────────────────────────────────── */
-.neu-nav {
-  background-color: rgba(224, 229, 236, 0.92);
-  box-shadow:
-    0 4px 12px rgb(163 177 198 / 0.5),
-    0 -2px 6px rgba(255 255 255 / 0.6);
-  backdrop-filter: blur(12px);
+.label-pill {
+  background-color: var(--surface-container-high);
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
 }
 
 /* ─── Tag Pills ────────────────────────────────────────────────────── */
-.neu-tag {
-  box-shadow:
-    inset 2px 2px 5px rgb(163 177 198 / 0.5),
-    inset -2px -2px 5px rgba(255 255 255 / 0.6);
+.tag-pill {
+  background-color: var(--surface-container-high);
+  color: var(--on-surface-variant);
+  border-radius: 9999px;
 }
 
 /* ─── Animations ───────────────────────────────────────────────────── */
@@ -184,18 +153,9 @@ body {
   border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
 }
 
-.sketch-line {
-  height: 2px;
-  background: currentColor;
-  mask-image: url("data:image/svg+xml,%3Csvg width='200' height='2' viewBox='0 0 200 2' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 1C50 0.5 150 1.5 200 1' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
-  mask-position: center;
-}
-
 /* ─── Focus States (Accessibility) ────────────────────────────────── */
 :focus-visible {
-  outline: 2px solid #6C63FF;
+  outline: 2px solid #c3c0ff;
   outline-offset: 3px;
   border-radius: 8px;
 }

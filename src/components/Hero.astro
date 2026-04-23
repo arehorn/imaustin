@@ -8,39 +8,53 @@ interface Props {
 const { hero } = Astro.props;
 ---
 
-<section id="hero" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
-  <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-md-primary/10 blur-3xl rounded-full" aria-hidden="true" />
+<section id="hero" class="relative min-h-screen flex items-center pt-20 overflow-hidden" style="background-color: #0b1326;">
+  <!-- Gradient blob decoration -->
+  <div
+    class="absolute top-[-10%] right-[-5%] w-[45%] h-[55%] opacity-30 organic-blob pointer-events-none"
+    style="background: linear-gradient(135deg, #c3c0ff, #0c005e); filter: blur(80px);"
+    aria-hidden="true"
+  />
+  <div
+    class="absolute bottom-[-5%] left-[-8%] w-[30%] h-[35%] opacity-20 organic-blob pointer-events-none"
+    style="background: linear-gradient(135deg, #7bd0ff, #001a27); filter: blur(60px);"
+    aria-hidden="true"
+  />
+
   <div class="max-w-6xl mx-auto px-6 py-24 w-full">
     <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-12 items-center">
 
       {/* Text */}
       <div>
         {/* Eyebrow */}
-        <div class="inline-flex items-center gap-2 neu-label px-4 py-2 rounded-full mb-8 animate-fade-in-up">
-          <span class="w-2 h-2 rounded-full bg-[#6C63FF] inline-block" />
-          <span class="text-xs font-semibold tracking-widest text-[#6B7280] uppercase">
+        <div class="inline-flex items-center gap-2 label-pill px-4 py-2 mb-8 animate-fade-in-up">
+          <span class="w-2 h-2 rounded-full inline-block" style="background-color: #c3c0ff;" />
+          <span class="text-xs font-semibold tracking-widest uppercase" style="color: #c6c6cd;">
             {hero.badge_text}
           </span>
         </div>
 
-        <h1 class="font-display font-extrabold text-[#3D4852] text-4xl sm:text-5xl lg:text-[3.25rem] leading-[1.1] tracking-tight mb-6 animate-fade-in-up animation-delay-100">
+        <h1
+          class="font-display font-extrabold text-4xl sm:text-5xl lg:text-[3.5rem] leading-[1.1] mb-6 animate-fade-in-up animation-delay-100"
+          style="color: #dae2fd; letter-spacing: 0.175rem;"
+        >
           {hero.headline}
         </h1>
 
-        <p class="text-[#6B7280] text-lg leading-relaxed mb-10 max-w-lg animate-fade-in-up animation-delay-200">
+        <p class="text-lg leading-relaxed mb-10 max-w-lg animate-fade-in-up animation-delay-200" style="color: #c6c6cd; font-family: var(--font-body);">
           {hero.subheading}
         </p>
 
         <div class="flex flex-wrap gap-4 mb-10 animate-fade-in-up animation-delay-300">
           <a
             href="#work"
-            class="neu-btn-primary font-display font-semibold px-7 py-3.5 rounded-2xl text-sm tracking-wide"
+            class="btn-primary font-display font-semibold px-7 py-3.5 text-sm tracking-wide"
           >
             See My Work
           </a>
           <a
             href="#connect"
-            class="neu-btn-secondary font-display font-semibold px-7 py-3.5 rounded-2xl text-sm tracking-wide"
+            class="btn-secondary font-display font-semibold px-7 py-3.5 text-sm tracking-wide"
           >
             Let&apos;s Connect
           </a>
@@ -48,7 +62,7 @@ const { hero } = Astro.props;
             <a
               href={hero.resume_url}
               download
-              class="neu-btn-secondary font-display font-semibold px-7 py-3.5 rounded-2xl text-sm tracking-wide inline-flex items-center gap-2"
+              class="btn-secondary font-display font-semibold px-7 py-3.5 text-sm tracking-wide inline-flex items-center gap-2"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -58,36 +72,26 @@ const { hero } = Astro.props;
           )}
         </div>
 
-        <p class="text-sm text-[#6B7280] animate-fade-in-up animation-delay-400">
+        <p class="text-sm animate-fade-in-up animation-delay-400" style="color: #c6c6cd;">
           {hero.cta_text}
         </p>
       </div>
 
-      {/* Headshot in Neumorphic Orb */}
+      {/* Headshot with ambient glow */}
       <div class="hidden lg:flex items-center justify-center">
         <div class="animate-float">
           <div
-            class="rounded-full bg-[#E0E5EC] flex items-center justify-center"
-            style="width: 700px; height: 700px; box-shadow: 18px 18px 36px rgb(163 177 198 / 0.65), -18px -18px 36px rgba(255 255 255 / 0.62);"
+            class="rounded-full overflow-hidden"
+            style="width: 480px; height: 480px; box-shadow: 0 0 80px rgba(195,192,255,0.12), 0 0 160px rgba(195,192,255,0.06), 0 24px 48px rgba(0,0,0,0.5);"
           >
-            <div
-              class="rounded-full bg-[#E0E5EC] flex items-center justify-center"
-              style="width: 600px; height: 600px; box-shadow: inset 12px 12px 24px rgb(163 177 198 / 0.7), inset -12px -12px 24px rgba(255 255 255 / 0.6);"
-            >
-              <div
-                class="rounded-full overflow-hidden"
-                style="width: 500px; height: 500px; box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.2), 8px 8px 18px rgb(163 177 198 / 0.5), -8px -8px 18px rgba(255 255 255 / 0.5);"
-              >
-                <img
-                  src={hero.headshot_url}
-                  alt={hero.headshot_alt || "Austin Rehorn"}
-                  width="500"
-                  height="500"
-                  class="w-full h-full object-cover object-top"
-                  loading="eager"
-                />
-              </div>
-            </div>
+            <img
+              src={hero.headshot_url}
+              alt={hero.headshot_alt || "Austin Rehorn"}
+              width="480"
+              height="480"
+              class="w-full h-full object-cover object-top"
+              loading="eager"
+            />
           </div>
         </div>
       </div>
