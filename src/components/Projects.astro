@@ -8,11 +8,11 @@ interface Props {
 const { projects } = Astro.props;
 ---
 
-<section id="work" class="py-28">
+<section id="work" class="py-28" style="background-color: #0b1326;">
   <div class="max-w-6xl mx-auto px-6">
 
-    <div class="inline-flex items-center gap-2 neu-label px-4 py-2 rounded-full mb-12">
-      <span class="text-xs font-semibold tracking-widest text-[#6B7280] uppercase">Featured Work</span>
+    <div class="inline-flex items-center gap-2 label-pill px-4 py-2 mb-12">
+      <span class="text-xs font-semibold tracking-widest uppercase" style="color: #c6c6cd;">Featured Work</span>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -20,24 +20,25 @@ const { projects } = Astro.props;
         const tags = project.tags.split(",").map((t) => t.trim()).filter(Boolean);
         return (
           <div
-            class="neu-card rounded-[32px] bg-[#E0E5EC] p-8 flex flex-col"
+            class="rounded-[32px] p-8 flex flex-col"
+            style="background-color: #131b2e; box-shadow: 0 8px 24px rgba(195,192,255,0.04), 0 2px 8px rgba(0,0,0,0.3);"
           >
             <div
               class="w-10 h-1.5 rounded-full mb-6"
-              style={{ background: "linear-gradient(90deg, #6C63FF, #8B84FF)", boxShadow: "0 0 8px rgba(108 99 255 / 0.4)" }}
+              style="background: linear-gradient(90deg, #c3c0ff, #7bd0ff); box-shadow: 0 0 8px rgba(195,192,255,0.3);"
             />
 
-            <h3 class="font-display font-bold text-[#3D4852] text-xl mb-3 tracking-tight">
+            <h3 class="font-display font-bold text-xl mb-3 tracking-tight" style="color: #dae2fd;">
               {project.title}
             </h3>
-            <p class="text-[#6B7280] text-sm leading-relaxed mb-8 flex-1">
+            <p class="text-sm leading-relaxed mb-8 flex-1" style="color: #c6c6cd;">
               {project.description}
             </p>
 
             <div class="flex flex-wrap gap-2">
               {tags.map((tag) => (
                 <span
-                  class="neu-tag px-3 py-1.5 rounded-full text-xs font-medium text-[#6B7280] bg-[#E0E5EC]"
+                  class="tag-pill px-3 py-1.5 rounded-full text-xs font-medium"
                 >
                   {tag}
                 </span>

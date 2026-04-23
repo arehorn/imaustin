@@ -13,28 +13,28 @@ const { about, stats, personalityCards, offClockNotes } = Astro.props;
 const PERSONALITY_ICON_MAP: Record<string, { iconPath: string; iconBackground: string; iconColor: string }> = {
   heart: {
     iconPath: "M12 21c4.97-4.058 8-7.71 8-11a8 8 0 10-16 0c0 3.29 3.03 6.942 8 11zm0-8.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z",
-    iconBackground: "#DDF4EC",
-    iconColor: "#38B2AC",
+    iconBackground: "rgba(123,208,255,0.15)",
+    iconColor: "#7bd0ff",
   },
   dog: {
     iconPath: "M8 11V8a4 4 0 118 0v3m-8 0a3 3 0 00-3 3v1a2 2 0 002 2h10a2 2 0 002-2v-1a3 3 0 00-3-3m-8 0h8",
-    iconBackground: "#EFE8FF",
-    iconColor: "#6C63FF",
+    iconBackground: "rgba(195,192,255,0.15)",
+    iconColor: "#c3c0ff",
   },
   brain: {
     iconPath: "M9 18h6M10 22h4M12 2a7 7 0 00-4 12.75c.64.56 1 1.38 1 2.23V17h6v-.02c0-.85.36-1.67 1-2.23A7 7 0 0012 2z",
-    iconBackground: "#FFF0E6",
-    iconColor: "#E28A36",
+    iconBackground: "rgba(123,208,255,0.12)",
+    iconColor: "#7bd0ff",
   },
   code: {
     iconPath: "M10.5 6h3m-7 5.5h11m-9 4h7M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z",
-    iconBackground: "#E7EDF5",
-    iconColor: "#3D4852",
+    iconBackground: "rgba(195,192,255,0.12)",
+    iconColor: "#c3c0ff",
   },
   star: {
     iconPath: "M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z",
-    iconBackground: "#E7EDF5",
-    iconColor: "#6C63FF",
+    iconBackground: "rgba(195,192,255,0.12)",
+    iconColor: "#c3c0ff",
   },
 };
 
@@ -42,63 +42,60 @@ const CARD_ROTATIONS = ["-rotate-1", "rotate-2", "-rotate-2", "rotate-1"];
 const CARD_OFFSETS = ["", "md:mt-8", "", "md:mt-12"];
 ---
 
-<section id="about" class="py-28 overflow-hidden">
+<section id="about" class="py-28 overflow-hidden" style="background-color: #0b1326;">
   <div class="max-w-6xl mx-auto px-6">
-    <div class="inline-flex items-center gap-2 neu-label px-4 py-2 rounded-full mb-12">
-      <span class="text-xs font-semibold tracking-widest text-[#6B7280] uppercase">About</span>
+    <div class="inline-flex items-center gap-2 label-pill px-4 py-2 mb-12">
+      <span class="text-xs font-semibold tracking-widest uppercase" style="color: #c6c6cd;">About</span>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 items-start mb-10">
-      <article class="relative neu-extruded rounded-[36px] bg-[#E0E5EC] p-10 md:p-12 overflow-hidden">
-        <div class="absolute -top-20 -left-14 w-44 h-44 bg-[#6C63FF]/8 organic-blob pointer-events-none" aria-hidden="true" />
-        <div class="absolute -bottom-16 right-0 w-40 h-40 bg-[#38B2AC]/10 organic-blob pointer-events-none" aria-hidden="true" />
+      <article class="relative rounded-3xl p-10 md:p-12 overflow-hidden" style="background-color: #131b2e; box-shadow: 0 8px 24px rgba(195,192,255,0.04), 0 2px 8px rgba(0,0,0,0.3);">
+        <div class="absolute -top-20 -left-14 w-44 h-44 opacity-20 organic-blob pointer-events-none" style="background: radial-gradient(circle, #c3c0ff, transparent);" aria-hidden="true" />
+        <div class="absolute -bottom-16 right-0 w-40 h-40 opacity-15 organic-blob pointer-events-none" style="background: radial-gradient(circle, #7bd0ff, transparent);" aria-hidden="true" />
 
         <div class="relative max-w-2xl">
-          <p class="text-sm font-display font-semibold tracking-[0.18em] text-[#6B7280] uppercase mb-5">
+          <p class="text-sm font-display font-semibold tracking-[0.18em] uppercase mb-5" style="color: #c6c6cd;">
             Sales instincts. Builder energy.
           </p>
 
-          <h2 class="font-display font-extrabold text-[#3D4852] text-3xl md:text-4xl leading-tight tracking-tight mb-6">
+          <h2 class="font-display font-extrabold text-3xl md:text-4xl leading-tight tracking-tight mb-6" style="color: #dae2fd;">
             {about.heading}
           </h2>
 
-          <p class="text-[#3D4852] text-lg leading-relaxed mb-5">{about.bio_paragraph_1}</p>
-          <p class="text-[#6B7280] text-lg leading-relaxed mb-8">{about.bio_paragraph_2}</p>
+          <p class="text-lg leading-relaxed mb-5" style="color: #dae2fd;">{about.bio_paragraph_1}</p>
+          <p class="text-lg leading-relaxed mb-8" style="color: #c6c6cd;">{about.bio_paragraph_2}</p>
 
-          <div
-            class="rounded-[28px] bg-[#E7EBF2] p-6 md:p-7"
-            style="box-shadow: inset 8px 8px 16px rgb(163 177 198 / 0.45), inset -8px -8px 16px rgba(255 255 255 / 0.55);"
-          >
+          <div class="rounded-2xl p-6 md:p-7" style="background-color: #1a2236; border: 0.5px solid rgba(255,255,255,0.08);">
             <div class="flex gap-4 items-start">
-              <svg class="w-8 h-8 text-[#6C63FF] shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <svg class="w-8 h-8 shrink-0 mt-1" fill="none" stroke="#c3c0ff" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 11H5a2 2 0 01-2-2V7a4 4 0 014-4h1v8zm10 0h-4V3h1a4 4 0 014 4v2a2 2 0 01-2 2z" />
               </svg>
-              <p class="text-[#3D4852] text-lg leading-relaxed">{about.quote}</p>
+              <p class="text-lg leading-relaxed" style="color: #dae2fd;">{about.quote}</p>
             </div>
           </div>
         </div>
       </article>
 
       <div class="space-y-6">
-        <aside class="neu-card rounded-[32px] bg-[#E0E5EC] p-5 md:p-6">
+        <aside class="rounded-3xl p-5 md:p-6" style="background-color: #131b2e; box-shadow: 0 8px 24px rgba(195,192,255,0.04), 0 2px 8px rgba(0,0,0,0.3);">
           <div class="flex items-start justify-between gap-4 mb-4">
             <div>
-              <p class="text-sm font-display font-semibold tracking-[0.18em] text-[#6B7280] uppercase mb-2">
+              <p class="text-sm font-display font-semibold tracking-[0.18em] uppercase mb-2" style="color: #c6c6cd;">
                 Small proof of life
               </p>
-              <p class="text-[#6B7280] text-sm leading-relaxed max-w-xs">
+              <p class="text-sm leading-relaxed max-w-xs" style="color: #c6c6cd;">
                 Me and Barkley, in a format that feels a little more like a note pinned to the page.
               </p>
             </div>
-            <span class="text-xs font-display font-semibold tracking-[0.14em] text-[#6C63FF] uppercase shrink-0 mt-1">
+            <span class="text-xs font-display font-semibold tracking-[0.14em] uppercase shrink-0 mt-1" style="color: #c3c0ff;">
               Off-screen favorites
             </span>
           </div>
 
           <div class="relative max-w-[240px] md:max-w-[260px] rotate-[2deg]">
-            <div class="absolute -inset-3 bg-[#6C63FF]/8 organic-blob pointer-events-none" aria-hidden="true" />
-            <div class="relative rounded-[24px] overflow-hidden bg-[#E7EBF2] p-2">
-              <div class="overflow-hidden rounded-[18px]" style="box-shadow: 8px 8px 16px rgb(163 177 198 / 0.42), -8px -8px 16px rgba(255 255 255 / 0.42);">
+            <div class="absolute -inset-3 opacity-20 organic-blob pointer-events-none" style="background: radial-gradient(circle, #c3c0ff, transparent);" aria-hidden="true" />
+            <div class="relative rounded-[24px] overflow-hidden p-2" style="background-color: #1a2236;">
+              <div class="overflow-hidden rounded-[18px]" style="box-shadow: 0 8px 24px rgba(0,0,0,0.4);">
                 <img
                   src={about.photo_url}
                   alt={about.photo_alt || "Austin with Barkley"}
@@ -111,48 +108,44 @@ const CARD_OFFSETS = ["", "md:mt-8", "", "md:mt-12"];
           </div>
         </aside>
 
-        <aside class="neu-card rounded-[32px] bg-[#E0E5EC] p-8">
-          <p class="text-sm font-display font-semibold tracking-[0.18em] text-[#6B7280] uppercase mb-5">
+        <aside class="rounded-3xl p-8" style="background-color: #131b2e; box-shadow: 0 8px 24px rgba(195,192,255,0.04), 0 2px 8px rgba(0,0,0,0.3);">
+          <p class="text-sm font-display font-semibold tracking-[0.18em] uppercase mb-5" style="color: #c6c6cd;">
             Off the clock
           </p>
           <ul class="space-y-5">
             {offClockNotes.map((note) => (
               <li>
-                <p class="font-display font-semibold text-[#3D4852] text-sm uppercase tracking-[0.14em] mb-1">
+                <p class="font-display font-semibold text-sm uppercase tracking-[0.14em] mb-1" style="color: #dae2fd;">
                   {note.label}
                 </p>
-                <p class="text-[#6B7280] leading-relaxed">{note.value}</p>
+                <p class="leading-relaxed" style="color: #c6c6cd;">{note.value}</p>
               </li>
             ))}
           </ul>
         </aside>
 
-        <aside
-          class="rounded-[32px] bg-[#E0E5EC] p-8"
-          style="box-shadow: inset 10px 10px 20px rgb(163 177 198 / 0.62), inset -10px -10px 20px rgba(255 255 255 / 0.58);"
-        >
-          <p class="text-sm font-display font-semibold tracking-[0.18em] text-[#6B7280] uppercase mb-4">
+        <aside class="rounded-3xl p-8" style="background-color: #1a2236; border: 0.5px solid rgba(255,255,255,0.08);">
+          <p class="text-sm font-display font-semibold tracking-[0.18em] uppercase mb-4" style="color: #c6c6cd;">
             What people usually notice
           </p>
-          <p class="text-[#3D4852] leading-relaxed">{about.closing_statement}</p>
+          <p class="leading-relaxed" style="color: #dae2fd;">{about.closing_statement}</p>
         </aside>
       </div>
     </div>
 
-    <div class="relative rounded-[40px] bg-[#DCE4EF] p-8 md:p-10 mb-10 overflow-hidden">
-      <div class="absolute -top-16 left-12 w-44 h-44 bg-[#38B2AC]/10 organic-blob pointer-events-none" aria-hidden="true" />
-      <div class="absolute -bottom-16 right-10 w-56 h-56 bg-[#6C63FF]/8 organic-blob pointer-events-none" aria-hidden="true" />
+    <div class="relative rounded-[40px] p-8 md:p-10 mb-10 overflow-hidden" style="background-color: #131b2e;">
+      <div class="absolute -top-16 left-12 w-44 h-44 opacity-15 organic-blob pointer-events-none" style="background: radial-gradient(circle, #7bd0ff, transparent);" aria-hidden="true" />
+      <div class="absolute -bottom-16 right-10 w-56 h-56 opacity-10 organic-blob pointer-events-none" style="background: radial-gradient(circle, #c3c0ff, transparent);" aria-hidden="true" />
 
       <div class="relative flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
         <div>
-          <p class="text-sm font-display font-semibold tracking-[0.18em] text-[#6B7280] uppercase mb-2">
+          <p class="text-sm font-display font-semibold tracking-[0.18em] uppercase mb-2" style="color: #c6c6cd;">
             Things I Love
           </p>
-          <h3 class="font-display font-bold text-[#3D4852] text-2xl tracking-tight">
+          <h3 class="font-display font-bold text-2xl tracking-tight" style="color: #dae2fd;">
             The personal details behind the operating system
           </h3>
         </div>
-        <div class="sketch-line w-28 text-[#6C63FF]/35" aria-hidden="true" />
       </div>
 
       <div class="relative grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
@@ -160,15 +153,16 @@ const CARD_OFFSETS = ["", "md:mt-8", "", "md:mt-12"];
           const iconDef = PERSONALITY_ICON_MAP[card.icon] ?? PERSONALITY_ICON_MAP.star;
           return (
             <article
-              class={`neu-card rounded-[28px] bg-[#EDF2F8] p-7 transition-transform duration-300 ${CARD_ROTATIONS[i % CARD_ROTATIONS.length]} ${CARD_OFFSETS[i % CARD_OFFSETS.length]}`}
+              class={`rounded-[28px] p-7 transition-transform duration-300 ${CARD_ROTATIONS[i % CARD_ROTATIONS.length]} ${CARD_OFFSETS[i % CARD_OFFSETS.length]}`}
+              style="background-color: #222a3d; box-shadow: 0 4px 16px rgba(0,0,0,0.3);"
             >
               <div class="w-12 h-12 rounded-full flex items-center justify-center mb-5" style={`background-color: ${iconDef.iconBackground};`}>
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={`color: ${iconDef.iconColor};`} aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d={iconDef.iconPath} />
                 </svg>
               </div>
-              <h4 class="font-display font-bold text-[#3D4852] text-lg mb-2">{card.title}</h4>
-              <p class="text-[#6B7280] text-sm leading-relaxed">{card.description}</p>
+              <h4 class="font-display font-bold text-lg mb-2" style="color: #dae2fd;">{card.title}</h4>
+              <p class="text-sm leading-relaxed" style="color: #c6c6cd;">{card.description}</p>
             </article>
           );
         })}
@@ -177,9 +171,9 @@ const CARD_OFFSETS = ["", "md:mt-8", "", "md:mt-12"];
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
       {stats.map((stat) => (
-        <div class="neu-card rounded-[32px] bg-[#E0E5EC] p-8">
-          <p class="font-display font-extrabold text-[#6C63FF] text-4xl tracking-tight mb-3">{stat.value}</p>
-          <p class="text-[#6B7280] text-sm leading-snug">{stat.label}</p>
+        <div class="rounded-[32px] p-8" style="background-color: #131b2e; box-shadow: 0 8px 24px rgba(195,192,255,0.04), 0 2px 8px rgba(0,0,0,0.3);">
+          <p class="font-display font-extrabold text-4xl tracking-tight mb-3" style="color: #c3c0ff;">{stat.value}</p>
+          <p class="text-sm leading-snug" style="color: #c6c6cd;">{stat.label}</p>
         </div>
       ))}
     </div>

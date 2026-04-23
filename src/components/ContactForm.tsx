@@ -33,32 +33,39 @@ export default function ContactForm() {
   }
 
   const inputClass =
-    "w-full bg-[#E0E5EC] rounded-2xl px-5 py-3.5 text-sm text-[#3D4852] placeholder-[#A0AEC0] outline-none transition-all duration-300 focus:ring-2 focus:ring-[#6C63FF] focus:ring-offset-2 focus:ring-offset-[#E0E5EC]";
-  const inputStyle = {
-    boxShadow: "inset 8px 8px 16px rgb(163 177 198 / 0.65), inset -8px -8px 16px rgba(255 255 255 / 0.6)",
+    "w-full rounded-2xl px-5 py-3.5 text-sm outline-none transition-all duration-300";
+  const inputStyle: React.CSSProperties = {
+    backgroundColor: "#1a2236",
+    color: "#dae2fd",
+    border: "0.5px solid rgba(255,255,255,0.1)",
+    boxShadow: "inset 0 2px 8px rgba(0,0,0,0.3)",
   };
+  const inputFocusRing = "focus:ring-2 focus:ring-[#c3c0ff] focus:ring-offset-2";
 
   return (
-    <div className="neu-extruded rounded-[32px] bg-[#E0E5EC] p-10 md:p-14">
-      <h3 className="font-display font-bold text-[#3D4852] text-xl tracking-tight mb-8">
+    <div
+      className="rounded-[32px] p-10 md:p-14"
+      style={{ backgroundColor: "#131b2e", boxShadow: "0 8px 24px rgba(195,192,255,0.04), 0 2px 8px rgba(0,0,0,0.3)" }}
+    >
+      <h3 className="font-display font-bold text-xl tracking-tight mb-8" style={{ color: "#dae2fd" }}>
         Send a Message
       </h3>
 
       {formState === "success" ? (
-        <div className="neu-inset rounded-2xl p-8 text-center">
+        <div className="rounded-2xl p-8 text-center" style={{ backgroundColor: "#1a2236", border: "0.5px solid rgba(255,255,255,0.08)" }}>
           <div
             className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center"
-            style={{ backgroundColor: "#38B2AC", boxShadow: "0 0 24px rgba(56 178 172 / 0.35)" }}
+            style={{ backgroundColor: "rgba(123,208,255,0.15)", boxShadow: "0 0 24px rgba(123,208,255,0.2)" }}
           >
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-8 h-8" fill="none" stroke="#7bd0ff" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <p className="font-display font-bold text-[#3D4852] text-lg mb-2">Message sent!</p>
-          <p className="text-[#6B7280] text-sm">I&apos;ll get back to you as soon as I can.</p>
+          <p className="font-display font-bold text-lg mb-2" style={{ color: "#dae2fd" }}>Message sent!</p>
+          <p className="text-sm" style={{ color: "#c6c6cd" }}>I&apos;ll get back to you as soon as I can.</p>
           <button
             onClick={() => setFormState("idle")}
-            className="neu-btn-secondary mt-6 px-6 py-2.5 rounded-2xl text-sm font-semibold text-[#3D4852]"
+            className="btn-secondary mt-6 px-6 py-2.5 rounded-full text-sm font-semibold"
           >
             Send another
           </button>
@@ -67,7 +74,7 @@ export default function ContactForm() {
         <form onSubmit={handleSubmit} noValidate>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
             <div>
-              <label className="block text-xs font-semibold tracking-widest text-[#6B7280] uppercase mb-2" htmlFor="name">
+              <label className="block text-xs font-semibold tracking-widest uppercase mb-2" style={{ color: "#c6c6cd" }} htmlFor="name">
                 Name
               </label>
               <input
@@ -77,12 +84,12 @@ export default function ContactForm() {
                 placeholder="Your name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className={inputClass}
-                style={inputStyle}
+                className={`${inputClass} ${inputFocusRing}`}
+                style={{ ...inputStyle, caretColor: "#c3c0ff" }}
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold tracking-widest text-[#6B7280] uppercase mb-2" htmlFor="email">
+              <label className="block text-xs font-semibold tracking-widest uppercase mb-2" style={{ color: "#c6c6cd" }} htmlFor="email">
                 Email
               </label>
               <input
@@ -92,14 +99,14 @@ export default function ContactForm() {
                 placeholder="your@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className={inputClass}
-                style={inputStyle}
+                className={`${inputClass} ${inputFocusRing}`}
+                style={{ ...inputStyle, caretColor: "#c3c0ff" }}
               />
             </div>
           </div>
 
           <div className="mb-8">
-            <label className="block text-xs font-semibold tracking-widest text-[#6B7280] uppercase mb-2" htmlFor="message">
+            <label className="block text-xs font-semibold tracking-widest uppercase mb-2" style={{ color: "#c6c6cd" }} htmlFor="message">
               Message
             </label>
             <textarea
@@ -109,13 +116,13 @@ export default function ContactForm() {
               placeholder="What's on your mind?"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className={`${inputClass} resize-none`}
-              style={inputStyle}
+              className={`${inputClass} ${inputFocusRing} resize-none`}
+              style={{ ...inputStyle, caretColor: "#c3c0ff" }}
             />
           </div>
 
           {formState === "error" && (
-            <p className="text-sm text-red-500 mb-5">
+            <p className="text-sm mb-5" style={{ color: "#ff8080" }}>
               Something went wrong. Try emailing me directly at rehorna1@gmail.com.
             </p>
           )}
@@ -123,7 +130,7 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={formState === "loading"}
-            className="neu-btn-primary font-display font-semibold px-8 py-3.5 rounded-2xl text-sm tracking-wide disabled:opacity-60 disabled:cursor-not-allowed"
+            className="btn-primary font-display font-semibold px-8 py-3.5 text-sm tracking-wide disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {formState === "loading" ? "Sending…" : "Send Message"}
           </button>
