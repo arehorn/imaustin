@@ -8,9 +8,13 @@ import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 const projectId =
-  import.meta.env.PUBLIC_SANITY_PROJECT_ID ?? process.env.PUBLIC_SANITY_PROJECT_ID ?? "";
+  import.meta.env.PUBLIC_SANITY_PROJECT_ID ||
+  process.env.PUBLIC_SANITY_PROJECT_ID ||
+  "h0f14hm4";
 const dataset =
-  import.meta.env.PUBLIC_SANITY_DATASET ?? process.env.PUBLIC_SANITY_DATASET ?? "production";
+  import.meta.env.PUBLIC_SANITY_DATASET ||
+  process.env.PUBLIC_SANITY_DATASET ||
+  "production";
 
 const builder = imageUrlBuilder({ projectId, dataset });
 
