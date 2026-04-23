@@ -1,35 +1,45 @@
 ---
-import { getEmDashEntry } from "emdash";
+import { sanityClient } from "sanity:client";
 import { PortableText } from "@portabletext/react";
 import Layout from "../../layouts/Layout.astro";
-import type { BlogPostData } from "../../types/emdash";
+import { imageUrl } from "../../lib/sanity";
+import { BLOG_POST_QUERY } from "../../lib/queries";
 
-const { id } = Astro.params;
+export const prerender = false;
 
-if (!id) return Astro.redirect("/blog");
+const { slug } = Astro.params;
+if (!slug) return Astro.redirect("/blog");
 
-const { entry } = await getEmDashEntry("posts", id);
+const client = sanityClient;
 
-if (!entry) return Astro.redirect("/blog");
+type BlogPost = {
+  _id: string;
+  title: string;
+  slug: string;
+  excerpt?: string;
+  publishedDate?: string;
+  tags?: string[];
+  coverImage?: unknown;
+  coverImageAlt?: string;
+  body?: unknown;
+};
 
-const post = { id: entry.id, ...(entry.data as BlogPostData) };
+const post = await client.fetch<BlogPost | null>(BLOG_POST_QUERY, { slug });
 
-const tags = post.tags
-  ? [...new Set(post.tags.split(",").map((t: string) => t.trim()).filter(Boolean))]
-  : [];
+if (!post) return Astro.redirect("/blog");
+
+const tags = Array.isArray(post.tags) ? post.tags : [];
+const coverUrl = imageUrl(post.coverImage as any, { width: 1400, quality: 85 });
 ---
-
 <Layout title={`${post.title} — Austin Rehorn`} description={post.excerpt}>
   <main class="min-h-screen pt-28 pb-20">
     <div class="max-w-3xl mx-auto px-6">
 
-      <!-- Back Navigation -->
       <a href="/blog" class="inline-flex items-center gap-2 text-sm text-[#6B7280] hover:text-[#3D4852] transition-colors mb-12">
         <span>←</span>
         <span>Back to Notes</span>
       </a>
 
-      <!-- Header -->
       <div class="mb-12">
         <div class="flex flex-wrap gap-2 mb-6">
           {tags.map((tag: string) => (
@@ -41,9 +51,9 @@ const tags = post.tags
           {post.title}
         </h1>
 
-        {post.published_date && (
+        {post.publishedDate && (
           <p class="text-sm text-[#9CA3AF]">
-            Published {new Date(post.published_date).toLocaleDateString("en-US", {
+            Published {new Date(post.publishedDate).toLocaleDateString("en-US", {
               month: "long",
               day: "numeric",
               year: "numeric",
@@ -52,25 +62,22 @@ const tags = post.tags
         )}
       </div>
 
-      <!-- Cover Image -->
-      {post.cover_image_url && (
+      {coverUrl && (
         <div class="relative w-full h-96 rounded-3xl overflow-hidden mb-12 neu-card">
           <img
-            src={post.cover_image_url}
-            alt={post.cover_image_alt || post.title}
+            src={coverUrl}
+            alt={post.coverImageAlt || post.title}
             class="w-full h-full object-cover"
           />
         </div>
       )}
 
-      <!-- Content -->
       {post.body && (
         <div class="prose prose-lg max-w-none mb-16">
-          <PortableText value={post.body} />
+          <PortableText value={post.body as any} />
         </div>
       )}
 
-      <!-- Footer Navigation -->
       <div class="pt-12 border-t border-[#D1D5DB]">
         <a href="/blog" class="inline-flex items-center gap-2 px-6 py-3 rounded-full neu-btn-secondary text-sm font-medium text-[#3D4852] hover:scale-[1.02] transition-transform duration-200">
           <span>←</span>

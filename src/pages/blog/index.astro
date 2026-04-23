@@ -1,11 +1,34 @@
 ---
-import { getEmDashCollection } from "emdash";
+import { sanityClient } from "sanity:client";
 import Layout from "../../layouts/Layout.astro";
-import type { BlogPostData } from "../../types/emdash";
+import { imageUrl } from "../../lib/sanity";
+import { BLOG_LIST_QUERY } from "../../lib/queries";
 
-const { entries } = await getEmDashCollection("posts");
-const posts = entries.map(e => ({ id: e.id, ...(e.data as BlogPostData) }));
-posts.sort((a, b) => new Date(b.published_date).getTime() - new Date(a.published_date).getTime());
+const client = sanityClient;
+
+type BlogListItem = {
+  _id: string;
+  title: string;
+  slug: string;
+  excerpt?: string;
+  publishedDate?: string;
+  tags?: string[];
+  coverImage?: unknown;
+  coverImageAlt?: string;
+};
+
+const rawPosts = await client.fetch<BlogListItem[]>(BLOG_LIST_QUERY);
+
+const posts = (rawPosts ?? []).map((p) => ({
+  id: p.slug,
+  slug: p.slug,
+  title: p.title,
+  excerpt: p.excerpt ?? "",
+  published_date: p.publishedDate ?? "",
+  tags: Array.isArray(p.tags) ? p.tags.join(",") : "",
+  cover_image_url: imageUrl(p.coverImage as any, { width: 800, quality: 85 }),
+  cover_image_alt: p.coverImageAlt ?? p.title,
+}));
 ---
 <Layout title="Notes & Thinking — Austin Rehorn">
   <main class="min-h-screen pt-28 pb-20">
@@ -29,7 +52,7 @@ posts.sort((a, b) => new Date(b.published_date).getTime() - new Date(a.published
               : [];
             return (
               <a
-                href={`/blog/${post.id}`}
+                href={`/blog/${post.slug}`}
                 class="neu-card rounded-[32px] bg-[#E0E5EC] p-8 flex flex-col hover:scale-[1.01] transition-transform duration-200"
               >
                 {post.cover_image_url && (
