@@ -167,34 +167,28 @@ if (aboutBlok) {
 
   // about_stats
   const stats = (aboutBlok.stats as SbBlok[]) ?? [];
-  for (const stat of stats) {
-    await createEntry("about_stats", {
-      value: stat.value ?? "",
-      label: stat.label ?? "",
-    });
-  }
+  await Promise.all(stats.map(stat => createEntry("about_stats", {
+    value: stat.value ?? "",
+    label: stat.label ?? "",
+  })));
   console.log(`  ✓ about_stats (${stats.length})`);
 
   // about_personality_cards
   const cards = (aboutBlok.personality_cards as SbBlok[]) ?? [];
-  for (const card of cards) {
-    await createEntry("about_personality_cards", {
-      title: card.title ?? "",
-      description: card.description ?? "",
-      icon: card.icon ?? "star",
-      accent_color: card.accent_color ?? "#6C63FF",
-    });
-  }
+  await Promise.all(cards.map(card => createEntry("about_personality_cards", {
+    title: card.title ?? "",
+    description: card.description ?? "",
+    icon: card.icon ?? "star",
+    accent_color: card.accent_color ?? "#6C63FF",
+  })));
   console.log(`  ✓ about_personality_cards (${cards.length})`);
 
   // about_off_clock_notes
   const notes = (aboutBlok.off_clock_notes as SbBlok[]) ?? [];
-  for (const note of notes) {
-    await createEntry("about_off_clock_notes", {
-      label: note.label ?? "",
-      value: note.value ?? "",
-    });
-  }
+  await Promise.all(notes.map(note => createEntry("about_off_clock_notes", {
+    label: note.label ?? "",
+    value: note.value ?? "",
+  })));
   console.log(`  ✓ about_off_clock_notes (${notes.length})`);
 }
 
@@ -206,13 +200,11 @@ const whatIDoBlok = findBlok("what-i-do-section");
 if (whatIDoBlok) {
   console.log("Seeding what_i_do_columns...");
   const columns = (whatIDoBlok.columns as SbBlok[]) ?? [];
-  for (const col of columns) {
-    await createEntry("what_i_do_columns", {
-      title: col.title ?? "",
-      bullets: col.bullets ?? "",
-      icon_type: col.icon_type ?? "lightbulb",
-    });
-  }
+  await Promise.all(columns.map(col => createEntry("what_i_do_columns", {
+    title: col.title ?? "",
+    bullets: col.bullets ?? "",
+    icon_type: col.icon_type ?? "lightbulb",
+  })));
   console.log(`  ✓ what_i_do_columns (${columns.length})`);
 }
 
@@ -224,14 +216,12 @@ const projectsBlok = findBlok("projects-section");
 if (projectsBlok) {
   console.log("Seeding projects...");
   const projects = (projectsBlok.projects as SbBlok[]) ?? [];
-  for (const project of projects) {
-    await createEntry("projects", {
-      title: project.title ?? "",
-      description: project.description ?? "",
-      tags: project.tags ?? "",
-      href: project.href ?? "",
-    });
-  }
+  await Promise.all(projects.map(project => createEntry("projects", {
+    title: project.title ?? "",
+    description: project.description ?? "",
+    tags: project.tags ?? "",
+    href: project.href ?? "",
+  })));
   console.log(`  ✓ projects (${projects.length})`);
 }
 
@@ -258,28 +248,24 @@ if (experienceBlok) {
 
   // experience_roles
   const roles = (experienceBlok.roles as SbBlok[]) ?? [];
-  for (const role of roles) {
-    await createEntry("experience_roles", {
-      title: role.title ?? "",
-      company: role.company ?? "",
-      division: role.division ?? "",
-      dates: role.dates ?? "",
-      era: role.era ?? "",
-      side: role.side ?? "left",
-      icon_type: role.icon_type ?? "briefcase",
-      highlights: role.highlights ?? "",
-    });
-  }
+  await Promise.all(roles.map(role => createEntry("experience_roles", {
+    title: role.title ?? "",
+    company: role.company ?? "",
+    division: role.division ?? "",
+    dates: role.dates ?? "",
+    era: role.era ?? "",
+    side: role.side ?? "left",
+    icon_type: role.icon_type ?? "briefcase",
+    highlights: role.highlights ?? "",
+  })));
   console.log(`  ✓ experience_roles (${roles.length})`);
 
   // experience_stats
   const stats = (experienceBlok.stats as SbBlok[]) ?? [];
-  for (const stat of stats) {
-    await createEntry("experience_stats", {
-      value: stat.value ?? "",
-      label: stat.label ?? "",
-    });
-  }
+  await Promise.all(stats.map(stat => createEntry("experience_stats", {
+    value: stat.value ?? "",
+    label: stat.label ?? "",
+  })));
   console.log(`  ✓ experience_stats (${stats.length})`);
 }
 
@@ -315,8 +301,7 @@ if (connectBlok) {
 
 if (blogStories.length > 0) {
   console.log(`Seeding ${blogStories.length} blog posts...`);
-
-  const promises = blogStories.map((story) => {
+  await Promise.all(blogStories.map(story => {
     const c = story.content as {
       title?: string;
       excerpt?: string;
@@ -345,10 +330,7 @@ if (blogStories.length > 0) {
       cover_image_alt: c.cover_image?.alt ?? "",
       body: bodyStub,
     });
-  });
-
-  await Promise.all(promises);
-
+  }));
   console.log(`  ✓ posts (${blogStories.length})`);
 }
 
