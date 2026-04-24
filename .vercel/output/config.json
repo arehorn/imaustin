@@ -24,10 +24,6 @@
 			"dest": "_render"
 		},
 		{
-			"src": "^/api/contact\\.test$",
-			"dest": "_render"
-		},
-		{
 			"src": "^/api/revalidate/?$",
 			"dest": "_render"
 		},
