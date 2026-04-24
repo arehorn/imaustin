@@ -30,6 +30,14 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return new Response(JSON.stringify({ error: "Invalid email format." }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
   const resendApiKey = import.meta.env.RESEND_API_KEY;
   if (!resendApiKey) {
     return new Response(JSON.stringify({ error: "Email service not configured." }), {
