@@ -48,7 +48,10 @@ async function createEntry(collection: string, data: unknown): Promise<void> {
   }
 }
 
-async function upsertSingleton(collection: string, data: unknown): Promise<void> {
+async function upsertSingleton(
+  collection: string,
+  data: unknown,
+): Promise<void> {
   // Singletons use PUT to the collection root
   const url = `${EMDASH_BASE}/_emdash/api/content/${collection}`;
   const res = await fetch(url, {
@@ -76,7 +79,9 @@ let exportData: { stories: StoryblokStory[] };
 try {
   exportData = JSON.parse(readFileSync(exportPath, "utf-8"));
 } catch {
-  console.error(`Could not read ${exportPath}. Run the curl export command first.`);
+  console.error(
+    `Could not read ${exportPath}. Run the curl export command first.`,
+  );
   process.exit(1);
 }
 
@@ -104,7 +109,9 @@ const homeStory = stories.find((s) => s.slug === "home");
 const blogStories = stories.filter((s) => s.full_slug.startsWith("blog/"));
 
 if (!homeStory) {
-  console.warn("Warning: no 'home' story found in export. Skipping homepage sections.");
+  console.warn(
+    "Warning: no 'home' story found in export. Skipping homepage sections.",
+  );
 }
 
 const body: SbBlok[] = (homeStory?.content?.body as SbBlok[]) ?? [];
@@ -120,7 +127,9 @@ function findBlok(component: string): SbBlok | undefined {
 const heroBlok = findBlok("hero-section");
 if (heroBlok) {
   console.log("Seeding hero...");
-  const headshot = heroBlok.headshot_image as { filename?: string; alt?: string } | undefined;
+  const headshot = heroBlok.headshot_image as
+    | { filename?: string; alt?: string }
+    | undefined;
   const resume = heroBlok.resume_file as { filename?: string } | undefined;
   await upsertSingleton("hero", {
     badge_text: heroBlok.badge_text ?? "",
@@ -141,7 +150,9 @@ if (heroBlok) {
 const aboutBlok = findBlok("about-section");
 if (aboutBlok) {
   console.log("Seeding about...");
-  const photo = aboutBlok.photo as { filename?: string; alt?: string } | undefined;
+  const photo = aboutBlok.photo as
+    | { filename?: string; alt?: string }
+    | undefined;
 
   await upsertSingleton("about", {
     heading: aboutBlok.heading ?? "",
@@ -231,7 +242,9 @@ if (projectsBlok) {
 const experienceBlok = findBlok("experience-section");
 if (experienceBlok) {
   console.log("Seeding experience...");
-  const headshot = experienceBlok.headshot as { filename?: string; alt?: string } | undefined;
+  const headshot = experienceBlok.headshot as
+    | { filename?: string; alt?: string }
+    | undefined;
 
   await upsertSingleton("experience", {
     section_heading: experienceBlok.section_heading ?? "",
@@ -277,7 +290,9 @@ if (experienceBlok) {
 const connectBlok = findBlok("connect-section");
 if (connectBlok) {
   console.log("Seeding connect...");
-  const photo = connectBlok.photo as { filename?: string; alt?: string } | undefined;
+  const photo = connectBlok.photo as
+    | { filename?: string; alt?: string }
+    | undefined;
   const contactItems = (connectBlok.contact_items as SbBlok[]) ?? [];
 
   await upsertSingleton("connect", {
@@ -300,7 +315,8 @@ if (connectBlok) {
 
 if (blogStories.length > 0) {
   console.log(`Seeding ${blogStories.length} blog posts...`);
-  for (const story of blogStories) {
+
+  const promises = blogStories.map((story) => {
     const c = story.content as {
       title?: string;
       excerpt?: string;
@@ -319,18 +335,26 @@ if (blogStories.length > 0) {
       },
     ];
 
-    await createEntry("posts", {
+    return createEntry("posts", {
       title: c.title ?? story.slug,
       excerpt: c.excerpt ?? "",
-      published_date: c.published_date ?? new Date().toISOString().split("T")[0],
+      published_date:
+        c.published_date ?? new Date().toISOString().split("T")[0],
       tags: c.tags ?? "",
       cover_image_url: c.cover_image?.filename ?? "",
       cover_image_alt: c.cover_image?.alt ?? "",
       body: bodyStub,
     });
-  }
+  });
+
+  await Promise.all(promises);
+
   console.log(`  ✓ posts (${blogStories.length})`);
 }
 
-console.log("\nSeed complete! Open the EM Dash admin to review and update content.");
-console.log("Note: Blog post bodies are stubs — re-enter rich text content manually.");
+console.log(
+  "\nSeed complete! Open the EM Dash admin to review and update content.",
+);
+console.log(
+  "Note: Blog post bodies are stubs — re-enter rich text content manually.",
+);
