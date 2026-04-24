@@ -111,13 +111,21 @@ const serviceColumns: ServiceColumn[] = (serviceColumnsRaw ?? []).map((c: any) =
   icon_type: c.iconType ?? "people",
 }));
 
-const projects: ProjectItem[] = (projectsRaw ?? []).map((p: any) => ({
-  id: p._id,
-  title: p.title,
-  description: p.description ?? "",
-  tags: Array.isArray(p.tags) ? p.tags.join(",") : (p.tags ?? ""),
-  href: p.href ?? "",
-}));
+const projects: ProjectItem[] = (projectsRaw ?? []).map((p: any) => {
+  let tags: string[] = [];
+  if (Array.isArray(p.tags)) {
+    tags = p.tags.map((t: any) => String(t).trim()).filter(Boolean);
+  } else if (typeof p.tags === "string") {
+    tags = p.tags.split(",").map((t: string) => t.trim()).filter(Boolean);
+  }
+  return {
+    id: p._id,
+    title: p.title,
+    description: p.description ?? "",
+    tags,
+    href: p.href ?? "",
+  };
+});
 
 const experienceRoles: ExperienceRole[] = (experienceRolesRaw ?? []).map((r: any) => ({
   id: r._id,
