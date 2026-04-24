@@ -5,6 +5,7 @@
 // `sanity:client` virtual module (import { sanityClient } from "sanity:client").
 // This file exposes the image URL builder and a tiny type.
 import imageUrlBuilder from "@sanity/image-url";
+// @ts-ignore
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 const projectId =
