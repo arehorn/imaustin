@@ -35,7 +35,7 @@ export interface ProjectItem {
   id: string;
   title: string;
   description: string;
-  tags: string; // comma-separated
+  tags: string[];
   href: string;
 }
 

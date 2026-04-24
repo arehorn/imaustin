@@ -30,7 +30,6 @@ const ACCENT_CYCLE = [
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 pt-6">
       {projects.map((project: ProjectItem, i: number) => {
-        const tags = project.tags.split(",").map((t) => t.trim()).filter(Boolean);
         const accent = ACCENT_CYCLE[i % ACCENT_CYCLE.length];
         return (
           <div
@@ -49,7 +48,7 @@ const ACCENT_CYCLE = [
             </p>
 
             <div class="flex flex-wrap gap-2">
-              {tags.map((tag) => (
+              {project.tags.map((tag) => (
                 <span class="tag-pill px-3 py-1.5 text-xs font-medium uppercase tracking-wider">
                   {tag}
                 </span>
