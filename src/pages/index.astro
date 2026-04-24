@@ -136,7 +136,7 @@ const experienceRoles: ExperienceRole[] = (experienceRolesRaw ?? []).map((r: any
   era: r.era ?? "",
   side: (r.side ?? "left") as "left" | "right",
   icon_type: r.iconType ?? "briefcase",
-  highlights: Array.isArray(r.highlights) ? r.highlights.join("\n") : (r.highlights ?? ""),
+  highlights: r.highlights ?? [],
 }));
 
 const experienceStats: StatItem[] = (experienceStatsRaw ?? []).map((s: any) => ({

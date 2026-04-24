@@ -93,7 +93,11 @@ function roleCard(role: ExperienceRole, accentIndex: number) {
                         <p class="text-xs font-bold tracking-[0.22em] uppercase mt-1 text-[#00F2FF]">{role.title}</p>
                       </div>
                     </div>
-                    <p class="text-sm leading-relaxed text-gray-400">{role.highlights}</p>
+                    <div class="text-sm leading-relaxed text-gray-400 space-y-2">
+                      {Array.isArray(role.highlights)
+                        ? role.highlights.map((h: string) => <p>{h}</p>)
+                        : <p>{role.highlights}</p>}
+                    </div>
                     <div class="mt-5 flex flex-wrap items-center gap-2">
                       <span class="tag-pill text-xs font-medium px-3 py-1 uppercase tracking-wider">
                         {role.dates}
@@ -133,7 +137,11 @@ function roleCard(role: ExperienceRole, accentIndex: number) {
                         <p class="text-xs font-bold tracking-[0.22em] uppercase mt-1 text-[#7000FF]">{role.title}</p>
                       </div>
                     </div>
-                    <p class="text-sm leading-relaxed text-gray-400">{role.highlights}</p>
+                    <div class="text-sm leading-relaxed text-gray-400 space-y-2">
+                      {Array.isArray(role.highlights)
+                        ? role.highlights.map((h: string) => <p>{h}</p>)
+                        : <p>{role.highlights}</p>}
+                    </div>
                     <div class="mt-5 flex flex-wrap items-center gap-2">
                       <span class="tag-pill text-xs font-medium px-3 py-1 uppercase tracking-wider">
                         {role.dates}
@@ -174,7 +182,11 @@ function roleCard(role: ExperienceRole, accentIndex: number) {
                 <p class="text-xs font-bold tracking-[0.22em] uppercase mt-1 text-[#00F2FF]">{role.title}</p>
               </div>
             </div>
-            <p class="text-sm leading-relaxed text-gray-400">{role.highlights}</p>
+            <div class="text-sm leading-relaxed text-gray-400 space-y-2">
+                      {Array.isArray(role.highlights)
+                        ? role.highlights.map((h: string) => <p>{h}</p>)
+                        : <p>{role.highlights}</p>}
+                    </div>
             <div class="mt-4 flex flex-wrap items-center gap-2">
               <span class="tag-pill text-xs font-medium px-3 py-1 uppercase tracking-wider">
                 {role.dates}
