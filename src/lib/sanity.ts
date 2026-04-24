@@ -4,8 +4,8 @@
 // The Sanity client itself comes from the @sanity/astro integration via the
 // `sanity:client` virtual module (import { sanityClient } from "sanity:client").
 // This file exposes the image URL builder and a tiny type.
-import imageUrlBuilder from "@sanity/image-url";
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { createImageUrlBuilder } from "@sanity/image-url";
+import type { SanityImageSource } from "@sanity/image-url";
 
 const projectId =
   import.meta.env.PUBLIC_SANITY_PROJECT_ID ||
@@ -16,7 +16,7 @@ const dataset =
   process.env.PUBLIC_SANITY_DATASET ||
   "production";
 
-const builder = imageUrlBuilder({ projectId, dataset });
+const builder = createImageUrlBuilder({ projectId, dataset });
 
 export function urlFor(source: SanityImageSource) {
   return builder.image(source);
