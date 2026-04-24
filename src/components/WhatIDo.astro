@@ -11,35 +11,48 @@ const COLUMN_ICON_PATHS: Record<string, string> = {
   people: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z",
   lightbulb: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z",
 };
+
+// Cycle glow colors across cards for variety
+const GLOW_CYCLE = ["glow-cyan", "glow-purple"] as const;
+const STROKE_CYCLE = ["#00F2FF", "#7000FF"] as const;
+const HOVER_BORDER_CYCLE = ["hover:border-[#00F2FF]/50", "hover:border-[#7000FF]/50"] as const;
 ---
 
-<section id="what-i-do" class="py-28" style="background-color: #0b1326;">
-  <div class="max-w-6xl mx-auto px-6">
-    <div class="inline-flex items-center gap-2 label-pill px-4 py-2 mb-12">
-      <span class="text-xs font-semibold tracking-widest uppercase" style="color: #c6c6cd;">What I Do</span>
+<section id="what-i-do" class="relative py-28">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 border-l-4 border-[#00F2FF] pl-8 mb-20">
+      <div class="space-y-4">
+        <span class="text-[#00F2FF] font-bold uppercase tracking-[0.4em] text-xs">What I Do</span>
+        <h2 class="text-4xl lg:text-5xl font-extrabold font-['Plus_Jakarta_Sans'] text-white tracking-tighter">
+          Strategic Specializations
+        </h2>
+      </div>
+      <p class="text-gray-500 max-w-md italic text-lg">
+        Precision-engineered processes designed for the next era of enterprise operations.
+      </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 pt-6">
       {
-        columns.map((col: ServiceColumn) => {
+        columns.map((col: ServiceColumn, i: number) => {
           const iconPath =
             COLUMN_ICON_PATHS[col.icon_type] ?? COLUMN_ICON_PATHS.people;
           const bullets = col.bullets.split("\n").filter(Boolean);
+          const glow = GLOW_CYCLE[i % GLOW_CYCLE.length];
+          const stroke = STROKE_CYCLE[i % STROKE_CYCLE.length];
+          const hoverBorder = HOVER_BORDER_CYCLE[i % HOVER_BORDER_CYCLE.length];
 
           return (
             <div
-              class="rounded-[32px] p-10"
-              style="background-color: #131b2e; box-shadow: 0 8px 24px rgba(195,192,255,0.04), 0 2px 8px rgba(0,0,0,0.3);"
+              class={`staggered-item p-10 rounded-[2.5rem] glass-card flex flex-col group hover:-translate-y-4 transition-all duration-500 ${hoverBorder} relative`}
             >
-              <div
-                class="w-14 h-14 rounded-2xl flex items-center justify-center mb-8"
-                style="background-color: rgba(195,192,255,0.1);"
-              >
+              <div class="w-20 h-20 rounded-3xl glass-inset flex items-center justify-center mb-8 border border-white/5">
                 <svg
-                  class="w-6 h-6"
+                  class={`w-9 h-9 ${glow}`}
                   fill="none"
-                  stroke="#c3c0ff"
+                  stroke={stroke}
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path
                     stroke-linecap="round"
@@ -50,16 +63,16 @@ const COLUMN_ICON_PATHS: Record<string, string> = {
                 </svg>
               </div>
 
-              <h3 class="font-display font-bold text-xl mb-6 tracking-tight" style="color: #dae2fd;">
+              <h3 class="text-2xl font-bold font-['Plus_Jakarta_Sans'] text-white leading-tight mb-5">
                 {col.title}
               </h3>
 
               <ul class="space-y-4">
                 {bullets.map((bullet) => (
-                  <li class="flex gap-3 text-sm leading-relaxed" style="color: #c6c6cd;">
+                  <li class="flex gap-3 text-base leading-relaxed text-gray-400">
                     <span
-                      class="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0"
-                      style="background-color: #c3c0ff; box-shadow: 0 0 6px rgba(195,192,255,0.4);"
+                      class="mt-2 w-1.5 h-1.5 rounded-full shrink-0 bg-[#00F2FF]"
+                      style="box-shadow: 0 0 8px rgba(0,242,255,0.6);"
                     />
                     {bullet}
                   </li>

@@ -10,172 +10,180 @@ interface Props {
 
 const { about, stats, personalityCards, offClockNotes } = Astro.props;
 
-const PERSONALITY_ICON_MAP: Record<string, { iconPath: string; iconBackground: string; iconColor: string }> = {
+const PERSONALITY_ICON_MAP: Record<string, { iconPath: string; glow: string; color: string }> = {
   heart: {
     iconPath: "M12 21c4.97-4.058 8-7.71 8-11a8 8 0 10-16 0c0 3.29 3.03 6.942 8 11zm0-8.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z",
-    iconBackground: "rgba(123,208,255,0.15)",
-    iconColor: "#7bd0ff",
+    glow: "glow-cyan",
+    color: "#00F2FF",
   },
   dog: {
     iconPath: "M8 11V8a4 4 0 118 0v3m-8 0a3 3 0 00-3 3v1a2 2 0 002 2h10a2 2 0 002-2v-1a3 3 0 00-3-3m-8 0h8",
-    iconBackground: "rgba(195,192,255,0.15)",
-    iconColor: "#c3c0ff",
+    glow: "glow-purple",
+    color: "#7000FF",
   },
   brain: {
     iconPath: "M9 18h6M10 22h4M12 2a7 7 0 00-4 12.75c.64.56 1 1.38 1 2.23V17h6v-.02c0-.85.36-1.67 1-2.23A7 7 0 0012 2z",
-    iconBackground: "rgba(123,208,255,0.12)",
-    iconColor: "#7bd0ff",
+    glow: "glow-cyan",
+    color: "#00F2FF",
   },
   code: {
     iconPath: "M10.5 6h3m-7 5.5h11m-9 4h7M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z",
-    iconBackground: "rgba(195,192,255,0.12)",
-    iconColor: "#c3c0ff",
+    glow: "glow-purple",
+    color: "#7000FF",
   },
   star: {
     iconPath: "M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z",
-    iconBackground: "rgba(195,192,255,0.12)",
-    iconColor: "#c3c0ff",
+    glow: "glow-cyan",
+    color: "#00F2FF",
   },
 };
 
-const CARD_ROTATIONS = ["-rotate-1", "rotate-2", "-rotate-2", "rotate-1"];
-const CARD_OFFSETS = ["", "md:mt-8", "", "md:mt-12"];
+const STAT_GLOWS = ["glow-cyan", "glow-purple"] as const;
+const STAT_LABEL_COLORS = ["text-[#00F2FF]", "text-[#7000FF]"] as const;
 ---
 
-<section id="about" class="py-28 overflow-hidden" style="background-color: #0b1326;">
-  <div class="max-w-6xl mx-auto px-6">
-    <div class="inline-flex items-center gap-2 label-pill px-4 py-2 mb-12">
-      <span class="text-xs font-semibold tracking-widest uppercase" style="color: #c6c6cd;">About</span>
+<section id="about" class="relative py-28 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 border-l-4 border-[#7000FF] pl-8 mb-16">
+      <div class="space-y-4">
+        <span class="text-[#7000FF] font-bold uppercase tracking-[0.4em] text-xs">About</span>
+        <h2 class="text-4xl lg:text-5xl font-extrabold font-['Plus_Jakarta_Sans'] text-white tracking-tighter">
+          Sales instincts. Builder energy.
+        </h2>
+      </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 items-start mb-10">
-      <article class="relative rounded-3xl p-10 md:p-12 overflow-hidden" style="background-color: #131b2e; box-shadow: 0 8px 24px rgba(195,192,255,0.04), 0 2px 8px rgba(0,0,0,0.3);">
-        <div class="absolute -top-20 -left-14 w-44 h-44 opacity-20 organic-blob pointer-events-none" style="background: radial-gradient(circle, #c3c0ff, transparent);" aria-hidden="true" />
-        <div class="absolute -bottom-16 right-0 w-40 h-40 opacity-15 organic-blob pointer-events-none" style="background: radial-gradient(circle, #7bd0ff, transparent);" aria-hidden="true" />
+    <div class="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8 items-start mb-16">
+      {/* Main bio card */}
+      <article class="relative rounded-[2.5rem] p-10 md:p-12 glass-card overflow-hidden">
+        <div class="absolute -top-20 -left-14 w-64 h-64 bg-[#7000FF]/20 blur-[100px] rounded-full pointer-events-none" aria-hidden="true"></div>
+        <div class="absolute -bottom-20 right-0 w-64 h-64 bg-[#00F2FF]/15 blur-[100px] rounded-full pointer-events-none" aria-hidden="true"></div>
 
         <div class="relative max-w-2xl">
-          <p class="text-sm font-display font-semibold tracking-[0.18em] uppercase mb-5" style="color: #c6c6cd;">
-            Sales instincts. Builder energy.
-          </p>
-
-          <h2 class="font-display font-extrabold text-3xl md:text-4xl leading-tight tracking-tight mb-6" style="color: #dae2fd;">
+          <h2 class="font-['Plus_Jakarta_Sans'] font-extrabold text-3xl md:text-4xl leading-tight tracking-tighter mb-6 text-white">
             {about.heading}
           </h2>
 
-          <p class="text-lg leading-relaxed mb-5" style="color: #dae2fd;">{about.bio_paragraph_1}</p>
-          <p class="text-lg leading-relaxed mb-8" style="color: #c6c6cd;">{about.bio_paragraph_2}</p>
+          <p class="text-lg leading-relaxed mb-5 text-gray-300">{about.bio_paragraph_1}</p>
+          <p class="text-lg leading-relaxed mb-8 text-gray-400">{about.bio_paragraph_2}</p>
 
-          <div class="rounded-2xl p-6 md:p-7" style="background-color: #1a2236; border: 0.5px solid rgba(255,255,255,0.08);">
+          <div class="rounded-2xl p-6 md:p-7 glass-inset border border-white/5">
             <div class="flex gap-4 items-start">
-              <svg class="w-8 h-8 shrink-0 mt-1" fill="none" stroke="#c3c0ff" viewBox="0 0 24 24" aria-hidden="true">
+              <svg class="w-8 h-8 shrink-0 mt-1 glow-cyan" fill="none" stroke="#00F2FF" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 11H5a2 2 0 01-2-2V7a4 4 0 014-4h1v8zm10 0h-4V3h1a4 4 0 014 4v2a2 2 0 01-2 2z" />
               </svg>
-              <p class="text-lg leading-relaxed" style="color: #dae2fd;">{about.quote}</p>
+              <p class="text-lg leading-relaxed text-gray-200 italic">{about.quote}</p>
             </div>
           </div>
         </div>
       </article>
 
+      {/* Right sidebar */}
       <div class="space-y-6">
-        <aside class="rounded-3xl p-5 md:p-6" style="background-color: #131b2e; box-shadow: 0 8px 24px rgba(195,192,255,0.04), 0 2px 8px rgba(0,0,0,0.3);">
+        {/* Photo card */}
+        <aside class="rounded-[2rem] p-6 glass-card">
           <div class="flex items-start justify-between gap-4 mb-4">
             <div>
-              <p class="text-sm font-display font-semibold tracking-[0.18em] uppercase mb-2" style="color: #c6c6cd;">
+              <p class="text-xs font-bold tracking-[0.3em] uppercase mb-2 text-[#00F2FF]">
                 Small proof of life
               </p>
-              <p class="text-sm leading-relaxed max-w-xs" style="color: #c6c6cd;">
+              <p class="text-sm leading-relaxed max-w-xs text-gray-400">
                 Me and Barkley, in a format that feels a little more like a note pinned to the page.
               </p>
             </div>
-            <span class="text-xs font-display font-semibold tracking-[0.14em] uppercase shrink-0 mt-1" style="color: #c3c0ff;">
-              Off-screen favorites
-            </span>
           </div>
 
-          <div class="relative max-w-[240px] md:max-w-[260px] rotate-[2deg]">
-            <div class="absolute -inset-3 opacity-20 organic-blob pointer-events-none" style="background: radial-gradient(circle, #c3c0ff, transparent);" aria-hidden="true" />
-            <div class="relative rounded-[24px] overflow-hidden p-2" style="background-color: #1a2236;">
-              <div class="overflow-hidden rounded-[18px]" style="box-shadow: 0 8px 24px rgba(0,0,0,0.4);">
-                <img
-                  src={about.photo_url}
-                  alt={about.photo_alt || "Austin with Barkley"}
-                  width="512"
-                  height="768"
-                  class="w-full h-auto object-cover"
-                />
-              </div>
+          <div class="relative max-w-[260px] mx-auto rotate-[3deg] hover:rotate-0 transition-transform duration-700 group">
+            <div class="absolute -inset-3 bg-gradient-to-tr from-[#7000FF] to-[#00F2FF] opacity-20 blur-2xl group-hover:opacity-40 transition-opacity" aria-hidden="true"></div>
+            <div class="relative rounded-[24px] overflow-hidden p-2 glass-card">
+              <img
+                src={about.photo_url}
+                alt={about.photo_alt || "Austin with Barkley"}
+                width="512"
+                height="768"
+                class="w-full h-auto object-cover rounded-[18px] brightness-90 contrast-110"
+              />
             </div>
           </div>
         </aside>
 
-        <aside class="rounded-3xl p-8" style="background-color: #131b2e; box-shadow: 0 8px 24px rgba(195,192,255,0.04), 0 2px 8px rgba(0,0,0,0.3);">
-          <p class="text-sm font-display font-semibold tracking-[0.18em] uppercase mb-5" style="color: #c6c6cd;">
+        {/* Off the clock */}
+        <aside class="rounded-[2rem] p-8 glass-card">
+          <p class="text-xs font-bold tracking-[0.3em] uppercase mb-5 text-[#7000FF]">
             Off the clock
           </p>
           <ul class="space-y-5">
             {offClockNotes.map((note) => (
               <li>
-                <p class="font-display font-semibold text-sm uppercase tracking-[0.14em] mb-1" style="color: #dae2fd;">
+                <p class="font-['Plus_Jakarta_Sans'] font-bold text-sm uppercase tracking-[0.18em] mb-1 text-white">
                   {note.label}
                 </p>
-                <p class="leading-relaxed" style="color: #c6c6cd;">{note.value}</p>
+                <p class="leading-relaxed text-gray-400">{note.value}</p>
               </li>
             ))}
           </ul>
         </aside>
 
-        <aside class="rounded-3xl p-8" style="background-color: #1a2236; border: 0.5px solid rgba(255,255,255,0.08);">
-          <p class="text-sm font-display font-semibold tracking-[0.18em] uppercase mb-4" style="color: #c6c6cd;">
+        {/* Closing statement */}
+        <aside class="rounded-[2rem] p-8 glass-inset border border-white/5">
+          <p class="text-xs font-bold tracking-[0.3em] uppercase mb-4 text-[#00F2FF]">
             What people usually notice
           </p>
-          <p class="leading-relaxed" style="color: #dae2fd;">{about.closing_statement}</p>
+          <p class="leading-relaxed text-gray-200">{about.closing_statement}</p>
         </aside>
       </div>
     </div>
 
-    <div class="relative rounded-[40px] p-8 md:p-10 mb-10 overflow-hidden" style="background-color: #131b2e;">
-      <div class="absolute -top-16 left-12 w-44 h-44 opacity-15 organic-blob pointer-events-none" style="background: radial-gradient(circle, #7bd0ff, transparent);" aria-hidden="true" />
-      <div class="absolute -bottom-16 right-10 w-56 h-56 opacity-10 organic-blob pointer-events-none" style="background: radial-gradient(circle, #c3c0ff, transparent);" aria-hidden="true" />
+    {/* Personality cards */}
+    <div class="relative rounded-[3rem] p-10 md:p-12 mb-16 glass-card overflow-hidden">
+      <div class="absolute -top-20 left-20 w-96 h-96 bg-[#00F2FF]/10 blur-[120px] rounded-full pointer-events-none" aria-hidden="true"></div>
+      <div class="absolute -bottom-20 right-10 w-96 h-96 bg-[#7000FF]/10 blur-[120px] rounded-full pointer-events-none" aria-hidden="true"></div>
 
-      <div class="relative flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+      <div class="relative flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
         <div>
-          <p class="text-sm font-display font-semibold tracking-[0.18em] uppercase mb-2" style="color: #c6c6cd;">
+          <p class="text-xs font-bold tracking-[0.4em] uppercase mb-3 text-[#7000FF]">
             Things I Love
           </p>
-          <h3 class="font-display font-bold text-2xl tracking-tight" style="color: #dae2fd;">
+          <h3 class="font-['Plus_Jakarta_Sans'] font-extrabold text-2xl md:text-3xl tracking-tighter text-white">
             The personal details behind the operating system
           </h3>
         </div>
       </div>
 
       <div class="relative grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-        {personalityCards.map((card, i) => {
+        {personalityCards.map((card) => {
           const iconDef = PERSONALITY_ICON_MAP[card.icon] ?? PERSONALITY_ICON_MAP.star;
           return (
-            <article
-              class={`rounded-[28px] p-7 transition-transform duration-300 ${CARD_ROTATIONS[i % CARD_ROTATIONS.length]} ${CARD_OFFSETS[i % CARD_OFFSETS.length]}`}
-              style="background-color: #222a3d; box-shadow: 0 4px 16px rgba(0,0,0,0.3);"
-            >
-              <div class="w-12 h-12 rounded-full flex items-center justify-center mb-5" style={`background-color: ${iconDef.iconBackground};`}>
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={`color: ${iconDef.iconColor};`} aria-hidden="true">
+            <article class="staggered-item rounded-[2rem] p-7 glass-card hover:-translate-y-4 transition-all duration-500">
+              <div class="w-16 h-16 rounded-2xl glass-inset border border-white/5 flex items-center justify-center mb-5">
+                <svg class={`w-7 h-7 ${iconDef.glow}`} fill="none" stroke={iconDef.color} viewBox="0 0 24 24" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d={iconDef.iconPath} />
                 </svg>
               </div>
-              <h4 class="font-display font-bold text-lg mb-2" style="color: #dae2fd;">{card.title}</h4>
-              <p class="text-sm leading-relaxed" style="color: #c6c6cd;">{card.description}</p>
+              <h4 class="font-['Plus_Jakarta_Sans'] font-bold text-lg mb-2 text-white">{card.title}</h4>
+              <p class="text-sm leading-relaxed text-gray-400">{card.description}</p>
             </article>
           );
         })}
       </div>
     </div>
 
+    {/* Stats */}
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-      {stats.map((stat) => (
-        <div class="rounded-[32px] p-8" style="background-color: #131b2e; box-shadow: 0 8px 24px rgba(195,192,255,0.04), 0 2px 8px rgba(0,0,0,0.3);">
-          <p class="font-display font-extrabold text-4xl tracking-tight mb-3" style="color: #c3c0ff;">{stat.value}</p>
-          <p class="text-sm leading-snug" style="color: #c6c6cd;">{stat.label}</p>
-        </div>
-      ))}
+      {stats.map((stat, i) => {
+        const glow = STAT_GLOWS[i % STAT_GLOWS.length];
+        const labelColor = STAT_LABEL_COLORS[i % STAT_LABEL_COLORS.length];
+        return (
+          <div class="rounded-[2.5rem] p-10 glass-card">
+            <p class={`font-['Plus_Jakarta_Sans'] font-black text-6xl leading-none tracking-tighter mb-4 text-white ${glow}`}>
+              {stat.value}
+            </p>
+            <p class={`text-xs font-bold uppercase tracking-[0.3em] leading-snug ${labelColor}`}>
+              {stat.label}
+            </p>
+          </div>
+        );
+      })}
     </div>
   </div>
 </section>

@@ -21,21 +21,37 @@ const {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body class="min-h-full flex flex-col" style="background-color: #0b1326; color: #dae2fd;">
-    <Nav client:load />
-    <slot />
-    <footer class="py-10">
-      <div class="max-w-6xl mx-auto px-6 flex items-center justify-between">
-        <p class="text-sm" style="color: #c6c6cd;">© {new Date().getFullYear()} Austin Rehorn</p>
-        <div
-          class="w-8 h-1 rounded-full"
-          style="background: linear-gradient(90deg, #c3c0ff, #7bd0ff)"
-        />
-      </div>
-    </footer>
+  <body class="min-h-full flex flex-col bg-[#0A0B10] text-white selection:bg-[#7000FF] selection:text-white">
+    <!-- Nebula gradient layer -->
+    <div class="fixed inset-0 nebula-bg pointer-events-none z-0" aria-hidden="true"></div>
+    <!-- Stardust texture overlay -->
+    <div
+      class="fixed inset-0 opacity-30 pointer-events-none z-0"
+      style="background-image: url('https://www.transparenttextures.com/patterns/stardust.png');"
+      aria-hidden="true"
+    ></div>
+
+    <div class="relative z-10 flex flex-col min-h-full">
+      <Nav client:load />
+      <slot />
+      <footer class="relative w-full px-6 pt-32 pb-16">
+        <div class="max-w-7xl mx-auto border-t border-white/10 pt-16 flex flex-col items-center space-y-8">
+          <div class="text-2xl font-black text-white font-['Plus_Jakarta_Sans'] tracking-tighter">
+            AUSTIN<span class="bg-clip-text text-transparent bg-gradient-to-r from-[#00F2FF] to-[#7000FF]">REHORN</span>
+          </div>
+          <p class="text-gray-600 font-medium text-[10px] uppercase tracking-[0.5em] text-center max-w-sm leading-loose">
+            © {new Date().getFullYear()} Austin Rehorn. <span class="text-gray-400">Forged in the heart of the digital nebula.</span>
+          </p>
+        </div>
+      </footer>
+    </div>
   </body>
 </html>

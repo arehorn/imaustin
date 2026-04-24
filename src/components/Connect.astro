@@ -16,70 +16,76 @@ const CONTACT_ICON_PATHS: Record<string, string> = {
   location: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z",
 };
 
+const ACCENTS = [
+  { stroke: "#00F2FF", glow: "glow-cyan" },
+  { stroke: "#7000FF", glow: "glow-purple" },
+];
+
 const quoteParts = connect.quote.split("—");
 const quoteMain = quoteParts[0];
 const quoteAccent = quoteParts[1]?.trim();
 ---
 
-<section id="connect" class="py-28" style="background-color: #0b1326;">
-  <div class="max-w-6xl mx-auto px-6">
+<section id="connect" class="relative py-28">
+  <div class="max-w-7xl mx-auto px-6">
 
-    <div class="inline-flex items-center gap-2 label-pill px-4 py-2 mb-12">
-      <span class="text-xs font-semibold tracking-widest uppercase" style="color: #c6c6cd;">Let&apos;s Connect</span>
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 border-l-4 border-[#00F2FF] pl-8 mb-20">
+      <div class="space-y-4">
+        <span class="text-[#00F2FF] font-bold uppercase tracking-[0.4em] text-xs">Let&apos;s Connect</span>
+        <h2 class="text-4xl lg:text-5xl font-extrabold font-['Plus_Jakarta_Sans'] text-white tracking-tighter">
+          Start a conversation.
+        </h2>
+      </div>
     </div>
 
     <!-- Photo + quote banner -->
-    <div class="rounded-[32px] p-10 md:p-14 mb-10 flex flex-col md:flex-row gap-10 items-center" style="background-color: #131b2e; box-shadow: 0 8px 24px rgba(195,192,255,0.04), 0 2px 8px rgba(0,0,0,0.3);">
-      <div class="shrink-0">
-        <div
-          class="rounded-2xl overflow-hidden"
-          style="width: 200px; height: 240px; box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 40px rgba(195,192,255,0.08);"
-        >
+    <div class="rounded-[3rem] p-10 md:p-14 mb-10 glass-card flex flex-col md:flex-row gap-10 items-center relative overflow-hidden">
+      <div class="absolute -right-16 -top-16 w-72 h-72 bg-[#7000FF]/20 blur-[100px] rounded-full pointer-events-none" aria-hidden="true"></div>
+      <div class="absolute -left-16 -bottom-16 w-72 h-72 bg-[#00F2FF]/15 blur-[100px] rounded-full pointer-events-none" aria-hidden="true"></div>
+
+      <div class="shrink-0 relative">
+        <div class="absolute -inset-3 bg-gradient-to-tr from-[#7000FF] to-[#00F2FF] opacity-25 blur-2xl" aria-hidden="true"></div>
+        <div class="relative rounded-[1.5rem] overflow-hidden glass-card p-2" style="width: 220px; height: 260px;">
           <img
             src={connect.photo_url}
             alt={connect.photo_alt || "Austin Rehorn"}
-            width="200"
-            height="240"
-            class="w-full h-full object-cover object-top"
+            width="220"
+            height="260"
+            class="w-full h-full object-cover object-top rounded-[1.2rem] brightness-90 contrast-110"
           />
         </div>
       </div>
-      <p class="font-display font-bold text-2xl md:text-3xl leading-snug tracking-tight" style="color: #dae2fd;">
+      <p class="relative font-['Plus_Jakarta_Sans'] font-black text-2xl md:text-4xl leading-tight tracking-tighter text-white">
         {quoteMain}—{" "}
-        <span style="color: #c3c0ff;">{quoteAccent}</span>
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#00F2FF] to-[#7000FF]">{quoteAccent}</span>
       </p>
     </div>
 
     <!-- Contact items grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
-      {contactItems.map((item: ContactItem) => {
+      {contactItems.map((item: ContactItem, i: number) => {
         const iconPath = CONTACT_ICON_PATHS[item.icon_type] ?? CONTACT_ICON_PATHS.email;
+        const accent = ACCENTS[i % ACCENTS.length];
         return (
-          <div class="rounded-[32px] p-7 flex gap-5 items-center" style="background-color: #131b2e; box-shadow: 0 8px 24px rgba(195,192,255,0.04), 0 2px 8px rgba(0,0,0,0.3);">
-            <div
-              class="shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center"
-              style="background-color: rgba(195,192,255,0.1);"
-            >
-              <svg class="w-5 h-5" fill="none" stroke="#c3c0ff" viewBox="0 0 24 24">
+          <div class="rounded-[2rem] p-7 glass-card flex gap-5 items-center hover:-translate-y-1 transition-transform duration-500">
+            <div class="shrink-0 w-14 h-14 rounded-2xl glass-inset border border-white/5 flex items-center justify-center">
+              <svg class={`w-6 h-6 ${accent.glow}`} fill="none" stroke={accent.stroke} viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={iconPath} />
               </svg>
             </div>
             <div class="min-w-0">
-              <p class="text-xs font-semibold tracking-widest uppercase mb-1" style="color: #c6c6cd;">{item.label}</p>
+              <p class="text-[10px] font-bold tracking-[0.3em] uppercase mb-2 text-gray-500">{item.label}</p>
               {item.href ? (
                 <a
                   href={item.href}
                   target={item.href.startsWith("http") ? "_blank" : undefined}
                   rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  class="font-display font-semibold text-sm truncate block transition-colors duration-300"
-                  style="color: #dae2fd;"
-                  onmouseover="this.style.color='#c3c0ff'"
-                  onmouseout="this.style.color='#dae2fd'"
+                  class="font-['Plus_Jakarta_Sans'] font-bold text-sm truncate block text-white hover:text-[#00F2FF] transition-colors"
                 >
                   {item.value}
                 </a>
               ) : (
-                <p class="font-display font-semibold text-sm" style="color: #dae2fd;">{item.value}</p>
+                <p class="font-['Plus_Jakarta_Sans'] font-bold text-sm text-white">{item.value}</p>
               )}
             </div>
           </div>

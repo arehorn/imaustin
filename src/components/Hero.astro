@@ -8,53 +8,35 @@ interface Props {
 const { hero } = Astro.props;
 ---
 
-<section id="hero" class="relative min-h-screen flex items-center pt-20 overflow-hidden" style="background-color: #0b1326;">
-  <!-- Gradient blob decoration -->
-  <div
-    class="absolute top-[-10%] right-[-5%] w-[45%] h-[55%] opacity-30 organic-blob pointer-events-none"
-    style="background: linear-gradient(135deg, #c3c0ff, #0c005e); filter: blur(80px);"
-    aria-hidden="true"
-  />
-  <div
-    class="absolute bottom-[-5%] left-[-8%] w-[30%] h-[35%] opacity-20 organic-blob pointer-events-none"
-    style="background: linear-gradient(135deg, #7bd0ff, #001a27); filter: blur(60px);"
-    aria-hidden="true"
-  />
-
-  <div class="max-w-6xl mx-auto px-6 py-24 w-full">
-    <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-12 items-center">
-
-      {/* Text */}
-      <div>
-        {/* Eyebrow */}
-        <div class="inline-flex items-center gap-2 label-pill px-4 py-2 mb-8 animate-fade-in-up">
-          <span class="w-2 h-2 rounded-full inline-block" style="background-color: #c3c0ff;" />
-          <span class="text-xs font-semibold tracking-widest uppercase" style="color: #c6c6cd;">
+<section id="hero" class="relative pt-40 pb-24 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      {/* Text column */}
+      <div class="lg:col-span-7 space-y-10">
+        <div class="space-y-6">
+          <span class="inline-block px-4 py-1 rounded-full border border-[#7000FF]/30 bg-[#7000FF]/10 text-[#00F2FF] text-xs uppercase tracking-[0.3em] font-bold animate-fade-in-up">
             {hero.badge_text}
           </span>
+
+          <h1 class="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-extrabold font-['Plus_Jakarta_Sans'] leading-[1.05] tracking-tighter text-white animate-fade-in-up animation-delay-100">
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#00F2FF] to-[#7000FF]">{hero.headline}</span>
+          </h1>
         </div>
 
-        <h1
-          class="font-display font-extrabold text-4xl sm:text-5xl lg:text-[3.5rem] leading-[1.1] mb-6 animate-fade-in-up animation-delay-100"
-          style="color: #dae2fd; letter-spacing: 0.175rem;"
-        >
-          {hero.headline}
-        </h1>
-
-        <p class="text-lg leading-relaxed mb-10 max-w-lg animate-fade-in-up animation-delay-200" style="color: #c6c6cd; font-family: var(--font-body);">
+        <p class="text-lg sm:text-xl text-gray-400 max-w-2xl leading-relaxed animate-fade-in-up animation-delay-200">
           {hero.subheading}
         </p>
 
-        <div class="flex flex-wrap gap-4 mb-10 animate-fade-in-up animation-delay-300">
+        <div class="flex flex-wrap gap-4 pt-2 animate-fade-in-up animation-delay-300">
           <a
             href="#work"
-            class="btn-primary font-display font-semibold px-7 py-3.5 text-sm tracking-wide"
+            class="px-8 py-4 rounded-2xl bg-gradient-to-r from-[#7000FF] to-[#00F2FF] text-white font-black tracking-wide hover:brightness-110 transition-all transform hover:-translate-y-1 shadow-[0_0_30px_rgba(112,0,255,0.4)]"
           >
             See My Work
           </a>
           <a
             href="#connect"
-            class="btn-secondary font-display font-semibold px-7 py-3.5 text-sm tracking-wide"
+            class="px-8 py-4 rounded-2xl glass-card text-white font-bold tracking-wide hover:bg-white/10 transition-all"
           >
             Let&apos;s Connect
           </a>
@@ -62,40 +44,33 @@ const { hero } = Astro.props;
             <a
               href={hero.resume_url}
               download
-              class="btn-secondary font-display font-semibold px-7 py-3.5 text-sm tracking-wide inline-flex items-center gap-2"
+              class="px-8 py-4 rounded-2xl glass-card text-white font-bold tracking-wide hover:bg-white/10 transition-all inline-flex items-center gap-3 group"
             >
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-              Download Resume
+              <span class="material-symbols-outlined group-hover:translate-y-1 transition-transform text-[#00F2FF]">download</span>
+              Download CV
             </a>
           )}
         </div>
 
-        <p class="text-sm animate-fade-in-up animation-delay-400" style="color: #c6c6cd;">
+        <p class="text-sm text-gray-500 uppercase tracking-[0.3em] animate-fade-in-up animation-delay-400">
           {hero.cta_text}
         </p>
       </div>
 
-      {/* Headshot with ambient glow */}
-      <div class="hidden lg:flex items-center justify-center">
-        <div class="animate-float">
-          <div
-            class="rounded-full overflow-hidden"
-            style="width: 480px; height: 480px; box-shadow: 0 0 80px rgba(195,192,255,0.12), 0 0 160px rgba(195,192,255,0.06), 0 24px 48px rgba(0,0,0,0.5);"
-          >
-            <img
-              src={hero.headshot_url}
-              alt={hero.headshot_alt || "Austin Rehorn"}
-              width="480"
-              height="480"
-              class="w-full h-full object-cover object-top"
-              loading="eager"
-            />
-          </div>
+      {/* Headshot */}
+      <div class="lg:col-span-5 flex justify-center lg:justify-end">
+        <div class="relative w-full aspect-[4/5] max-w-md p-2 rounded-[2rem] glass-card rotate-3 hover:rotate-0 transition-transform duration-700 shadow-[0_0_50px_rgba(112,0,255,0.2)] group animate-float">
+          <div class="absolute -inset-4 bg-gradient-to-tr from-[#7000FF] to-[#00F2FF] opacity-20 blur-3xl group-hover:opacity-40 transition-opacity" aria-hidden="true"></div>
+          <img
+            src={hero.headshot_url}
+            alt={hero.headshot_alt || "Austin Rehorn"}
+            width="480"
+            height="600"
+            class="relative w-full h-full object-cover object-top rounded-[1.8rem] brightness-90 contrast-110"
+            loading="eager"
+          />
         </div>
       </div>
-
     </div>
   </div>
 </section>

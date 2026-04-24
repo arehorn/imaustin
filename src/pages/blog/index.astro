@@ -31,19 +31,20 @@ const posts = (rawPosts ?? []).map((p) => ({
 }));
 ---
 <Layout title="Notes & Thinking — Austin Rehorn">
-  <main class="min-h-screen pt-28 pb-20">
-    <div class="max-w-6xl mx-auto px-6">
+  <main class="relative min-h-screen pt-40 pb-20">
+    <div class="max-w-7xl mx-auto px-6">
 
-      <div class="inline-flex items-center gap-2 neu-label px-4 py-2 rounded-full mb-12">
-        <span class="text-xs font-semibold tracking-widest text-[#6B7280] uppercase">Writing</span>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 border-l-4 border-[#7000FF] pl-8 mb-16">
+        <div class="space-y-4">
+          <span class="text-[#7000FF] font-bold uppercase tracking-[0.4em] text-xs">Writing</span>
+          <h1 class="font-['Plus_Jakarta_Sans'] font-extrabold text-5xl lg:text-7xl leading-[1.05] tracking-tighter text-white">
+            Notes &amp; <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#00F2FF] to-[#7000FF]">Thinking</span>.
+          </h1>
+        </div>
       </div>
 
-      <h1 class="font-display font-extrabold text-[#3D4852] text-5xl lg:text-[3.5rem] leading-[1.0] tracking-tight mb-16">
-        Notes &amp; Thinking.
-      </h1>
-
       {posts.length === 0 ? (
-        <p class="text-[#6B7280] text-lg">Nothing published yet — check back soon.</p>
+        <p class="text-gray-400 text-lg">Nothing published yet — check back soon.</p>
       ) : (
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.map((post) => {
@@ -53,31 +54,32 @@ const posts = (rawPosts ?? []).map((p) => ({
             return (
               <a
                 href={`/blog/${post.slug}`}
-                class="neu-card rounded-[32px] bg-[#E0E5EC] p-8 flex flex-col hover:scale-[1.01] transition-transform duration-200"
+                class="rounded-[2.5rem] p-8 glass-card flex flex-col hover:-translate-y-2 transition-all duration-500 hover:border-[#00F2FF]/40 group"
               >
                 {post.cover_image_url && (
                   <div class="relative w-full h-44 rounded-2xl overflow-hidden mb-6">
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#7000FF]/20 to-[#00F2FF]/20 opacity-60 group-hover:opacity-20 transition-opacity z-10 pointer-events-none"></div>
                     <img
                       src={post.cover_image_url}
                       alt={post.cover_image_alt || post.title}
-                      class="w-full h-full object-cover"
+                      class="w-full h-full object-cover brightness-90 contrast-110"
                       loading="lazy"
                     />
                   </div>
                 )}
                 <div class="flex flex-wrap gap-2 mb-4">
                   {tags.map((tag: string) => (
-                    <span class="neu-tag px-3 py-1 rounded-full text-xs font-medium text-[#6B7280] bg-[#E0E5EC]">{tag}</span>
+                    <span class="tag-pill px-3 py-1 text-[10px] font-medium uppercase tracking-widest">{tag}</span>
                   ))}
                 </div>
-                <h2 class="font-display font-bold text-[#3D4852] text-lg tracking-tight mb-3 flex-1">
+                <h2 class="font-['Plus_Jakarta_Sans'] font-bold text-xl tracking-tighter mb-3 flex-1 text-white leading-tight">
                   {post.title}
                 </h2>
                 {post.excerpt && (
-                  <p class="text-[#6B7280] text-sm leading-relaxed mb-4">{post.excerpt}</p>
+                  <p class="text-gray-400 text-sm leading-relaxed mb-4">{post.excerpt}</p>
                 )}
                 {post.published_date && (
-                  <p class="text-xs text-[#9CA3AF] mt-auto">
+                  <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-[#00F2FF] mt-auto">
                     {new Date(post.published_date).toLocaleDateString("en-US", {
                       month: "long",
                       day: "numeric",
