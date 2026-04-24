@@ -198,6 +198,48 @@ function roleCard(role: ExperienceRole, accentIndex: number) {
       })}
     </div>
 
+    <!-- Education -->
+    <div class="relative">
+      <!-- Timeline extension line (desktop) -->
+      <div
+        class="hidden lg:block absolute left-1/2 -translate-x-px top-0 h-16 w-px"
+        style="background: linear-gradient(to bottom, rgba(112,0,255,0.3), rgba(0,242,255,0.4))"
+      />
+      <!-- Timeline dot (desktop) -->
+      <div class="hidden lg:flex absolute left-1/2 -translate-x-1/2 top-16 z-10 items-center justify-center">
+        <div
+          class="w-4 h-4 rounded-full bg-[#0A0B10]"
+          style="box-shadow: 0 0 0 3px rgba(0,242,255,0.4), 0 0 16px rgba(112,0,255,0.5);"
+        />
+      </div>
+
+      <!-- Education card -->
+      <div class="pt-10 lg:pt-24 max-w-2xl mx-auto">
+        <div class="rounded-[2rem] p-8 glass-card hover:-translate-y-1 transition-transform duration-500">
+          <span class="text-[#00F2FF] font-bold uppercase tracking-[0.4em] text-xs block mb-5">Education</span>
+          <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+            <img
+              src="/citadel-logo.png"
+              alt="The Citadel, Military College of South Carolina"
+              class="h-12 w-auto object-contain opacity-90 shrink-0"
+            />
+            <div>
+              <p class="font-['Plus_Jakarta_Sans'] font-bold text-lg leading-snug text-white">
+                The Citadel, Military College of South Carolina
+              </p>
+              <p class="text-xs font-bold tracking-[0.22em] uppercase mt-1 text-[#00F2FF]">
+                Bachelor of Arts, Political Science &amp; Law
+              </p>
+              <div class="mt-4 flex flex-wrap items-center gap-2">
+                <span class="tag-pill text-xs font-medium px-3 py-1 uppercase tracking-wider">May 2011</span>
+                <span class="text-xs text-gray-500">Charleston, SC</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- CTA Banner -->
     <div class="mt-20 rounded-[3rem] glass-card overflow-hidden relative">
       <div class="absolute -right-20 -top-20 w-96 h-96 bg-[#7000FF]/20 blur-[120px] rounded-full pointer-events-none" aria-hidden="true"></div>
