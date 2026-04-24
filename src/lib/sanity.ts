@@ -18,10 +18,6 @@ const dataset =
 
 const builder = imageUrlBuilder({ projectId, dataset });
 
-export function urlFor(source: SanityImageSource) {
-  return builder.image(source);
-}
-
 /** Safe URL string for an image with optional dimensions. Returns empty string if no source. */
 export function imageUrl(
   source: SanityImageSource | undefined | null,
