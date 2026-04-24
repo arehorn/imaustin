@@ -114,7 +114,7 @@ const serviceColumns: ServiceColumn[] = (serviceColumnsRaw ?? []).map((c: any) =
 const projects: ProjectItem[] = (projectsRaw ?? []).map((p: any) => {
   let tags: string[] = [];
   if (Array.isArray(p.tags)) {
-    tags = p.tags.map((t: any) => String(t).trim()).filter(Boolean);
+    tags = p.tags;
   } else if (typeof p.tags === "string") {
     tags = p.tags.split(",").map((t: string) => t.trim()).filter(Boolean);
   }
