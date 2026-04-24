@@ -85,14 +85,6 @@ export interface AboutData {
   photo_alt: string;
 }
 
-export interface WhatIDoData {
-  columns: ServiceColumn[];
-}
-
-export interface ProjectsData {
-  projects: ProjectItem[];
-}
-
 export interface ExperienceData {
   id: string;
   section_heading: string;
@@ -113,16 +105,3 @@ export interface ConnectData {
   contact_items: ContactItem[];
 }
 
-// ── Blog ──────────────────────────────────────────────────────────────────────
-
-export interface BlogPostData {
-  id: string;
-  slug: string;
-  title: string;
-  excerpt: string;
-  published_date: string;
-  tags: string; // comma-separated
-  cover_image_url: string;
-  cover_image_alt: string;
-  body: unknown; // Portable Text document
-}
