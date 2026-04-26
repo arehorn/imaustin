@@ -21,10 +21,31 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
+  if (!body) {
+    return new Response(JSON.stringify({ error: "All fields are required." }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
   const { name, email, message } = body;
 
   if (!name || !email || !message) {
     return new Response(JSON.stringify({ error: "All fields are required." }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  if (typeof name !== "string" || typeof email !== "string" || typeof message !== "string") {
+    return new Response(JSON.stringify({ error: "Invalid data types." }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  if (name.length > 100 || email.length > 254 || message.length > 5000) {
+    return new Response(JSON.stringify({ error: "Input exceeds maximum length." }), {
       status: 400,
       headers: { "Content-Type": "application/json" },
     });

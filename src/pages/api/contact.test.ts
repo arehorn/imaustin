@@ -21,6 +21,18 @@ describe('POST /api/contact', () => {
     });
   };
 
+  it('should return 400 for empty body', async () => {
+    const request = new Request('http://localhost:4321/api/contact', {
+      method: 'POST',
+      body: 'null',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const response = await POST({ request } as any);
+    expect(response.status).toBe(400);
+    const data = await response.json();
+    expect(data).toEqual({ error: 'All fields are required.' });
+  });
+
   it('should return 400 for invalid JSON', async () => {
     const request = new Request('http://localhost:4321/api/contact', {
       method: 'POST',
@@ -32,6 +44,22 @@ describe('POST /api/contact', () => {
     expect(response.status).toBe(400);
     const data = await response.json();
     expect(data).toEqual({ error: 'Invalid JSON.' });
+  });
+
+  it('should return 400 for non-string types', async () => {
+    const request = createRequest({ name: 123, email: 'test@example.com', message: 'Hello' });
+    const response = await POST({ request } as any);
+    expect(response.status).toBe(400);
+    const data = await response.json();
+    expect(data).toEqual({ error: 'Invalid data types.' });
+  });
+
+  it('should return 400 for inputs exceeding maximum length', async () => {
+    const request = createRequest({ name: 'A'.repeat(101), email: 'test@example.com', message: 'Hello' });
+    const response = await POST({ request } as any);
+    expect(response.status).toBe(400);
+    const data = await response.json();
+    expect(data).toEqual({ error: 'Input exceeds maximum length.' });
   });
 
   it('should return 400 if name is missing', async () => {
