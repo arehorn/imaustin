@@ -1,15 +1,3 @@
-# 🧪 Test ContactForm Component
-
-## 🎯 What
-Added missing test coverage for the `ContactForm` component (`src/components/ContactForm.tsx`).
-
-## 📊 Coverage
-The new tests cover the following scenarios:
-* Default rendering (idle state)
-* Successful form submission (`fetch` call mocked, success message displayed, fields reset on "Send another" click)
-* Failed form submission (API error handled correctly, error message shown)
-* Failed form submission (Network error handled correctly, error message shown)
-* Loading state (Submit button is disabled and displays "Sending..." while processing)
-
-## ✨ Result
-Increased confidence when refactoring by covering happy paths, edge cases, and loading states for user input and submission rendering.
+💡 What: Added a loading spinner to the ContactForm submit button and ARIA attributes for the success/error states.
+🎯 Why: Enhances UX by providing immediate visual feedback during form submission and improves accessibility by ensuring screen readers announce success and error states.
+♿ Accessibility: Added `role="status"` and `aria-live="polite"` to the success message, and `role="alert"` to the error message.
