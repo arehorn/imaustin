@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "astro-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeExecutable": "/Users/austin/Projects/austinrehorn-site-v2/.claude/start-dev.sh",
+      "runtimeArgs": [],
       "port": 4321
     }
   ]

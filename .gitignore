@@ -5,5 +5,3 @@ dist/
 .env.local
 .dev.vars
 scripts/storyblok-export.json
-.vercel/
-.astro/

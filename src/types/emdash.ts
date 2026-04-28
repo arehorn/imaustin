@@ -50,7 +50,7 @@ export interface ExperienceRole {
   era: string;
   side: "left" | "right";
   icon_type: ExperienceIconType;
-  highlights: string | string[];
+  highlights: string;
 }
 
 export interface ContactItem {

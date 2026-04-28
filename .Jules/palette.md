@@ -1,3 +1,0 @@
-## 2026-04-26 - ContactForm accessibility & UX polish
-**Learning:** Error and success states within React forms must explicitly define ARIA roles (`role="alert"`, `role="status" aria-live="polite"`) to be correctly announced by screen readers, particularly when rendering is conditional. Form buttons need clear visual indicators (like spinners) instead of just text changes ("Sending...") to reduce cognitive load and avoid multiple submissions.
-**Action:** Always include a visual loading indicator (e.g., SVG spinner) alongside text changes on async form submissions. Ensure conditional feedback messages always include the appropriate `role` attributes for accessibility.
