@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { POST } from './revalidate';
+import { POST } from '../../src/pages/api/revalidate';
 
 describe('POST /api/revalidate', () => {
   beforeEach(() => {

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { POST } from './contact';
+import { POST } from '../../src/pages/api/contact';
 
 // Mock the global fetch function
 global.fetch = vi.fn();
