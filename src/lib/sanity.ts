@@ -16,7 +16,7 @@ const dataset =
   process.env.PUBLIC_SANITY_DATASET ||
   "production";
 
-const builder = imageUrlBuilder({ projectId, dataset });
+const builder = createImageUrlBuilder({ projectId, dataset });
 
 /** Safe URL string for an image with optional dimensions. Returns empty string if no source. */
 export function imageUrl(
