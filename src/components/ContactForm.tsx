@@ -48,7 +48,7 @@ export default function ContactForm() {
       </h3>
 
       {formState === "success" ? (
-        <div className="relative rounded-2xl p-8 text-center glass-inset border border-white/10">
+        <div className="relative rounded-2xl p-8 text-center glass-inset border border-white/10" role="status" aria-live="polite">
           <div
             className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center glass-inset border border-white/10"
             style={{ boxShadow: "0 0 24px rgba(0,242,255,0.3)" }}
@@ -118,7 +118,7 @@ export default function ContactForm() {
           </div>
 
           {formState === "error" && (
-            <p className="text-sm mb-5 text-[#ff8080]">
+            <p className="text-sm mb-5 text-[#ff8080]" role="alert">
               Something went wrong. Try emailing me directly at rehorna1@gmail.com.
             </p>
           )}
@@ -128,7 +128,17 @@ export default function ContactForm() {
             disabled={formState === "loading"}
             className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#7000FF] to-[#00F2FF] text-white font-black tracking-wide shadow-[0_0_30px_rgba(112,0,255,0.4)] hover:brightness-110 transition-all transform hover:-translate-y-1 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
           >
-            {formState === "loading" ? "Sending…" : "Send Message"}
+            {formState === "loading" ? (
+              <>
+                <svg className="animate-spin -ml-1 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Sending…
+              </>
+            ) : (
+              "Send Message"
+            )}
           </button>
         </form>
       )}

@@ -114,7 +114,7 @@ const serviceColumns: ServiceColumn[] = (serviceColumnsRaw ?? []).map((c: any) =
 const projects: ProjectItem[] = (projectsRaw ?? []).map((p: any) => {
   let tags: string[] = [];
   if (Array.isArray(p.tags)) {
-    tags = p.tags.map((t: any) => String(t).trim()).filter(Boolean);
+    tags = p.tags;
   } else if (typeof p.tags === "string") {
     tags = p.tags.split(",").map((t: string) => t.trim()).filter(Boolean);
   }
@@ -136,7 +136,7 @@ const experienceRoles: ExperienceRole[] = (experienceRolesRaw ?? []).map((r: any
   era: r.era ?? "",
   side: (r.side ?? "left") as "left" | "right",
   icon_type: r.iconType ?? "briefcase",
-  highlights: Array.isArray(r.highlights) ? r.highlights.join("\n") : (r.highlights ?? ""),
+  highlights: r.highlights ?? [],
 }));
 
 const experienceStats: StatItem[] = (experienceStatsRaw ?? []).map((s: any) => ({
