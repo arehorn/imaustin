@@ -24,8 +24,16 @@ const posts = (rawPosts ?? []).map((p) => ({
   slug: p.slug,
   title: p.title,
   excerpt: p.excerpt ?? "",
-  published_date: p.publishedDate ?? "",
-  tags: Array.isArray(p.tags) ? p.tags.join(",") : "",
+  published_date: p.publishedDate
+    ? new Date(p.publishedDate).toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "",
+  tags: Array.isArray(p.tags)
+    ? [...new Set(p.tags.map((t: string) => t.trim()).filter(Boolean))]
+    : [],
   cover_image_url: imageUrl(p.coverImage as any, { width: 800, quality: 85 }),
   cover_image_alt: p.coverImageAlt ?? p.title,
 }));
@@ -47,11 +55,7 @@ const posts = (rawPosts ?? []).map((p) => ({
         <p class="text-gray-400 text-lg">Nothing published yet — check back soon.</p>
       ) : (
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post) => {
-            const tags = post.tags
-              ? [...new Set(post.tags.split(",").map((t: string) => t.trim()).filter(Boolean))]
-              : [];
-            return (
+          {posts.map((post) => (
               <a
                 href={`/blog/${post.slug}`}
                 class="rounded-[2.5rem] p-8 glass-card flex flex-col hover:-translate-y-2 transition-all duration-500 hover:border-[#00F2FF]/40 group"
@@ -68,7 +72,7 @@ const posts = (rawPosts ?? []).map((p) => ({
                   </div>
                 )}
                 <div class="flex flex-wrap gap-2 mb-4">
-                  {tags.map((tag: string) => (
+                  {post.tags.map((tag: string) => (
                     <span class="tag-pill px-3 py-1 text-[10px] font-medium uppercase tracking-widest">{tag}</span>
                   ))}
                 </div>
@@ -80,16 +84,11 @@ const posts = (rawPosts ?? []).map((p) => ({
                 )}
                 {post.published_date && (
                   <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-[#00F2FF] mt-auto">
-                    {new Date(post.published_date).toLocaleDateString("en-US", {
-                      month: "long",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
+                    {post.published_date}
                   </p>
                 )}
               </a>
-            );
-          })}
+          ))}
         </div>
       )}
 
