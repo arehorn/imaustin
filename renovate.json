@@ -2,5 +2,12 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": ["vite"],
+      "allowedVersions": "<8.0.0",
+      "description": "Vite 8 + Rolldown fails on Vercel (PluginContextImpl.generateBundle 'Not implemented')"
+    }
   ]
 }
