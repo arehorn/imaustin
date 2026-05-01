@@ -1,6 +1,7 @@
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
+import { assist } from "@sanity/assist";
 import { schemaTypes, singletonTypes } from "./sanity/schemas";
 
 // These must also be exposed in the Astro integration config in astro.config.mjs.
@@ -57,6 +58,7 @@ export default defineConfig({
           ]),
     }),
     visionTool(),
+    assist(),
   ],
 
   schema: {
