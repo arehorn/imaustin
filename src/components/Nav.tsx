@@ -30,8 +30,8 @@ export default function Nav() {
             href={link.href}
             className={
               i === 0
-                ? "text-[#00F2FF] font-bold relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-0.5 after:bg-[#00F2FF] glow-cyan text-sm uppercase tracking-widest"
-                : "text-gray-400 hover:text-white transition-colors font-medium text-sm uppercase tracking-widest"
+                ? "text-[#00F2FF] font-bold relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-0.5 after:bg-[#00F2FF] glow-cyan text-sm uppercase tracking-widest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F2FF] rounded"
+                : "text-gray-400 hover:text-white transition-colors font-medium text-sm uppercase tracking-widest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F2FF] rounded"
             }
           >
             {link.label}
@@ -42,19 +42,19 @@ export default function Nav() {
       {/* Desktop CTA */}
       <a
         href="#connect"
-        className="hidden sm:inline-flex bg-gradient-to-r from-[#7000FF] to-[#00F2FF] text-white font-bold px-5 lg:px-6 py-2 rounded-full hover:brightness-110 transition-all shadow-[0_0_20px_rgba(112,0,255,0.4)] text-xs lg:text-sm"
+        className="hidden sm:inline-flex bg-gradient-to-r from-[#7000FF] to-[#00F2FF] text-white font-bold px-5 lg:px-6 py-2 rounded-full hover:brightness-110 transition-all shadow-[0_0_20px_rgba(112,0,255,0.4)] text-xs lg:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F2FF]"
       >
         Work Together
       </a>
 
       {/* Mobile hamburger */}
       <button
-        className="md:hidden p-2 rounded-full text-gray-300 hover:text-white transition-colors"
+        className="md:hidden p-2 rounded-full text-gray-300 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F2FF]"
         onClick={() => setMenuOpen(!menuOpen)}
         aria-label="Toggle menu"
         aria-expanded={menuOpen}
       >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           {menuOpen ? (
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           ) : (
@@ -71,7 +71,7 @@ export default function Nav() {
               key={link.label}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="px-3 py-2 text-sm font-medium uppercase tracking-widest text-gray-300 hover:text-[#00F2FF] transition-colors"
+              className="px-3 py-2 text-sm font-medium uppercase tracking-widest text-gray-300 hover:text-[#00F2FF] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F2FF] rounded"
             >
               {link.label}
             </a>
@@ -79,7 +79,7 @@ export default function Nav() {
           <a
             href="#connect"
             onClick={() => setMenuOpen(false)}
-            className="mt-2 bg-gradient-to-r from-[#7000FF] to-[#00F2FF] text-white font-bold text-center px-5 py-2.5 rounded-full text-sm"
+            className="mt-2 bg-gradient-to-r from-[#7000FF] to-[#00F2FF] text-white font-bold text-center px-5 py-2.5 rounded-full text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F2FF]"
           >
             Work Together
           </a>

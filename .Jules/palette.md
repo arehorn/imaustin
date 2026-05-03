@@ -1,3 +1,6 @@
 ## 2026-04-26 - ContactForm accessibility & UX polish
 **Learning:** Error and success states within React forms must explicitly define ARIA roles (`role="alert"`, `role="status" aria-live="polite"`) to be correctly announced by screen readers, particularly when rendering is conditional. Form buttons need clear visual indicators (like spinners) instead of just text changes ("Sending...") to reduce cognitive load and avoid multiple submissions.
 **Action:** Always include a visual loading indicator (e.g., SVG spinner) alongside text changes on async form submissions. Ensure conditional feedback messages always include the appropriate `role` attributes for accessibility.
+## 2024-05-24 - Accessibility and Keyboard Navigation
+**Learning:** Added a "Skip to main content" link and visible focus states across interactive elements. Keyboard users need clear visual indicators when navigating, and allowing them to skip repetitive navigation significantly improves the experience. The "Skip to main content" pattern using `sr-only focus:not-sr-only` is highly effective.
+**Action:** Always include a "Skip to main content" link in layouts and use `focus-visible` utilities to ensure interactive elements are clearly discernible when focused via keyboard.
