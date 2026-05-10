@@ -11,13 +11,50 @@ describe('POST /api/revalidate', () => {
     }
   });
 
-  it('returns 500 if secret is not configured', async () => {
+  it('returns 413 if payload is too large', async () => {
+    const request = new Request('http://localhost/api/revalidate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': '102401'
+      },
+      body: JSON.stringify({}),
+    });
+
+    // @ts-ignore
+    const response = await POST({ request });
+
+    expect(response.status).toBe(413);
+    const data = await response.json();
+    expect(data).toEqual({ ok: false, error: "payload too large" });
+  });
+
+  it('returns 411 if Content-Length header is missing', async () => {
     const request = new Request('http://localhost/api/revalidate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({}),
+    });
+
+    // @ts-ignore
+    const response = await POST({ request });
+
+    expect(response.status).toBe(411);
+    const data = await response.json();
+    expect(data).toEqual({ ok: false, error: "length required" });
+  });
+
+  it('returns 500 if secret is not configured', async () => {
+    const json = JSON.stringify({});
+    const request = new Request('http://localhost/api/revalidate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': String(new TextEncoder().encode(json).length)
+      },
+      body: json,
     });
 
     // @ts-ignore
@@ -31,13 +68,15 @@ describe('POST /api/revalidate', () => {
   it('returns 401 if secret is invalid', async () => {
     process.env.SANITY_REVALIDATE_SECRET = 'my-secret';
 
+    const json = JSON.stringify({});
     const request = new Request('http://localhost/api/revalidate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-sanity-signature': 'wrong-secret'
+        'x-sanity-signature': 'wrong-secret',
+        'Content-Length': String(new TextEncoder().encode(json).length)
       },
-      body: JSON.stringify({}),
+      body: json,
     });
 
     // @ts-ignore
@@ -51,13 +90,15 @@ describe('POST /api/revalidate', () => {
   it('returns 200 if secret is valid in header', async () => {
     process.env.SANITY_REVALIDATE_SECRET = 'my-secret';
 
+    const json = JSON.stringify({ some: 'data' });
     const request = new Request('http://localhost/api/revalidate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-sanity-signature': 'my-secret'
+        'x-sanity-signature': 'my-secret',
+        'Content-Length': String(new TextEncoder().encode(json).length)
       },
-      body: JSON.stringify({ some: 'data' }),
+      body: json,
     });
 
     // @ts-ignore
@@ -72,12 +113,14 @@ describe('POST /api/revalidate', () => {
   it('returns 200 if secret is valid in body', async () => {
     process.env.SANITY_REVALIDATE_SECRET = 'my-secret';
 
+    const json = JSON.stringify({ secret: 'my-secret', some: 'data' });
     const request = new Request('http://localhost/api/revalidate', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Content-Length': String(new TextEncoder().encode(json).length)
       },
-      body: JSON.stringify({ secret: 'my-secret', some: 'data' }),
+      body: json,
     });
 
     // @ts-ignore
