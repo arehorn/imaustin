@@ -3,6 +3,21 @@ import type { APIRoute } from "astro";
 import { renderContactEmail } from "../../lib/email";
 
 export const POST: APIRoute = async ({ request }) => {
+
+  const contentLength = request.headers.get("content-length");
+  if (!contentLength) {
+    return new Response(JSON.stringify({ error: "Length Required" }), {
+      status: 411,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+  if (parseInt(contentLength, 10) > 102400) {
+    return new Response(JSON.stringify({ error: "Payload Too Large" }), {
+      status: 413,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
   let body: { name?: string; email?: string; message?: string };
   try {
     body = await request.json();

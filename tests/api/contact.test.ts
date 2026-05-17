@@ -12,20 +12,60 @@ describe('POST /api/contact', () => {
   });
 
   const createRequest = (body: any) => {
+    const bodyString = JSON.stringify(body);
     return new Request('http://localhost:4321/api/contact', {
       method: 'POST',
-      body: JSON.stringify(body),
+      body: bodyString,
       headers: {
         'Content-Type': 'application/json',
+        'Content-Length': String(new TextEncoder().encode(bodyString).length),
       },
     });
   };
+
+
+  it('should return 411 if Content-Length is missing', async () => {
+    const request = new Request('http://localhost:4321/api/contact', {
+      method: 'POST',
+      body: '{}',
+      headers: { 'Content-Type': 'application/json' }, // No Content-Length
+    });
+    // The Request constructor in Vitest might auto-add Content-Length,
+    // so we mock headers.get to simulate it missing
+    const mockedRequest = {
+      ...request,
+      headers: {
+        get: (key: string) => key.toLowerCase() === 'content-length' ? null : request.headers.get(key)
+      },
+      json: request.json.bind(request)
+    } as any;
+
+    const response = await POST({ request: mockedRequest } as any);
+    expect(response.status).toBe(411);
+    const data = await response.json();
+    expect(data).toEqual({ error: 'Length Required' });
+  });
+
+  it('should return 413 if Content-Length exceeds 100KB', async () => {
+    const request = new Request('http://localhost:4321/api/contact', {
+      method: 'POST',
+      body: '{}',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': '102401' // Exceeds 100KB
+      },
+    });
+    const response = await POST({ request } as any);
+    expect(response.status).toBe(413);
+    const data = await response.json();
+    expect(data).toEqual({ error: 'Payload Too Large' });
+  });
 
   it('should return 400 for empty body', async () => {
     const request = new Request('http://localhost:4321/api/contact', {
       method: 'POST',
       body: 'null',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Content-Length': '4' },
     });
     const response = await POST({ request } as any);
     expect(response.status).toBe(400);
@@ -37,7 +77,7 @@ describe('POST /api/contact', () => {
     const request = new Request('http://localhost:4321/api/contact', {
       method: 'POST',
       body: '{ invalid json ',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Content-Length': '15' },
     });
 
     const response = await POST({ request } as any);
