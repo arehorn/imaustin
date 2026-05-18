@@ -4,3 +4,7 @@
 ## 2024-05-24 - Accessibility and Keyboard Navigation
 **Learning:** Added a "Skip to main content" link and visible focus states across interactive elements. Keyboard users need clear visual indicators when navigating, and allowing them to skip repetitive navigation significantly improves the experience. The "Skip to main content" pattern using `sr-only focus:not-sr-only` is highly effective.
 **Action:** Always include a "Skip to main content" link in layouts and use `focus-visible` utilities to ensure interactive elements are clearly discernible when focused via keyboard.
+
+## 2024-05-24 - [Focus States & Native Validation]
+**Learning:** Found that using explicit Tailwind `focus-visible` utilities (e.g., `focus-visible:ring-2 focus-visible:ring-[#00F2FF]`) provides a much better keyboard navigation experience than default browser outlines, aligning perfectly with standard accessibility patterns. Additionally, removing `noValidate` from forms allows users to benefit from immediate, native inline browser validation before JavaScript even kicks in.
+**Action:** Always verify keyboard focus states (`tab` key) and prefer native HTML5 validation constraints along with `focus-visible` styling for interactive elements (links and buttons) to ensure consistent and obvious accessibility cues across the application.
