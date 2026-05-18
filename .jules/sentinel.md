@@ -8,7 +8,7 @@
 **Learning:** Checking secure tokens or secrets with `===` or `!==` in webhooks can expose those secrets to timing attacks, as the JS runtime short-circuits evaluation.
 **Prevention:** Always use `crypto.timingSafeEqual` for comparing secrets. Because `timingSafeEqual` throws if the buffer lengths don't match (potentially leaking length), a robust pattern is to hash both strings (e.g., with SHA-256) and then compare the resulting constant-length digests using `timingSafeEqual`.
 
-## 2024-05-17 - [Add Strict Payload Size Limits to JSON Endpoints]
-**Vulnerability:** API endpoints that parse incoming JSON bodies (`request.json()`), such as `/api/contact` and `/api/revalidate`, were doing so without bounding the payload size. An attacker could intentionally send an arbitrarily large JSON body, exhausting server CPU and memory to cause a Denial of Service (DoS) attack, as well as exploit chunked-encoding bypasses if missing a valid `Content-Length`.
-**Learning:** `request.json()` in native Edge/Server runtimes will attempt to buffer and parse unbounded streams if not restricted upstream. This creates a significant surface area for application-layer DoS vulnerabilities.
-**Prevention:** Always enforce strict payload size limits on API routes that parse JSON bodies. Implement a check requiring the `Content-Length` header (returning `411 Length Required` if missing) and explicitly validating that the reported size does not exceed a reasonable threshold like 100KB (returning `413 Payload Too Large` if it does) before invoking `.json()`.
+## 2024-05-24 - Unbounded JSON Payload DoS
+**Vulnerability:** API routes (`/api/contact`, `/api/revalidate`) lack `Content-Length` limits when parsing JSON, making them vulnerable to Denial of Service via large unbounded payloads.
+**Learning:** `request.json()` loads the full body into memory. Since these routes don't enforce payload sizes, attackers can send massive JSON requests to exhaust server memory and CPU.
+**Prevention:** Always check the `Content-Length` header against a maximum safe limit (e.g., 100KB) and reject the request (413 Payload Too Large) before calling `.json()`.

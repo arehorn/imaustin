@@ -5,6 +5,24 @@ import { POST } from '../../src/pages/api/contact';
 global.fetch = vi.fn();
 
 describe('POST /api/contact', () => {
+  it('returns 413 if payload is too large', async () => {
+    const request = new Request('http://localhost/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': '102401'
+      },
+      body: JSON.stringify({}),
+    });
+
+    // @ts-ignore
+    const response = await POST({ request });
+
+    expect(response.status).toBe(413);
+    const data = await response.json();
+    expect(data).toEqual({ error: "Payload too large." });
+  });
+
   beforeEach(() => {
     vi.resetAllMocks();
     // Set a mock environment variable for RESEND_API_KEY
@@ -12,53 +30,32 @@ describe('POST /api/contact', () => {
   });
 
   const createRequest = (body: any) => {
-    const bodyString = JSON.stringify(body);
+    const json = JSON.stringify(body);
     return new Request('http://localhost:4321/api/contact', {
       method: 'POST',
-      body: bodyString,
+      body: json,
       headers: {
         'Content-Type': 'application/json',
-        'Content-Length': String(new TextEncoder().encode(bodyString).length),
+        'Content-Length': String(new TextEncoder().encode(json).length)
       },
     });
   };
 
-
-  it('should return 411 if Content-Length is missing', async () => {
-    const request = new Request('http://localhost:4321/api/contact', {
+  it('returns 411 if Content-Length header is missing', async () => {
+    const request = new Request('http://localhost/api/contact', {
       method: 'POST',
-      body: '{}',
-      headers: { 'Content-Type': 'application/json' }, // No Content-Length
-    });
-    // The Request constructor in Vitest might auto-add Content-Length,
-    // so we mock headers.get to simulate it missing
-    const mockedRequest = {
-      ...request,
       headers: {
-        get: (key: string) => key.toLowerCase() === 'content-length' ? null : request.headers.get(key)
+        'Content-Type': 'application/json'
       },
-      json: request.json.bind(request)
-    } as any;
+      body: JSON.stringify({ name: 'Test' }),
+    });
 
-    const response = await POST({ request: mockedRequest } as any);
+    // @ts-ignore
+    const response = await POST({ request });
+
     expect(response.status).toBe(411);
     const data = await response.json();
-    expect(data).toEqual({ error: 'Length Required' });
-  });
-
-  it('should return 413 if Content-Length exceeds 100KB', async () => {
-    const request = new Request('http://localhost:4321/api/contact', {
-      method: 'POST',
-      body: '{}',
-      headers: {
-        'Content-Type': 'application/json',
-        'Content-Length': '102401' // Exceeds 100KB
-      },
-    });
-    const response = await POST({ request } as any);
-    expect(response.status).toBe(413);
-    const data = await response.json();
-    expect(data).toEqual({ error: 'Payload Too Large' });
+    expect(data).toEqual({ error: "Content-Length header required." });
   });
 
   it('should return 400 for empty body', async () => {
@@ -74,10 +71,14 @@ describe('POST /api/contact', () => {
   });
 
   it('should return 400 for invalid JSON', async () => {
+    const body = '{ invalid json ';
     const request = new Request('http://localhost:4321/api/contact', {
       method: 'POST',
-      body: '{ invalid json ',
-      headers: { 'Content-Type': 'application/json', 'Content-Length': '15' },
+      body,
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': String(new TextEncoder().encode(body).length)
+      },
     });
 
     const response = await POST({ request } as any);
@@ -100,6 +101,21 @@ describe('POST /api/contact', () => {
     expect(response.status).toBe(400);
     const data = await response.json();
     expect(data).toEqual({ error: 'Input exceeds maximum length.' });
+  });
+
+  it('should return 413 if payload is too large', async () => {
+    const request = new Request('http://localhost:4321/api/contact', {
+      method: 'POST',
+      body: JSON.stringify({ name: 'a'.repeat(1024 * 101) }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': (1024 * 101).toString(),
+      },
+    });
+    const response = await POST({ request } as any);
+    expect(response.status).toBe(413);
+    const data = await response.json();
+    expect(data).toEqual({ error: 'Payload too large.' });
   });
 
   it('should return 400 if name is missing', async () => {
