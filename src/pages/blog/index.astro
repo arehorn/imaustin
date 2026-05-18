@@ -2,6 +2,7 @@
 import { sanityClient } from "sanity:client";
 import Layout from "../../layouts/Layout.astro";
 import { imageUrl } from "../../lib/sanity";
+import { formatTags } from "../../lib/utils";
 import { BLOG_LIST_QUERY } from "../../lib/queries";
 
 const client = sanityClient;
@@ -31,9 +32,7 @@ const posts = (rawPosts ?? []).map((p) => ({
         year: "numeric",
       })
     : "",
-  tags: Array.isArray(p.tags)
-    ? [...new Set(p.tags.map((t: string) => t.trim()).filter(Boolean))]
-    : [],
+  tags: formatTags(p.tags),
   cover_image_url: imageUrl(p.coverImage as any, { width: 800, quality: 85 }),
   cover_image_alt: p.coverImageAlt ?? p.title,
 }));
