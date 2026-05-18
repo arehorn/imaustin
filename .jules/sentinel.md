@@ -8,7 +8,7 @@
 **Learning:** Checking secure tokens or secrets with `===` or `!==` in webhooks can expose those secrets to timing attacks, as the JS runtime short-circuits evaluation.
 **Prevention:** Always use `crypto.timingSafeEqual` for comparing secrets. Because `timingSafeEqual` throws if the buffer lengths don't match (potentially leaking length), a robust pattern is to hash both strings (e.g., with SHA-256) and then compare the resulting constant-length digests using `timingSafeEqual`.
 
-## 2025-05-15 - [Fix Unbounded Request Body Parsing in /api/contact and /api/revalidate]
-**Vulnerability:** The `/api/contact` and `/api/revalidate` endpoints did not enforce a maximum payload size before parsing the request body as JSON. This could allow an attacker to send extremely large payloads, potentially causing a Denial of Service (DoS) by exhausting server memory.
-**Learning:** Even with individual field length validation, parsing a large JSON body into memory can be a resource exhaustion vector.
-**Prevention:** Always enforce a global request body size limit at the infrastructure level or at the beginning of the request handler by checking the `Content-Length` header (or by using a streaming parser with a limit) before reading the entire body into memory.
+## 2024-05-24 - Unbounded JSON Payload DoS
+**Vulnerability:** API routes (`/api/contact`, `/api/revalidate`) lack `Content-Length` limits when parsing JSON, making them vulnerable to Denial of Service via large unbounded payloads.
+**Learning:** `request.json()` loads the full body into memory. Since these routes don't enforce payload sizes, attackers can send massive JSON requests to exhaust server memory and CPU.
+**Prevention:** Always check the `Content-Length` header against a maximum safe limit (e.g., 100KB) and reject the request (413 Payload Too Large) before calling `.json()`.

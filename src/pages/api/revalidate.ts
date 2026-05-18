@@ -29,9 +29,16 @@ function secureCompare(a: string | undefined, b: string | undefined): boolean {
 }
 
 export const POST: APIRoute = async ({ request }) => {
-  const MAX_BODY_SIZE = 100 * 1024; // 100KB
-  const contentLength = request.headers.get("content-length");
-  if (contentLength && parseInt(contentLength, 10) > MAX_BODY_SIZE) {
+  const contentLengthHeader = request.headers.get("content-length");
+  if (!contentLengthHeader) {
+    return new Response(JSON.stringify({ ok: false, error: "length required" }), {
+      status: 411,
+      headers: { "content-type": "application/json" },
+    });
+  }
+
+  const contentLength = Number(contentLengthHeader);
+  if (contentLength > 100 * 1024) {
     return new Response(JSON.stringify({ ok: false, error: "payload too large" }), {
       status: 413,
       headers: { "content-type": "application/json" },
