@@ -8,6 +8,7 @@ import Projects from "../components/Projects.astro";
 import Experience from "../components/Experience.astro";
 import Connect from "../components/Connect.astro";
 import { imageUrl } from "../lib/sanity";
+import { formatTags } from "../lib/utils";
 import {
   HERO_QUERY,
   ABOUT_QUERY,
@@ -111,21 +112,13 @@ const serviceColumns: ServiceColumn[] = (serviceColumnsRaw ?? []).map((c: any) =
   icon_type: c.iconType ?? "people",
 }));
 
-const projects: ProjectItem[] = (projectsRaw ?? []).map((p: any) => {
-  let tags: string[] = [];
-  if (Array.isArray(p.tags)) {
-    tags = p.tags;
-  } else if (typeof p.tags === "string") {
-    tags = p.tags.split(",").map((t: string) => t.trim()).filter(Boolean);
-  }
-  return {
-    id: p._id,
-    title: p.title,
-    description: p.description ?? "",
-    tags,
-    href: p.href ?? "",
-  };
-});
+const projects: ProjectItem[] = (projectsRaw ?? []).map((p: any) => ({
+  id: p._id,
+  title: p.title,
+  description: p.description ?? "",
+  tags: formatTags(p.tags),
+  href: p.href ?? "",
+}));
 
 const experienceRoles: ExperienceRole[] = (experienceRolesRaw ?? []).map((r: any) => ({
   id: r._id,
