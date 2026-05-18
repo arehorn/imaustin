@@ -103,6 +103,21 @@ describe('POST /api/contact', () => {
     expect(data).toEqual({ error: 'Input exceeds maximum length.' });
   });
 
+  it('should return 413 if payload is too large', async () => {
+    const request = new Request('http://localhost:4321/api/contact', {
+      method: 'POST',
+      body: JSON.stringify({ name: 'a'.repeat(1024 * 101) }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': (1024 * 101).toString(),
+      },
+    });
+    const response = await POST({ request } as any);
+    expect(response.status).toBe(413);
+    const data = await response.json();
+    expect(data).toEqual({ error: 'Payload too large.' });
+  });
+
   it('should return 400 if name is missing', async () => {
     const request = createRequest({ email: 'test@example.com', message: 'Hello' });
     const response = await POST({ request } as any);
