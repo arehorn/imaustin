@@ -3,7 +3,7 @@
 //
 // The Sanity client itself comes from the @sanity/astro integration via the
 // `sanity:client` virtual module (import { sanityClient } from "sanity:client").
-// This file exposes the image URL builder and a tiny type.
+// This file exposes the image URL builder.
 import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url";
 
@@ -31,7 +31,3 @@ export function imageUrl(
   return b.url();
 }
 
-export type SanityImage = {
-  asset?: { _ref?: string; _type?: string };
-  alt?: string;
-};
