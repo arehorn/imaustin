@@ -37,7 +37,7 @@ const HOVER_BORDER_CYCLE = ["hover:border-[#00F2FF]/50", "hover:border-[#7000FF]
         columns.map((col: ServiceColumn, i: number) => {
           const iconPath =
             COLUMN_ICON_PATHS[col.icon_type] ?? COLUMN_ICON_PATHS.people;
-          const bullets = col.bullets.split("\n").filter(Boolean);
+          const bullets = col.bullets;
           const glow = GLOW_CYCLE[i % GLOW_CYCLE.length];
           const stroke = STROKE_CYCLE[i % STROKE_CYCLE.length];
           const hoverBorder = HOVER_BORDER_CYCLE[i % HOVER_BORDER_CYCLE.length];
