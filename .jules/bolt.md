@@ -8,3 +8,6 @@
 - **Solution:** Consolidated logic into a single-pass utility function `formatTags` that handles trimming, filtering, and deduplication in one loop iteration.
 - **Impact:** Measured ~34% performance improvement in micro-benchmarks for tag processing. Reduced memory allocations by avoiding intermediate arrays.
 - **Pattern:** Prefer single-pass `for` loops with a `Set` for deduplication over chained array methods when performance is critical or processing happens in a hot path (like SSR render loops).
+## 2024-05-18 - [Optimize Sanity Data Fetching]
+**Learning:** Making multiple parallel Sanity API requests via `Promise.all` (e.g., 12 separate `client.fetch` calls) incurs unnecessary HTTP overhead, even with HTTP/2 multiplexing. In `src/pages/index.astro`, firing 12 queries concurrently was a bottleneck.
+**Action:** Always batch multiple independent GROQ queries into a single combined GROQ object request (e.g., `{ "hero": *[_type=="hero"][0], "about": ... }`). This dramatically reduces network round-trips and lowers query latency.

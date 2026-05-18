@@ -31,35 +31,39 @@ import type {
 
 const client = sanityClient;
 
-// Fetch everything in parallel. Each item is the raw Sanity shape;
-// we reshape below so existing components keep their prop contracts.
-const [
-  heroRaw,
-  aboutRaw,
-  aboutStatsRaw,
-  personalityCardsRaw,
-  offClockNotesRaw,
-  serviceColumnsRaw,
-  projectsRaw,
-  experienceRaw,
-  experienceRolesRaw,
-  experienceStatsRaw,
-  connectRaw,
-  contactItemsRaw,
-] = await Promise.all([
-  client.fetch<any>(HERO_QUERY),
-  client.fetch<any>(ABOUT_QUERY),
-  client.fetch<any[]>(ABOUT_STATS_QUERY),
-  client.fetch<any[]>(PERSONALITY_CARDS_QUERY),
-  client.fetch<any[]>(OFF_CLOCK_NOTES_QUERY),
-  client.fetch<any[]>(SERVICE_COLUMNS_QUERY),
-  client.fetch<any[]>(PROJECTS_QUERY),
-  client.fetch<any>(EXPERIENCE_QUERY),
-  client.fetch<any[]>(EXPERIENCE_ROLES_QUERY),
-  client.fetch<any[]>(EXPERIENCE_STATS_QUERY),
-  client.fetch<any>(CONNECT_QUERY),
-  client.fetch<any[]>(CONTACT_ITEMS_QUERY),
-]);
+// Fetch everything in a single batched query to minimize HTTP overhead.
+// Each item is the raw Sanity shape; we reshape below so existing components keep their prop contracts.
+const BATCHED_QUERY = `{
+  "hero": ${HERO_QUERY},
+  "about": ${ABOUT_QUERY},
+  "aboutStats": ${ABOUT_STATS_QUERY},
+  "personalityCards": ${PERSONALITY_CARDS_QUERY},
+  "offClockNotes": ${OFF_CLOCK_NOTES_QUERY},
+  "serviceColumns": ${SERVICE_COLUMNS_QUERY},
+  "projects": ${PROJECTS_QUERY},
+  "experience": ${EXPERIENCE_QUERY},
+  "experienceRoles": ${EXPERIENCE_ROLES_QUERY},
+  "experienceStats": ${EXPERIENCE_STATS_QUERY},
+  "connect": ${CONNECT_QUERY},
+  "contactItems": ${CONTACT_ITEMS_QUERY}
+}`;
+
+const batchedData = await client.fetch<any>(BATCHED_QUERY);
+
+const {
+  hero: heroRaw,
+  about: aboutRaw,
+  aboutStats: aboutStatsRaw,
+  personalityCards: personalityCardsRaw,
+  offClockNotes: offClockNotesRaw,
+  serviceColumns: serviceColumnsRaw,
+  projects: projectsRaw,
+  experience: experienceRaw,
+  experienceRoles: experienceRolesRaw,
+  experienceStats: experienceStatsRaw,
+  connect: connectRaw,
+  contactItems: contactItemsRaw,
+} = batchedData;
 
 // ── Adapters: map Sanity → legacy emDash shapes so components stay untouched.
 
