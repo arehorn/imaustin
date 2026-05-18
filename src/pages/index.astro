@@ -107,7 +107,7 @@ const offClockNotes: OffClockNote[] = (offClockNotesRaw ?? []).map((n: any) => (
 const serviceColumns: ServiceColumn[] = (serviceColumnsRaw ?? []).map((c: any) => ({
   id: c._id,
   title: c.title,
-  bullets: Array.isArray(c.bullets) ? c.bullets.join("\n") : (c.bullets ?? ""),
+  bullets: Array.isArray(c.bullets) ? c.bullets : (typeof c.bullets === "string" ? c.bullets.split("\n").filter(Boolean) : []),
   icon_type: c.iconType ?? "people",
 }));
 

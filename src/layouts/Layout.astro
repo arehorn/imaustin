@@ -10,6 +10,8 @@ const {
   title = "Austin Rehorn — Enterprise Account Management & AI Automation",
   description = "Trust and Relationships by choice, AI automation by necessity. Enterprise account manager and AI builder based in Mt. Pleasant, SC.",
 } = Astro.props;
+
+const currentYear = new Date().getFullYear();
 ---
 <!doctype html>
 <html lang="en" class="h-full antialiased">
@@ -49,7 +51,7 @@ const {
             AUSTIN<span class="bg-clip-text text-transparent bg-gradient-to-r from-[#00F2FF] to-[#7000FF]">REHORN</span>
           </div>
           <p class="text-gray-600 font-medium text-[10px] uppercase tracking-[0.5em] text-center max-w-sm leading-loose">
-            © {new Date().getFullYear()} Austin Rehorn. <span class="text-gray-400">Forged in the heart of the digital nebula.</span>
+            © {currentYear} Austin Rehorn. <span class="text-gray-400">Forged in the heart of the digital nebula.</span>
           </p>
         </div>
       </footer>

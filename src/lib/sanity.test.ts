@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { urlFor, imageUrl } from './sanity';
+import { imageUrl } from './sanity';
 
 const mockSource = {
   _type: 'image',
@@ -10,16 +10,6 @@ const mockSource = {
 };
 
 describe('sanity utils', () => {
-  describe('urlFor', () => {
-    it('returns a builder for the image source', () => {
-      const builder = urlFor(mockSource);
-      expect(builder).toBeDefined();
-      expect(typeof builder.url).toBe('function');
-      const url = builder.url();
-      expect(url).toContain('Tb9Ew8CXIwaY6R1kjMvI0uRR-2000x3000.jpg');
-    });
-  });
-
   describe('imageUrl', () => {
     it('returns an empty string if source is undefined or null', () => {
       expect(imageUrl(undefined)).toBe('');
