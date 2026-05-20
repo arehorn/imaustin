@@ -29,6 +29,22 @@ function secureCompare(a: string | undefined, b: string | undefined): boolean {
 }
 
 export const POST: APIRoute = async ({ request }) => {
+  const contentLengthHeader = request.headers.get("content-length");
+  if (!contentLengthHeader) {
+    return new Response(JSON.stringify({ ok: false, error: "length required" }), {
+      status: 411,
+      headers: { "content-type": "application/json" },
+    });
+  }
+
+  const contentLength = Number(contentLengthHeader);
+  if (contentLength > 100 * 1024) {
+    return new Response(JSON.stringify({ ok: false, error: "payload too large" }), {
+      status: 413,
+      headers: { "content-type": "application/json" },
+    });
+  }
+
   const secret =
     process.env.SANITY_REVALIDATE_SECRET ?? import.meta.env.SANITY_REVALIDATE_SECRET;
 
