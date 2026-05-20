@@ -4,6 +4,10 @@
 ## 2024-05-24 - Accessibility and Keyboard Navigation
 **Learning:** Added a "Skip to main content" link and visible focus states across interactive elements. Keyboard users need clear visual indicators when navigating, and allowing them to skip repetitive navigation significantly improves the experience. The "Skip to main content" pattern using `sr-only focus:not-sr-only` is highly effective.
 **Action:** Always include a "Skip to main content" link in layouts and use `focus-visible` utilities to ensure interactive elements are clearly discernible when focused via keyboard.
+
+## 2024-05-24 - [Focus States & Native Validation]
+**Learning:** Found that using explicit Tailwind `focus-visible` utilities (e.g., `focus-visible:ring-2 focus-visible:ring-[#00F2FF]`) provides a much better keyboard navigation experience than default browser outlines, aligning perfectly with standard accessibility patterns. Additionally, removing `noValidate` from forms allows users to benefit from immediate, native inline browser validation before JavaScript even kicks in.
+**Action:** Always verify keyboard focus states (`tab` key) and prefer native HTML5 validation constraints along with `focus-visible` styling for interactive elements (links and buttons) to ensure consistent and obvious accessibility cues across the application.
 ## 2026-05-17 - Keyboard Navigation & Surfacing Data Accessibly
 **Learning:** In dark-mode applications, relying solely on hover states or color contrast changes for interactive elements like project links or CTAs is insufficient for keyboard users. Furthermore, having href data in a data model but hiding it or rendering it inaccessible prevents users from easily engaging with external content.
 **Action:** Always provide explicitly defined `focus-visible` styles with a high-contrast ring (e.g., `focus-visible:ring-[#00F2FF]`) for all interactive elements to ensure clear keyboard navigation paths. When rendering data that includes actionable items like URLs, expose them accessibly via interactive elements (e.g., links with `aria-label` stating "opens in new tab") rather than keeping them hidden.
