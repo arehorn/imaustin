@@ -80,7 +80,7 @@ const quoteAccent = quoteParts[1]?.trim();
                   href={item.href}
                   target={item.href.startsWith("http") ? "_blank" : undefined}
                   rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  class="font-['Plus_Jakarta_Sans'] font-bold text-sm truncate block text-white hover:text-[#00F2FF] transition-colors"
+                  class="font-['Plus_Jakarta_Sans'] font-bold text-sm truncate block text-white hover:text-[#00F2FF] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F2FF] rounded"
                 >
                   {item.value}
                 </a>

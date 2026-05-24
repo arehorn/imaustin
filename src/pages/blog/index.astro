@@ -57,7 +57,7 @@ const posts = (rawPosts ?? []).map((p) => ({
           {posts.map((post) => (
               <a
                 href={`/blog/${post.slug}`}
-                class="rounded-[2.5rem] p-8 glass-card flex flex-col hover:-translate-y-2 transition-all duration-500 hover:border-[#00F2FF]/40 group"
+                class="rounded-[2.5rem] p-8 glass-card flex flex-col hover:-translate-y-2 transition-all duration-500 hover:border-[#00F2FF]/40 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F2FF]"
               >
                 {post.cover_image_url && (
                   <div class="relative w-full h-44 rounded-2xl overflow-hidden mb-6">
