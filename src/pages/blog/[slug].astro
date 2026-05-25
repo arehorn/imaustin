@@ -69,6 +69,8 @@ const coverUrl = imageUrl(post.coverImage as any, { width: 1400, quality: 85 });
             src={coverUrl}
             alt={post.coverImageAlt || post.title}
             class="relative w-full h-full object-cover rounded-[1.6rem] brightness-90 contrast-110"
+            loading="eager"
+            decoding="async"
           />
         </div>
       )}

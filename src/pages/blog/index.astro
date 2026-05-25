@@ -67,6 +67,7 @@ const posts = (rawPosts ?? []).map((p) => ({
                       alt={post.cover_image_alt || post.title}
                       class="w-full h-full object-cover brightness-90 contrast-110"
                       loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 )}
