@@ -31,6 +31,110 @@ import type {
 
 const client = sanityClient;
 
+interface SanityImage {
+  asset: { _ref: string };
+  alt?: string;
+  [key: string]: unknown;
+}
+
+interface SanityStatItem {
+  _id: string;
+  value: string;
+  label: string;
+}
+
+interface SanityPersonalityCard {
+  _id: string;
+  title: string;
+  description?: string;
+  icon?: "heart" | "dog" | "brain" | "code" | "star";
+  accentColor?: string;
+}
+
+interface SanityOffClockNote {
+  _id: string;
+  label: string;
+  value: string;
+}
+
+interface SanityServiceColumn {
+  _id: string;
+  title: string;
+  bullets?: string[] | string;
+  iconType?: "people" | "lightbulb";
+}
+
+interface SanityProjectItem {
+  _id: string;
+  title: string;
+  description?: string;
+  tags?: string[];
+  href?: string;
+}
+
+interface SanityExperienceRole {
+  _id: string;
+  title: string;
+  company: string;
+  division?: string;
+  dates?: string;
+  era?: string;
+  side?: string;
+  iconType?: "search" | "team" | "settings" | "briefcase";
+  highlights?: string | string[];
+}
+
+interface SanityContactItem {
+  _id: string;
+  label: string;
+  value: string;
+  href?: string;
+  iconType?: "email" | "phone" | "linkedin" | "location";
+}
+
+interface SanityBatchedResponse {
+  hero?: {
+    badgeText?: string;
+    headline?: string;
+    subheading?: string;
+    ctaText?: string;
+    headshot?: SanityImage;
+    headshotAlt?: string;
+    resumeUrl?: string;
+  };
+  about?: {
+    heading?: string;
+    bioParagraph1?: string;
+    bioParagraph2?: string;
+    quote?: string;
+    closingStatement?: string;
+    photo?: SanityImage;
+    photoAlt?: string;
+  };
+  aboutStats?: SanityStatItem[];
+  personalityCards?: SanityPersonalityCard[];
+  offClockNotes?: SanityOffClockNote[];
+  serviceColumns?: SanityServiceColumn[];
+  projects?: SanityProjectItem[];
+  experience?: {
+    sectionHeading?: string;
+    sectionSubheading?: string;
+    ctaHeading?: string;
+    ctaSubheading?: string;
+    headshot?: SanityImage;
+    headshotAlt?: string;
+  };
+  experienceRoles?: SanityExperienceRole[];
+  experienceStats?: SanityStatItem[];
+  connect?: {
+    quote?: string;
+    photo?: SanityImage;
+    photoAlt?: string;
+  };
+  contactItems?: SanityContactItem[];
+}
+
+
 // Fetch everything in a single batched query to minimize HTTP overhead.
 // Each item is the raw Sanity shape; we reshape below so existing components keep their prop contracts.
 const BATCHED_QUERY = `{
@@ -48,7 +152,7 @@ const BATCHED_QUERY = `{
   "contactItems": ${CONTACT_ITEMS_QUERY}
 }`;
 
-const batchedData = await client.fetch<any>(BATCHED_QUERY);
+const batchedData = await client.fetch<SanityBatchedResponse>(BATCHED_QUERY);
 
 const {
   hero: heroRaw,
@@ -89,13 +193,13 @@ const about: AboutData = {
   photo_alt: aboutRaw?.photoAlt ?? "",
 };
 
-const aboutStats: StatItem[] = (aboutStatsRaw ?? []).map((s: any) => ({
+const aboutStats: StatItem[] = (aboutStatsRaw ?? []).map((s: SanityStatItem) => ({
   id: s._id,
   value: s.value,
   label: s.label,
 }));
 
-const personalityCards: PersonalityCard[] = (personalityCardsRaw ?? []).map((c: any) => ({
+const personalityCards: PersonalityCard[] = (personalityCardsRaw ?? []).map((c: SanityPersonalityCard) => ({
   id: c._id,
   title: c.title,
   description: c.description ?? "",
@@ -103,28 +207,28 @@ const personalityCards: PersonalityCard[] = (personalityCardsRaw ?? []).map((c: 
   accent_color: c.accentColor ?? "",
 }));
 
-const offClockNotes: OffClockNote[] = (offClockNotesRaw ?? []).map((n: any) => ({
+const offClockNotes: OffClockNote[] = (offClockNotesRaw ?? []).map((n: SanityOffClockNote) => ({
   id: n._id,
   label: n.label,
   value: n.value,
 }));
 
-const serviceColumns: ServiceColumn[] = (serviceColumnsRaw ?? []).map((c: any) => ({
+const serviceColumns: ServiceColumn[] = (serviceColumnsRaw ?? []).map((c: SanityServiceColumn) => ({
   id: c._id,
   title: c.title,
   bullets: Array.isArray(c.bullets) ? c.bullets : (typeof c.bullets === "string" ? c.bullets.split("\n").filter(Boolean) : []),
   icon_type: c.iconType ?? "people",
 }));
 
-const projects: ProjectItem[] = (projectsRaw ?? []).map((p: any) => ({
+const projects: ProjectItem[] = (projectsRaw ?? []).map((p: SanityProjectItem) => ({
   id: p._id,
   title: p.title,
   description: p.description ?? "",
-  tags: formatTags(p.tags),
+  tags: formatTags(p.tags ?? []),
   href: p.href ?? "",
 }));
 
-const experienceRoles: ExperienceRole[] = (experienceRolesRaw ?? []).map((r: any) => ({
+const experienceRoles: ExperienceRole[] = (experienceRolesRaw ?? []).map((r: SanityExperienceRole) => ({
   id: r._id,
   title: r.title,
   company: r.company,
@@ -136,7 +240,7 @@ const experienceRoles: ExperienceRole[] = (experienceRolesRaw ?? []).map((r: any
   highlights: r.highlights ?? [],
 }));
 
-const experienceStats: StatItem[] = (experienceStatsRaw ?? []).map((s: any) => ({
+const experienceStats: StatItem[] = (experienceStatsRaw ?? []).map((s: SanityStatItem) => ({
   id: s._id,
   value: s.value,
   label: s.label,
@@ -154,7 +258,7 @@ const experience: ExperienceData = {
   headshot_alt: experienceRaw?.headshotAlt ?? "",
 };
 
-const contactItems: ContactItem[] = (contactItemsRaw ?? []).map((c: any) => ({
+const contactItems: ContactItem[] = (contactItemsRaw ?? []).map((c: SanityContactItem) => ({
   id: c._id,
   label: c.label,
   value: c.value,
