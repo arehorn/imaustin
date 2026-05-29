@@ -23,6 +23,7 @@ import {
   CONNECT_QUERY,
   CONTACT_ITEMS_QUERY,
 } from "../lib/queries";
+import type { SanityImageSource } from "@sanity/image-url";
 import type {
   HeroData, AboutData, StatItem, PersonalityCard, OffClockNote,
   ServiceColumn, ProjectItem, ExperienceData, ExperienceRole,
@@ -48,7 +49,22 @@ const BATCHED_QUERY = `{
   "contactItems": ${CONTACT_ITEMS_QUERY}
 }`;
 
-const batchedData = await client.fetch<any>(BATCHED_QUERY);
+interface BatchedData {
+  hero: { badgeText?: string; headline?: string; subheading?: string; ctaText?: string; headshot?: SanityImageSource; headshotAlt?: string; resumeUrl?: string };
+  about: { heading?: string; bioParagraph1?: string; bioParagraph2?: string; quote?: string; closingStatement?: string; photo?: SanityImageSource; photoAlt?: string };
+  aboutStats: { _id: string; value: string; label: string }[];
+  personalityCards: { _id: string; title: string; description?: string; icon?: "heart" | "dog" | "brain" | "code" | "star"; accentColor?: string }[];
+  offClockNotes: { _id: string; label: string; value: string }[];
+  serviceColumns: { _id: string; title: string; bullets: string[] | string; iconType?: "people" | "lightbulb" }[];
+  projects: { _id: string; title: string; description?: string; tags?: string[]; href?: string }[];
+  experience: { sectionHeading?: string; sectionSubheading?: string; ctaHeading?: string; ctaSubheading?: string; headshot?: SanityImageSource; headshotAlt?: string };
+  experienceRoles: { _id: string; title: string; company: string; division?: string; dates?: string; era?: string; side?: "left" | "right"; iconType?: "search" | "team" | "settings" | "briefcase"; highlights?: string | string[] }[];
+  experienceStats: { _id: string; value: string; label: string }[];
+  connect: { quote?: string; photo?: SanityImageSource; photoAlt?: string };
+  contactItems: { _id: string; label: string; value: string; href?: string; iconType?: "email" | "phone" | "linkedin" | "location" }[];
+}
+
+const batchedData = await client.fetch<BatchedData>(BATCHED_QUERY);
 
 const {
   hero: heroRaw,
@@ -89,7 +105,7 @@ const about: AboutData = {
   photo_alt: aboutRaw?.photoAlt ?? "",
 };
 
-const aboutStats: StatItem[] = (aboutStatsRaw ?? []).map((s: any) => ({
+const aboutStats: StatItem[] = (aboutStatsRaw ?? []).map((s: Record<string, any>) => ({
   id: s._id,
   value: s.value,
   label: s.label,
