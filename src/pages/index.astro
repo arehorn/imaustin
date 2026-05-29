@@ -27,6 +27,8 @@ import type {
   HeroData, AboutData, StatItem, PersonalityCard, OffClockNote,
   ServiceColumn, ProjectItem, ExperienceData, ExperienceRole,
   ConnectData, ContactItem,
+  RawStatItem, RawPersonalityCard, RawOffClockNote,
+  RawServiceColumn, RawProjectItem, RawExperienceRole, RawContactItem,
 } from "../types/emdash";
 
 const client = sanityClient;
@@ -89,13 +91,13 @@ const about: AboutData = {
   photo_alt: aboutRaw?.photoAlt ?? "",
 };
 
-const aboutStats: StatItem[] = (aboutStatsRaw ?? []).map((s: any) => ({
+const aboutStats: StatItem[] = (aboutStatsRaw ?? []).map((s: RawStatItem) => ({
   id: s._id,
   value: s.value,
   label: s.label,
 }));
 
-const personalityCards: PersonalityCard[] = (personalityCardsRaw ?? []).map((c: any) => ({
+const personalityCards: PersonalityCard[] = (personalityCardsRaw ?? []).map((c: RawPersonalityCard) => ({
   id: c._id,
   title: c.title,
   description: c.description ?? "",
@@ -103,20 +105,20 @@ const personalityCards: PersonalityCard[] = (personalityCardsRaw ?? []).map((c: 
   accent_color: c.accentColor ?? "",
 }));
 
-const offClockNotes: OffClockNote[] = (offClockNotesRaw ?? []).map((n: any) => ({
+const offClockNotes: OffClockNote[] = (offClockNotesRaw ?? []).map((n: RawOffClockNote) => ({
   id: n._id,
   label: n.label,
   value: n.value,
 }));
 
-const serviceColumns: ServiceColumn[] = (serviceColumnsRaw ?? []).map((c: any) => ({
+const serviceColumns: ServiceColumn[] = (serviceColumnsRaw ?? []).map((c: RawServiceColumn) => ({
   id: c._id,
   title: c.title,
   bullets: Array.isArray(c.bullets) ? c.bullets : (typeof c.bullets === "string" ? c.bullets.split("\n").filter(Boolean) : []),
   icon_type: c.iconType ?? "people",
 }));
 
-const projects: ProjectItem[] = (projectsRaw ?? []).map((p: any) => ({
+const projects: ProjectItem[] = (projectsRaw ?? []).map((p: RawProjectItem) => ({
   id: p._id,
   title: p.title,
   description: p.description ?? "",
@@ -124,7 +126,7 @@ const projects: ProjectItem[] = (projectsRaw ?? []).map((p: any) => ({
   href: p.href ?? "",
 }));
 
-const experienceRoles: ExperienceRole[] = (experienceRolesRaw ?? []).map((r: any) => ({
+const experienceRoles: ExperienceRole[] = (experienceRolesRaw ?? []).map((r: RawExperienceRole) => ({
   id: r._id,
   title: r.title,
   company: r.company,
@@ -136,7 +138,7 @@ const experienceRoles: ExperienceRole[] = (experienceRolesRaw ?? []).map((r: any
   highlights: r.highlights ?? [],
 }));
 
-const experienceStats: StatItem[] = (experienceStatsRaw ?? []).map((s: any) => ({
+const experienceStats: StatItem[] = (experienceStatsRaw ?? []).map((s: RawStatItem) => ({
   id: s._id,
   value: s.value,
   label: s.label,
@@ -154,7 +156,7 @@ const experience: ExperienceData = {
   headshot_alt: experienceRaw?.headshotAlt ?? "",
 };
 
-const contactItems: ContactItem[] = (contactItemsRaw ?? []).map((c: any) => ({
+const contactItems: ContactItem[] = (contactItemsRaw ?? []).map((c: RawContactItem) => ({
   id: c._id,
   label: c.label,
   value: c.value,

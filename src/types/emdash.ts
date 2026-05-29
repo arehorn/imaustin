@@ -105,3 +105,60 @@ export interface ConnectData {
   contact_items: ContactItem[];
 }
 
+
+// ── Raw Sanity Data Types ──────────────────────────────────────────────────────
+
+export interface RawStatItem {
+  _id: string;
+  value: string;
+  label: string;
+}
+
+export interface RawPersonalityCard {
+  _id: string;
+  title: string;
+  description?: string;
+  icon?: "heart" | "dog" | "brain" | "code" | "star";
+  accentColor?: string;
+}
+
+export interface RawOffClockNote {
+  _id: string;
+  label: string;
+  value: string;
+}
+
+export interface RawServiceColumn {
+  _id: string;
+  title: string;
+  bullets?: string[] | string;
+  iconType?: ServiceColumnIconType;
+}
+
+export interface RawProjectItem {
+  _id: string;
+  title: string;
+  description?: string;
+  tags?: string[];
+  href?: string;
+}
+
+export interface RawExperienceRole {
+  _id: string;
+  title: string;
+  company: string;
+  division?: string;
+  dates?: string;
+  era?: string;
+  side?: "left" | "right";
+  iconType?: ExperienceIconType;
+  highlights?: string | string[];
+}
+
+export interface RawContactItem {
+  _id: string;
+  label: string;
+  value: string;
+  href?: string;
+  iconType?: "email" | "phone" | "linkedin" | "location";
+}
