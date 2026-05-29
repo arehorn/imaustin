@@ -17,14 +17,14 @@ export function formatTags(tags: unknown): string[] {
   const seen = new Set<string>();
   const result: string[] = [];
 
-  for (let i = 0; i < rawTags.length; i++) {
+  for (let i = 0, len = rawTags.length; i < len; i++) {
     const tag = rawTags[i];
-    if (typeof tag !== "string") continue;
-
-    const trimmed = tag.trim();
-    if (trimmed && !seen.has(trimmed)) {
-      seen.add(trimmed);
-      result.push(trimmed);
+    if (typeof tag === "string") {
+      const trimmed = tag.trim();
+      if (trimmed !== "" && !seen.has(trimmed)) {
+        seen.add(trimmed);
+        result.push(trimmed);
+      }
     }
   }
 
