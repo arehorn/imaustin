@@ -1,6 +1,8 @@
 ---
 import { sanityClient } from "sanity:client";
 import { PortableText } from "@portabletext/react";
+import type { PortableTextBlock } from "@portabletext/react";
+import type { SanityImageSource } from "@sanity/image-url";
 import Layout from "../../layouts/Layout.astro";
 import { imageUrl } from "../../lib/sanity";
 import { BLOG_POST_QUERY } from "../../lib/queries";
@@ -19,9 +21,9 @@ type BlogPost = {
   excerpt?: string;
   publishedDate?: string;
   tags?: string[];
-  coverImage?: unknown;
+  coverImage?: SanityImageSource;
   coverImageAlt?: string;
-  body?: unknown;
+  body?: PortableTextBlock[];
 };
 
 const post = await client.fetch<BlogPost | null>(BLOG_POST_QUERY, { slug });
@@ -29,7 +31,7 @@ const post = await client.fetch<BlogPost | null>(BLOG_POST_QUERY, { slug });
 if (!post) return Astro.redirect("/blog");
 
 const tags = Array.isArray(post.tags) ? post.tags : [];
-const coverUrl = imageUrl(post.coverImage as any, { width: 1400, quality: 85 });
+const coverUrl = imageUrl(post.coverImage, { width: 1400, quality: 85 });
 ---
 <Layout title={`${post.title} — Austin Rehorn`} description={post.excerpt}>
   <main class="relative min-h-screen pt-40 pb-20">
@@ -75,7 +77,7 @@ const coverUrl = imageUrl(post.coverImage as any, { width: 1400, quality: 85 });
 
       {post.body && (
         <div class="prose-invert-custom prose-lg max-w-none mb-16 text-gray-300 leading-relaxed">
-          <PortableText value={post.body as any} />
+          <PortableText value={post.body} />
         </div>
       )}
 
