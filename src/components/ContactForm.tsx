@@ -8,7 +8,7 @@ export default function ContactForm() {
   const [message, setMessage] = useState("");
   const [formState, setFormState] = useState<FormState>("idle");
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     setFormState("loading");
 

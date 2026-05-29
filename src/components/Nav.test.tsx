@@ -30,9 +30,7 @@ describe('Nav Component', () => {
     render(<Nav />);
 
     // Initially, mobile menu should not be visible
-    const getMobileLinks = () => screen.getAllByRole('link', { name: /Work|Experience|Connect/i }).filter(link =>
-        link.parentElement && link.parentElement.className.includes('flex-col')
-    );
+
 
     // Since the links are rendered conditionally when menuOpen is true, they shouldn't exist initially in the mobile menu container.
     // The desktop links are always there.

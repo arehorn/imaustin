@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { POST } from '../../src/pages/api/revalidate';
 
 describe('POST /api/revalidate', () => {
@@ -26,7 +26,7 @@ describe('POST /api/revalidate', () => {
 
     expect(response.status).toBe(413);
     const data = await response.json();
-    expect(data).toEqual({ ok: false, error: "payload too large" });
+    expect(data).toEqual({ ok: false, error: "Payload Too Large" });
   });
 
   it('returns 411 if Content-Length header is missing', async () => {
@@ -69,24 +69,6 @@ describe('POST /api/revalidate', () => {
     expect(response.status).toBe(413);
     const data = await response.json();
     expect(data).toEqual({ ok: false, error: "Payload Too Large" });
-  });
-
-  it('returns 500 if secret is not configured', async () => {
-    const request = new Request('http://localhost/api/revalidate', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Content-Length': '2'
-      },
-      body: JSON.stringify({}),
-    });
-
-    // @ts-ignore
-    const response = await POST({ request });
-
-    expect(response.status).toBe(411);
-    const data = await response.json();
-    expect(data).toEqual({ ok: false, error: "length required" });
   });
 
   it('returns 500 if secret is not configured', async () => {
@@ -192,6 +174,6 @@ describe('POST /api/revalidate', () => {
 
     expect(response.status).toBe(413);
     const data = await response.json();
-    expect(data).toEqual({ ok: false, error: 'payload too large' });
+    expect(data).toEqual({ ok: false, error: "Payload Too Large" });
   });
 });

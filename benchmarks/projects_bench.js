@@ -17,7 +17,7 @@ function optimizedOperation(projects) {
 }
 
 const numProjects = 100;
-const projects = Array.from({ length: numProjects }, (_, i) => ({
+const projects = Array.from({ length: numProjects }, () => ({
     tags: "tag1, tag2, tag3, tag4, tag5",
     computedTags: ["tag1", "tag2", "tag3", "tag4", "tag5"]
 }));
