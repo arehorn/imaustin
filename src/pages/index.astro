@@ -23,6 +23,7 @@ import {
   CONNECT_QUERY,
   CONTACT_ITEMS_QUERY,
 } from "../lib/queries";
+import type { SanityImageSource } from "@sanity/image-url";
 import type {
   HeroData, AboutData, StatItem, PersonalityCard, OffClockNote,
   ServiceColumn, ProjectItem, ExperienceData, ExperienceRole,
@@ -30,6 +31,114 @@ import type {
 } from "../types/emdash";
 
 const client = sanityClient;
+
+// ── Raw Sanity Shapes ────────────────────────────────────────────────────────
+
+interface RawHero {
+  badgeText?: string;
+  headline?: string;
+  subheading?: string;
+  ctaText?: string;
+  headshot?: SanityImageSource;
+  headshotAlt?: string;
+  resumeUrl?: string;
+}
+
+interface RawAbout {
+  heading?: string;
+  bioParagraph1?: string;
+  bioParagraph2?: string;
+  quote?: string;
+  closingStatement?: string;
+  photo?: SanityImageSource;
+  photoAlt?: string;
+}
+
+interface RawStatItem {
+  _id: string;
+  value: string;
+  label: string;
+}
+
+interface RawPersonalityCard {
+  _id: string;
+  title: string;
+  description?: string;
+  icon?: "heart" | "dog" | "brain" | "code" | "star";
+  accentColor?: string;
+}
+
+interface RawOffClockNote {
+  _id: string;
+  label: string;
+  value: string;
+}
+
+interface RawServiceColumn {
+  _id: string;
+  title: string;
+  bullets: string[] | string;
+  iconType?: "people" | "lightbulb";
+}
+
+interface RawProjectItem {
+  _id: string;
+  title: string;
+  description?: string;
+  tags: string[];
+  href?: string;
+}
+
+interface RawExperience {
+  sectionHeading?: string;
+  sectionSubheading?: string;
+  ctaHeading?: string;
+  ctaSubheading?: string;
+  headshot?: SanityImageSource;
+  headshotAlt?: string;
+}
+
+interface RawExperienceRole {
+  _id: string;
+  title: string;
+  company: string;
+  division?: string;
+  dates?: string;
+  era?: string;
+  side?: "left" | "right";
+  iconType?: "search" | "team" | "settings" | "briefcase";
+  highlights?: string | string[];
+}
+
+interface RawConnect {
+  quote?: string;
+  photo?: SanityImageSource;
+  photoAlt?: string;
+}
+
+interface RawContactItem {
+  _id: string;
+  label: string;
+  value: string;
+  href?: string;
+  iconType?: "email" | "phone" | "linkedin" | "location";
+}
+
+interface BatchedData {
+  hero: RawHero | null;
+  about: RawAbout | null;
+  aboutStats: RawStatItem[] | null;
+  personalityCards: RawPersonalityCard[] | null;
+  offClockNotes: RawOffClockNote[] | null;
+  serviceColumns: RawServiceColumn[] | null;
+  projects: RawProjectItem[] | null;
+  experience: RawExperience | null;
+  experienceRoles: RawExperienceRole[] | null;
+  experienceStats: RawStatItem[] | null;
+  connect: RawConnect | null;
+  contactItems: RawContactItem[] | null;
+}
+
 
 // Fetch everything in a single batched query to minimize HTTP overhead.
 // Each item is the raw Sanity shape; we reshape below so existing components keep their prop contracts.
@@ -48,7 +157,7 @@ const BATCHED_QUERY = `{
   "contactItems": ${CONTACT_ITEMS_QUERY}
 }`;
 
-const batchedData = await client.fetch<any>(BATCHED_QUERY);
+const batchedData = await client.fetch<BatchedData>(BATCHED_QUERY);
 
 const {
   hero: heroRaw,
@@ -89,13 +198,13 @@ const about: AboutData = {
   photo_alt: aboutRaw?.photoAlt ?? "",
 };
 
-const aboutStats: StatItem[] = (aboutStatsRaw ?? []).map((s: any) => ({
+const aboutStats: StatItem[] = (aboutStatsRaw ?? []).map((s: RawStatItem) => ({
   id: s._id,
   value: s.value,
   label: s.label,
 }));
 
-const personalityCards: PersonalityCard[] = (personalityCardsRaw ?? []).map((c: any) => ({
+const personalityCards: PersonalityCard[] = (personalityCardsRaw ?? []).map((c: RawPersonalityCard) => ({
   id: c._id,
   title: c.title,
   description: c.description ?? "",
@@ -103,20 +212,20 @@ const personalityCards: PersonalityCard[] = (personalityCardsRaw ?? []).map((c: 
   accent_color: c.accentColor ?? "",
 }));
 
-const offClockNotes: OffClockNote[] = (offClockNotesRaw ?? []).map((n: any) => ({
+const offClockNotes: OffClockNote[] = (offClockNotesRaw ?? []).map((n: RawOffClockNote) => ({
   id: n._id,
   label: n.label,
   value: n.value,
 }));
 
-const serviceColumns: ServiceColumn[] = (serviceColumnsRaw ?? []).map((c: any) => ({
+const serviceColumns: ServiceColumn[] = (serviceColumnsRaw ?? []).map((c: RawServiceColumn) => ({
   id: c._id,
   title: c.title,
   bullets: Array.isArray(c.bullets) ? c.bullets : (typeof c.bullets === "string" ? c.bullets.split("\n").filter(Boolean) : []),
   icon_type: c.iconType ?? "people",
 }));
 
-const projects: ProjectItem[] = (projectsRaw ?? []).map((p: any) => ({
+const projects: ProjectItem[] = (projectsRaw ?? []).map((p: RawProjectItem) => ({
   id: p._id,
   title: p.title,
   description: p.description ?? "",
@@ -124,7 +233,7 @@ const projects: ProjectItem[] = (projectsRaw ?? []).map((p: any) => ({
   href: p.href ?? "",
 }));
 
-const experienceRoles: ExperienceRole[] = (experienceRolesRaw ?? []).map((r: any) => ({
+const experienceRoles: ExperienceRole[] = (experienceRolesRaw ?? []).map((r: RawExperienceRole) => ({
   id: r._id,
   title: r.title,
   company: r.company,
@@ -136,7 +245,7 @@ const experienceRoles: ExperienceRole[] = (experienceRolesRaw ?? []).map((r: any
   highlights: r.highlights ?? [],
 }));
 
-const experienceStats: StatItem[] = (experienceStatsRaw ?? []).map((s: any) => ({
+const experienceStats: StatItem[] = (experienceStatsRaw ?? []).map((s: RawStatItem) => ({
   id: s._id,
   value: s.value,
   label: s.label,
@@ -154,7 +263,7 @@ const experience: ExperienceData = {
   headshot_alt: experienceRaw?.headshotAlt ?? "",
 };
 
-const contactItems: ContactItem[] = (contactItemsRaw ?? []).map((c: any) => ({
+const contactItems: ContactItem[] = (contactItemsRaw ?? []).map((c: RawContactItem) => ({
   id: c._id,
   label: c.label,
   value: c.value,
