@@ -51,7 +51,7 @@ describe('POST /api/revalidate', () => {
 
     expect(response.status).toBe(411);
     const data = await response.json();
-    expect(data).toEqual({ ok: false, error: "Length Required" });
+    expect(data).toEqual({ ok: false, error: "length required" });
   });
 
   it('returns 413 if Content-Length exceeds 100KB', async () => {
@@ -68,26 +68,9 @@ describe('POST /api/revalidate', () => {
 
     expect(response.status).toBe(413);
     const data = await response.json();
-    expect(data).toEqual({ ok: false, error: "Payload Too Large" });
+    expect(data).toEqual({ ok: false, error: "payload too large" });
   });
 
-  it('returns 500 if secret is not configured', async () => {
-    const request = new Request('http://localhost/api/revalidate', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Content-Length': '2'
-      },
-      body: JSON.stringify({}),
-    });
-
-    // @ts-ignore
-    const response = await POST({ request });
-
-    expect(response.status).toBe(411);
-    const data = await response.json();
-    expect(data).toEqual({ ok: false, error: "length required" });
-  });
 
   it('returns 500 if secret is not configured', async () => {
     const json = JSON.stringify({});

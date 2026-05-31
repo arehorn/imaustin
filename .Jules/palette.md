@@ -11,3 +11,7 @@
 ## 2026-05-17 - Keyboard Navigation & Surfacing Data Accessibly
 **Learning:** In dark-mode applications, relying solely on hover states or color contrast changes for interactive elements like project links or CTAs is insufficient for keyboard users. Furthermore, having href data in a data model but hiding it or rendering it inaccessible prevents users from easily engaging with external content.
 **Action:** Always provide explicitly defined `focus-visible` styles with a high-contrast ring (e.g., `focus-visible:ring-[#00F2FF]`) for all interactive elements to ensure clear keyboard navigation paths. When rendering data that includes actionable items like URLs, expose them accessibly via interactive elements (e.g., links with `aria-label` stating "opens in new tab") rather than keeping them hidden.
+
+## 2026-05-31 - Focus States on Dynamic Content
+**Learning:** Newly created dynamic routes or components (like the blog index and post pages) often miss keyboard accessibility requirements compared to the main landing page components. Empty states also lack clear navigation actions for keyboard users who may get stuck.
+**Action:** Always verify keyboard accessibility (`focus-visible` utility classes) on dynamically generated pages/routes, not just the static landing layout. When providing empty states, always include a focusable CTA to guide users forward or backward safely.
