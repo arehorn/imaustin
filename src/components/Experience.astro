@@ -218,10 +218,13 @@ function roleCard(role: ExperienceRole, accentIndex: number) {
         <div class="rounded-[2rem] p-8 glass-card hover:-translate-y-1 transition-transform duration-500">
           <span class="text-[#00F2FF] font-bold uppercase tracking-[0.4em] text-xs block mb-5">Education</span>
           <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+            {/* Bolt: Added lazy loading and async decoding to below-the-fold image to improve initial page load performance */}
             <img
               src="/citadel-logo.png"
               alt="The Citadel, Military College of South Carolina"
               class="h-12 w-auto object-contain opacity-90 shrink-0"
+              loading="lazy"
+              decoding="async"
             />
             <div>
               <p class="font-['Plus_Jakarta_Sans'] font-bold text-lg leading-snug text-white">
@@ -264,11 +267,14 @@ function roleCard(role: ExperienceRole, accentIndex: number) {
 
         {headshotUrl && (
           <div class="hidden lg:block relative w-56 m-6 rounded-[1.8rem] overflow-hidden glass-card p-2">
+            {/* Bolt: Added lazy loading and async decoding to below-the-fold image to improve initial page load performance */}
             <img
               src={headshotUrl}
               alt={headshotAlt || "Austin Rehorn"}
               class="w-full h-full object-cover object-top rounded-[1.4rem]"
               style="filter: grayscale(60%) contrast(1.15) brightness(0.8);"
+              loading="lazy"
+              decoding="async"
             />
           </div>
         )}

@@ -46,12 +46,15 @@ const quoteAccent = quoteParts[1]?.trim();
       <div class="shrink-0 relative">
         <div class="absolute -inset-3 bg-gradient-to-tr from-[#7000FF] to-[#00F2FF] opacity-25 blur-2xl" aria-hidden="true"></div>
         <div class="relative rounded-[1.5rem] overflow-hidden glass-card p-2" style="width: 220px; height: 260px;">
+          {/* Bolt: Added lazy loading and async decoding to below-the-fold image to improve initial page load performance */}
           <img
             src={connect.photo_url}
             alt={connect.photo_alt || "Austin Rehorn"}
             width="220"
             height="260"
             class="w-full h-full object-cover object-top rounded-[1.2rem] brightness-90 contrast-110"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </div>

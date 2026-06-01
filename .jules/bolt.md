@@ -11,3 +11,6 @@
 ## 2024-05-18 - [Optimize Sanity Data Fetching]
 **Learning:** Making multiple parallel Sanity API requests via `Promise.all` (e.g., 12 separate `client.fetch` calls) incurs unnecessary HTTP overhead, even with HTTP/2 multiplexing. In `src/pages/index.astro`, firing 12 queries concurrently was a bottleneck.
 **Action:** Always batch multiple independent GROQ queries into a single combined GROQ object request (e.g., `{ "hero": *[_type=="hero"][0], "about": ... }`). This dramatically reduces network round-trips and lowers query latency.
+## 2024-05-19 - [Optimize Below-The-Fold Images]
+**Learning:** Found several large images in below-the-fold components (`About.astro`, `Experience.astro`, `Connect.astro`) that were lacking native lazy loading (`loading="lazy"`) and asynchronous decoding (`decoding="async"`), which can slow down the initial page load by forcing the browser to fetch and decode images that are not yet visible.
+**Action:** Always append `loading="lazy"` and `decoding="async"` attributes to images that are guaranteed to be below the fold (i.e. not in the hero section) to improve Time to Interactive (TTI) and First Contentful Paint (FCP).

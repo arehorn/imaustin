@@ -96,12 +96,15 @@ const STAT_LABEL_COLORS = ["text-[#00F2FF]", "text-[#7000FF]"] as const;
           <div class="relative max-w-[260px] mx-auto rotate-[3deg] hover:rotate-0 transition-transform duration-700 group">
             <div class="absolute -inset-3 bg-gradient-to-tr from-[#7000FF] to-[#00F2FF] opacity-20 blur-2xl group-hover:opacity-40 transition-opacity" aria-hidden="true"></div>
             <div class="relative rounded-[24px] overflow-hidden p-2 glass-card">
+              {/* Bolt: Added lazy loading and async decoding to below-the-fold image to improve initial page load performance */}
               <img
                 src={about.photo_url}
                 alt={about.photo_alt || "Austin with Barkley"}
                 width="512"
                 height="768"
                 class="w-full h-auto object-cover rounded-[18px] brightness-90 contrast-110"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </div>
