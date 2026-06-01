@@ -1,3 +1,7 @@
+## 2024-05-31 - Add target="_blank" vulnerability prevention
+**Vulnerability:** External links opened with `target="_blank"` without `rel="noopener noreferrer"` can expose the site to security and performance risks (specifically the window.opener vulnerability).
+**Learning:** `rel="noopener noreferrer"` prevents the new page from accessing the window.opener property, and ensures no referrer information is passed to the destination.
+**Prevention:** Always add `rel="noopener noreferrer"` to external links with `target="_blank"`.
 ## 2024-04-26 - [Add input validation and length limits to /api/contact]
 **Vulnerability:** The `/api/contact` endpoint did not enforce type checks (allowing arrays/objects to bypass string methods) or length limits, and lacked a null check on the parsed request body, which could lead to a 500 error if `body` was null.
 **Learning:** API endpoints handling JSON payloads must validate the type and structure of the input before processing, especially before using string-specific methods like `.replace()`.

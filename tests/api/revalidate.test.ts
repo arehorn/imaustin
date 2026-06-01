@@ -51,7 +51,7 @@ describe('POST /api/revalidate', () => {
 
     expect(response.status).toBe(411);
     const data = await response.json();
-    expect(data).toEqual({ ok: false, error: "Length Required" });
+    expect(data).toEqual({ ok: false, error: "length required" });
   });
 
   it('returns 413 if Content-Length exceeds 100KB', async () => {
@@ -68,10 +68,10 @@ describe('POST /api/revalidate', () => {
 
     expect(response.status).toBe(413);
     const data = await response.json();
-    expect(data).toEqual({ ok: false, error: "Payload Too Large" });
+    expect(data).toEqual({ ok: false, error: "payload too large" });
   });
 
-  it('returns 500 if secret is not configured', async () => {
+  it('returns 500 if length is small and body is empty', async () => {
     const request = new Request('http://localhost/api/revalidate', {
       method: 'POST',
       headers: {
@@ -84,9 +84,9 @@ describe('POST /api/revalidate', () => {
     // @ts-ignore
     const response = await POST({ request });
 
-    expect(response.status).toBe(411);
+    expect(response.status).toBe(500);
     const data = await response.json();
-    expect(data).toEqual({ ok: false, error: "length required" });
+    expect(data).toEqual({ ok: false, error: "secret not configured" });
   });
 
   it('returns 500 if secret is not configured', async () => {
@@ -175,7 +175,7 @@ describe('POST /api/revalidate', () => {
     expect(data.received).toEqual({ secret: 'my-secret', some: 'data' });
   });
 
-  it('returns 413 if payload is too large', async () => {
+  it('returns 413 if payload is too large when secret is configured', async () => {
     process.env.SANITY_REVALIDATE_SECRET = 'my-secret';
 
     const request = new Request('http://localhost/api/revalidate', {
