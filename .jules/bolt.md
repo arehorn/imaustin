@@ -11,3 +11,7 @@
 ## 2024-05-18 - [Optimize Sanity Data Fetching]
 **Learning:** Making multiple parallel Sanity API requests via `Promise.all` (e.g., 12 separate `client.fetch` calls) incurs unnecessary HTTP overhead, even with HTTP/2 multiplexing. In `src/pages/index.astro`, firing 12 queries concurrently was a bottleneck.
 **Action:** Always batch multiple independent GROQ queries into a single combined GROQ object request (e.g., `{ "hero": *[_type=="hero"][0], "about": ... }`). This dramatically reduces network round-trips and lowers query latency.
+
+## 2024-05-20 - [Defer React Hydration for Below-the-Fold Islands]
+**Learning:** Found a performance bottleneck where a heavy React island (a contact form) located entirely below the fold was using Astro's `client:load` directive. This forced the client to download, parse, and execute the React runtime and the component code immediately on initial page load, blocking the main thread and slowing down the initial Time to Interactive (TTI).
+**Action:** Always use `client:visible` for heavy interactive islands that are rendered below the fold. This defers the download and hydration of the component's JavaScript until it enters the viewport, significantly improving initial page load performance.
