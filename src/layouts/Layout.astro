@@ -18,10 +18,11 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="preconnect" href="https://api.fontshare.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap"
+      href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700,800,900&f[]=satoshi@400,500,700&display=swap"
       rel="stylesheet"
     />
     <link
@@ -29,23 +30,19 @@ const {
       rel="stylesheet"
     />
   </head>
-  <body class="min-h-full flex flex-col bg-[#0A0B10] text-white selection:bg-[#7000FF] selection:text-white">
-    <!-- Nebula gradient layer -->
+  <body class="min-h-full flex flex-col bg-[#0E0C09] text-[#F4F0E8] selection:bg-[#FF5A1F] selection:text-[#0E0C09]">
+    <!-- Ambient warm gradient layer -->
     <div class="fixed inset-0 nebula-bg pointer-events-none z-0" aria-hidden="true"></div>
-    <!-- Stardust texture overlay -->
-    <div
-      class="fixed inset-0 opacity-30 pointer-events-none z-0"
-      style="background-image: url('https://www.transparenttextures.com/patterns/stardust.png');"
-      aria-hidden="true"
-    ></div>
+    <!-- Grain texture overlay -->
+    <div class="fixed inset-0 opacity-[0.07] pointer-events-none z-0 grain-overlay" aria-hidden="true"></div>
 
     <div class="relative z-10 flex flex-col min-h-full">
       <Nav client:load />
       <slot />
       <footer class="relative w-full px-6 pt-32 pb-16">
         <div class="max-w-7xl mx-auto border-t border-white/10 pt-16 flex flex-col items-center space-y-8">
-          <div class="text-2xl font-black text-white font-['Plus_Jakarta_Sans'] tracking-tighter">
-            AUSTIN<span class="bg-clip-text text-transparent bg-gradient-to-r from-[#00F2FF] to-[#7000FF]">REHORN</span>
+          <div class="text-2xl font-black text-white font-display tracking-tighter">
+            AUSTIN<span class="bg-clip-text text-transparent bg-gradient-to-r from-[#FF5A1F] to-[#C9A86C]">REHORN</span>
           </div>
           <p class="text-gray-600 font-medium text-[10px] uppercase tracking-[0.5em] text-center max-w-sm leading-loose">
             © {new Date().getFullYear()} Austin Rehorn. <span class="text-gray-400">Forged in the heart of the digital nebula.</span>
@@ -53,5 +50,8 @@ const {
         </div>
       </footer>
     </div>
+    <script>
+      import "../scripts/motion.ts";
+    </script>
   </body>
 </html>
