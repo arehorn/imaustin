@@ -10,6 +10,8 @@ const {
   title = "Austin Rehorn — Enterprise Account Management & AI Automation",
   description = "Trust and Relationships by choice, AI automation by necessity. Enterprise account manager and AI builder based in Mt. Pleasant, SC.",
 } = Astro.props;
+
+const currentYear = new Date().getFullYear();
 ---
 <!doctype html>
 <html lang="en" class="h-full antialiased">
@@ -31,7 +33,8 @@ const {
     />
   </head>
   <body class="min-h-full flex flex-col bg-[#0E0C09] text-[#F4F0E8] selection:bg-[#FF5A1F] selection:text-[#0E0C09]">
-    <!-- Ambient warm gradient layer -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-[#0E0C09] focus:text-[#FF5A1F]">Skip to main content</a>
+    <!-- Nebula gradient layer -->
     <div class="fixed inset-0 nebula-bg pointer-events-none z-0" aria-hidden="true"></div>
     <!-- Grain texture overlay -->
     <div class="fixed inset-0 opacity-[0.07] pointer-events-none z-0 grain-overlay" aria-hidden="true"></div>
@@ -45,7 +48,7 @@ const {
             AUSTIN<span class="bg-clip-text text-transparent bg-gradient-to-r from-[#FF5A1F] to-[#C9A86C]">REHORN</span>
           </div>
           <p class="text-gray-600 font-medium text-[10px] uppercase tracking-[0.5em] text-center max-w-sm leading-loose">
-            © {new Date().getFullYear()} Austin Rehorn. <span class="text-gray-400">Forged in the heart of the digital nebula.</span>
+            © {currentYear} Austin Rehorn. <span class="text-gray-400">Forged in the heart of the digital nebula.</span>
           </p>
         </div>
       </footer>

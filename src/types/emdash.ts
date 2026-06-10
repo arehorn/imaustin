@@ -27,7 +27,7 @@ export type ServiceColumnIconType = "people" | "lightbulb";
 export interface ServiceColumn {
   id: string;
   title: string;
-  bullets: string; // newline-separated
+  bullets: string[];
   icon_type: ServiceColumnIconType;
 }
 

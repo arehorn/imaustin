@@ -3,7 +3,7 @@
 //
 // The Sanity client itself comes from the @sanity/astro integration via the
 // `sanity:client` virtual module (import { sanityClient } from "sanity:client").
-// This file exposes the image URL builder and a tiny type.
+// This file exposes the image URL builder.
 import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url";
 
@@ -19,6 +19,10 @@ const dataset =
 const builder = imageUrlBuilder({ projectId, dataset });
 
 /** Safe URL string for an image with optional dimensions. Returns empty string if no source. */
+export function urlFor(source: SanityImageSource) {
+  return builder.image(source);
+}
+
 export function imageUrl(
   source: SanityImageSource | undefined | null,
   opts: { width?: number; height?: number; quality?: number } = {},
@@ -31,7 +35,3 @@ export function imageUrl(
   return b.url();
 }
 
-export type SanityImage = {
-  asset?: { _ref?: string; _type?: string };
-  alt?: string;
-};

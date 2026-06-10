@@ -17,10 +17,34 @@
 // return 200 so Sanity webhook retries stay green.
 
 import type { APIRoute } from "astro";
+import crypto from "node:crypto";
 
 export const prerender = false;
 
+function secureCompare(a: string | undefined, b: string | undefined): boolean {
+  if (!a || !b) return false;
+  const aHash = crypto.createHash("sha256").update(a).digest();
+  const bHash = crypto.createHash("sha256").update(b).digest();
+  return crypto.timingSafeEqual(aHash, bHash);
+}
+
 export const POST: APIRoute = async ({ request }) => {
+  const contentLengthHeader = request.headers.get("content-length");
+  if (!contentLengthHeader) {
+    return new Response(JSON.stringify({ ok: false, error: "length required" }), {
+      status: 411,
+      headers: { "content-type": "application/json" },
+    });
+  }
+
+  const contentLength = Number(contentLengthHeader);
+  if (contentLength > 100 * 1024) {
+    return new Response(JSON.stringify({ ok: false, error: "payload too large" }), {
+      status: 413,
+      headers: { "content-type": "application/json" },
+    });
+  }
+
   const secret =
     process.env.SANITY_REVALIDATE_SECRET ?? import.meta.env.SANITY_REVALIDATE_SECRET;
 
@@ -47,7 +71,7 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  if (headerSecret !== secret && bodySecret !== secret) {
+  if (!secureCompare(headerSecret, secret) && !secureCompare(bodySecret, secret)) {
     return new Response(JSON.stringify({ ok: false, error: "invalid secret" }), {
       status: 401,
       headers: { "content-type": "application/json" },

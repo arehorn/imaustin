@@ -1,16 +1,24 @@
 // src/pages/api/contact.ts
 import type { APIRoute } from "astro";
-
-function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
+import { renderContactEmail } from "../../lib/email";
 
 export const POST: APIRoute = async ({ request }) => {
+  const contentLengthHeader = request.headers.get("content-length");
+  if (!contentLengthHeader) {
+    return new Response(JSON.stringify({ error: "Content-Length header required." }), {
+      status: 411,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  const contentLength = Number(contentLengthHeader);
+  if (contentLength > 100 * 1024) {
+    return new Response(JSON.stringify({ error: "Payload too large." }), {
+      status: 413,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
   let body: { name?: string; email?: string; message?: string };
   try {
     body = await request.json();
@@ -78,15 +86,7 @@ export const POST: APIRoute = async ({ request }) => {
       to: "rehorna1@gmail.com",
       reply_to: email,
       subject: `New message from ${name}`,
-      html: `
-        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #3D4852;">New contact from austinrehorn.com</h2>
-          <p><strong>Name:</strong> ${escapeHtml(name)}</p>
-          <p><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></p>
-          <hr style="border: none; border-top: 1px solid #E0E5EC; margin: 20px 0;" />
-          <p style="white-space: pre-wrap; color: #3D4852;">${escapeHtml(message)}</p>
-        </div>
-      `,
+      html: renderContactEmail(name, email, message),
     }),
   });
 

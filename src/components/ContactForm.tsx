@@ -61,13 +61,13 @@ export default function ContactForm() {
           <p className="text-sm text-gray-400">I&apos;ll get back to you as soon as I can.</p>
           <button
             onClick={() => setFormState("idle")}
-            className="mt-6 px-6 py-2.5 rounded-full text-sm font-bold glass-card text-white hover:bg-white/10 transition-all"
+            className="mt-6 px-6 py-2.5 rounded-full text-sm font-bold glass-card text-white hover:bg-white/10 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5A1F]"
           >
             Send another
           </button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} noValidate className="relative">
+        <form onSubmit={handleSubmit} className="relative">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
             <div>
               <label className="block text-[10px] font-bold tracking-[0.3em] uppercase mb-2 text-[#FF5A1F]" htmlFor="name">
@@ -126,7 +126,7 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={formState === "loading"}
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#C9A86C] to-[#FF5A1F] text-white font-black tracking-wide shadow-[0_0_30px_rgba(201,168,108,0.4)] hover:brightness-110 transition-all transform hover:-translate-y-1 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#C9A86C] to-[#FF5A1F] text-white font-black tracking-wide shadow-[0_0_30px_rgba(201,168,108,0.4)] hover:brightness-110 transition-all transform hover:-translate-y-1 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5A1F]"
           >
             {formState === "loading" ? (
               <>
