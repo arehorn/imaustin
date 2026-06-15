@@ -94,7 +94,8 @@ const quoteAccent = quoteParts[1]?.trim();
     </div>
 
     <!-- Contact form (React island) -->
-    <ContactForm client:load />
+    <!-- Bolt: Use client:visible instead of client:load to defer hydration until scrolled into view -->
+    <ContactForm client:visible />
 
   </div>
 </section>
