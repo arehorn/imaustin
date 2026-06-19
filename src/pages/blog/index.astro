@@ -41,11 +41,11 @@ const posts = (rawPosts ?? []).map((p) => ({
   <main class="relative min-h-screen pt-40 pb-20">
     <div class="max-w-7xl mx-auto px-6">
 
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 border-l-4 border-[#7000FF] pl-8 mb-16">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 border-l-4 border-[#C9A86C] pl-8 mb-16">
         <div class="space-y-4">
-          <span class="text-[#7000FF] font-bold uppercase tracking-[0.4em] text-xs">Writing</span>
-          <h1 class="font-['Plus_Jakarta_Sans'] font-extrabold text-5xl lg:text-7xl leading-[1.05] tracking-tighter text-white">
-            Notes &amp; <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#00F2FF] to-[#7000FF]">Thinking</span>.
+          <span class="text-[#C9A86C] font-bold uppercase tracking-[0.4em] text-xs">Writing</span>
+          <h1 class="font-display font-extrabold text-5xl lg:text-7xl leading-[1.05] tracking-tighter text-white">
+            Notes &amp; <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#FF5A1F] to-[#C9A86C]">Thinking</span>.
           </h1>
         </div>
       </div>
@@ -57,11 +57,11 @@ const posts = (rawPosts ?? []).map((p) => ({
           {posts.map((post) => (
               <a
                 href={`/blog/${post.slug}`}
-                class="rounded-[2.5rem] p-8 glass-card flex flex-col hover:-translate-y-2 transition-all duration-500 hover:border-[#00F2FF]/40 group"
+                class="rounded-[2.5rem] p-8 glass-card flex flex-col hover:-translate-y-2 transition-all duration-500 hover:border-[#FF5A1F]/40 group"
               >
                 {post.cover_image_url && (
                   <div class="relative w-full h-44 rounded-2xl overflow-hidden mb-6">
-                    <div class="absolute inset-0 bg-gradient-to-br from-[#7000FF]/20 to-[#00F2FF]/20 opacity-60 group-hover:opacity-20 transition-opacity z-10 pointer-events-none"></div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#C9A86C]/20 to-[#FF5A1F]/20 opacity-60 group-hover:opacity-20 transition-opacity z-10 pointer-events-none"></div>
                     <img
                       src={post.cover_image_url}
                       alt={post.cover_image_alt || post.title}
@@ -75,14 +75,14 @@ const posts = (rawPosts ?? []).map((p) => ({
                     <span class="tag-pill px-3 py-1 text-[10px] font-medium uppercase tracking-widest">{tag}</span>
                   ))}
                 </div>
-                <h2 class="font-['Plus_Jakarta_Sans'] font-bold text-xl tracking-tighter mb-3 flex-1 text-white leading-tight">
+                <h2 class="font-display font-bold text-xl tracking-tighter mb-3 flex-1 text-white leading-tight">
                   {post.title}
                 </h2>
                 {post.excerpt && (
                   <p class="text-gray-400 text-sm leading-relaxed mb-4">{post.excerpt}</p>
                 )}
                 {post.published_date && (
-                  <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-[#00F2FF] mt-auto">
+                  <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-[#FF5A1F] mt-auto">
                     {post.published_date}
                   </p>
                 )}

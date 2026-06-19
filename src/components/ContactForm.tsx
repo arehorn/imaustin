@@ -33,17 +33,17 @@ export default function ContactForm() {
   }
 
   const inputClass =
-    "w-full rounded-2xl px-5 py-4 text-sm outline-none transition-all duration-300 glass-inset border border-white/10 text-white placeholder:text-gray-500 focus:border-[#00F2FF]/50 focus:ring-2 focus:ring-[#00F2FF]/30";
+    "w-full rounded-2xl px-5 py-4 text-sm outline-none transition-all duration-300 glass-inset border border-white/10 text-white placeholder:text-gray-500 focus:border-[#FF5A1F]/50 focus:ring-2 focus:ring-[#FF5A1F]/30";
 
   return (
     <div className="rounded-[3rem] p-10 md:p-14 glass-card relative overflow-hidden">
       <div
         className="absolute -right-20 -top-20 w-96 h-96 rounded-full pointer-events-none"
-        style={{ background: "rgba(112, 0, 255, 0.15)", filter: "blur(120px)" }}
+        style={{ background: "rgba(201, 168, 108, 0.15)", filter: "blur(120px)" }}
         aria-hidden="true"
       />
 
-      <h3 className="relative font-['Plus_Jakarta_Sans'] font-black text-3xl md:text-4xl tracking-tighter mb-8 text-white">
+      <h3 className="relative font-display font-black text-3xl md:text-4xl tracking-tighter mb-8 text-white">
         Send a Message
       </h3>
 
@@ -51,17 +51,17 @@ export default function ContactForm() {
         <div className="relative rounded-2xl p-8 text-center glass-inset border border-white/10" role="status" aria-live="polite">
           <div
             className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center glass-inset border border-white/10"
-            style={{ boxShadow: "0 0 24px rgba(0,242,255,0.3)" }}
+            style={{ boxShadow: "0 0 24px rgba(255,90,31,0.3)" }}
           >
-            <svg className="w-8 h-8 glow-cyan" fill="none" stroke="#00F2FF" viewBox="0 0 24 24">
+            <svg className="w-8 h-8 glow-cyan" fill="none" stroke="#FF5A1F" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <p className="font-['Plus_Jakarta_Sans'] font-bold text-lg mb-2 text-white">Message sent!</p>
+          <p className="font-display font-bold text-lg mb-2 text-white">Message sent!</p>
           <p className="text-sm text-gray-400">I&apos;ll get back to you as soon as I can.</p>
           <button
             onClick={() => setFormState("idle")}
-            className="mt-6 px-6 py-2.5 rounded-full text-sm font-bold glass-card text-white hover:bg-white/10 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F2FF]"
+            className="mt-6 px-6 py-2.5 rounded-full text-sm font-bold glass-card text-white hover:bg-white/10 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5A1F]"
           >
             Send another
           </button>
@@ -70,7 +70,7 @@ export default function ContactForm() {
         <form onSubmit={handleSubmit} className="relative">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
             <div>
-              <label className="block text-[10px] font-bold tracking-[0.3em] uppercase mb-2 text-[#00F2FF]" htmlFor="name">
+              <label className="block text-[10px] font-bold tracking-[0.3em] uppercase mb-2 text-[#FF5A1F]" htmlFor="name">
                 Name
               </label>
               <input
@@ -81,11 +81,11 @@ export default function ContactForm() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className={inputClass}
-                style={{ caretColor: "#00F2FF" }}
+                style={{ caretColor: "#FF5A1F" }}
               />
             </div>
             <div>
-              <label className="block text-[10px] font-bold tracking-[0.3em] uppercase mb-2 text-[#00F2FF]" htmlFor="email">
+              <label className="block text-[10px] font-bold tracking-[0.3em] uppercase mb-2 text-[#FF5A1F]" htmlFor="email">
                 Email
               </label>
               <input
@@ -96,13 +96,13 @@ export default function ContactForm() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className={inputClass}
-                style={{ caretColor: "#00F2FF" }}
+                style={{ caretColor: "#FF5A1F" }}
               />
             </div>
           </div>
 
           <div className="mb-8">
-            <label className="block text-[10px] font-bold tracking-[0.3em] uppercase mb-2 text-[#7000FF]" htmlFor="message">
+            <label className="block text-[10px] font-bold tracking-[0.3em] uppercase mb-2 text-[#C9A86C]" htmlFor="message">
               Message
             </label>
             <textarea
@@ -113,7 +113,7 @@ export default function ContactForm() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               className={`${inputClass} resize-none`}
-              style={{ caretColor: "#00F2FF" }}
+              style={{ caretColor: "#FF5A1F" }}
             />
           </div>
 
@@ -126,7 +126,7 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={formState === "loading"}
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#7000FF] to-[#00F2FF] text-white font-black tracking-wide shadow-[0_0_30px_rgba(112,0,255,0.4)] hover:brightness-110 transition-all transform hover:-translate-y-1 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F2FF]"
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#C9A86C] to-[#FF5A1F] text-white font-black tracking-wide shadow-[0_0_30px_rgba(201,168,108,0.4)] hover:brightness-110 transition-all transform hover:-translate-y-1 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5A1F]"
           >
             {formState === "loading" ? (
               <>

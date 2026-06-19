@@ -47,7 +47,7 @@ describe('Nav Component', () => {
     // Mobile menu links should now be visible
     // They are inside a div with absolute positioning and flex-col
     const mobileMenuLinks = screen.getAllByText('Work').filter(el =>
-        el.className.includes('text-gray-300') && el.className.includes('hover:text-[#00F2FF]')
+        el.className.includes('text-gray-300') && el.className.includes('hover:text-[#FF5A1F]')
     );
     expect(mobileMenuLinks.length).toBe(1);
 
@@ -65,7 +65,7 @@ describe('Nav Component', () => {
 
     // Find a mobile link and click it
     const mobileMenuLinks = screen.getAllByText('Work').filter(el =>
-        el.className.includes('text-gray-300') && el.className.includes('hover:text-[#00F2FF]')
+        el.className.includes('text-gray-300') && el.className.includes('hover:text-[#FF5A1F]')
     );
     fireEvent.click(mobileMenuLinks[0]);
 
