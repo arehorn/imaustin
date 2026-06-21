@@ -71,7 +71,7 @@ export default function ContactForm() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
             <div>
               <label className="block text-[10px] font-bold tracking-[0.3em] uppercase mb-2 text-[#FF5A1F]" htmlFor="name">
-                Name
+                Name<span className="text-[#FF5A1F] ml-1" aria-hidden="true">*</span>
               </label>
               <input
                 id="name"
@@ -86,7 +86,7 @@ export default function ContactForm() {
             </div>
             <div>
               <label className="block text-[10px] font-bold tracking-[0.3em] uppercase mb-2 text-[#FF5A1F]" htmlFor="email">
-                Email
+                Email<span className="text-[#FF5A1F] ml-1" aria-hidden="true">*</span>
               </label>
               <input
                 id="email"
@@ -103,7 +103,7 @@ export default function ContactForm() {
 
           <div className="mb-8">
             <label className="block text-[10px] font-bold tracking-[0.3em] uppercase mb-2 text-[#C9A86C]" htmlFor="message">
-              Message
+              Message<span className="text-[#FF5A1F] ml-1" aria-hidden="true">*</span>
             </label>
             <textarea
               id="message"
@@ -130,7 +130,7 @@ export default function ContactForm() {
           >
             {formState === "loading" ? (
               <>
-                <svg className="animate-spin -ml-1 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <svg aria-hidden="true" className="animate-spin -ml-1 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>

@@ -11,3 +11,7 @@
 ## 2026-05-17 - Keyboard Navigation & Surfacing Data Accessibly
 **Learning:** In dark-mode applications, relying solely on hover states or color contrast changes for interactive elements like project links or CTAs is insufficient for keyboard users. Furthermore, having href data in a data model but hiding it or rendering it inaccessible prevents users from easily engaging with external content.
 **Action:** Always provide explicitly defined `focus-visible` styles with a high-contrast ring (e.g., `focus-visible:ring-[#00F2FF]`) for all interactive elements to ensure clear keyboard navigation paths. When rendering data that includes actionable items like URLs, expose them accessibly via interactive elements (e.g., links with `aria-label` stating "opens in new tab") rather than keeping them hidden.
+
+## 2024-05-25 - Hiding visual indicators from screen readers
+**Learning:** While asterisk (*) visual required indicators and decorative SVGs inside buttons are helpful for sighted users, they can create a disjointed experience for screen reader users by repeatedly announcing 'star' or redundantly reading SVGs. The `required` native input attribute handles the screen reader experience on its own.
+**Action:** Always wrap visual indicators like asterisks in elements with `aria-hidden="true"` (e.g. `<span aria-hidden="true">*</span>`) and add the same to purely decorative loading SVGs next to text, so screen readers can rely on semantic HTML without clutter.
