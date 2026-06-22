@@ -94,7 +94,8 @@ const quoteAccent = quoteParts[1]?.trim();
     </div>
 
     <!-- Contact form (React island) -->
-    <ContactForm client:load />
+    <!-- ⚡ Bolt: Use client:visible instead of client:load to defer hydration of this heavy component until it enters the viewport, improving initial main thread TTI -->
+    <ContactForm client:visible />
 
   </div>
 </section>
