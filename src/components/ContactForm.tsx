@@ -71,7 +71,7 @@ export default function ContactForm() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
             <div>
               <label className="block text-[10px] font-bold tracking-[0.3em] uppercase mb-2 text-[#FF5A1F]" htmlFor="name">
-                Name
+                Name <span aria-hidden="true">*</span>
               </label>
               <input
                 id="name"
@@ -86,7 +86,7 @@ export default function ContactForm() {
             </div>
             <div>
               <label className="block text-[10px] font-bold tracking-[0.3em] uppercase mb-2 text-[#FF5A1F]" htmlFor="email">
-                Email
+                Email <span aria-hidden="true">*</span>
               </label>
               <input
                 id="email"
@@ -103,7 +103,7 @@ export default function ContactForm() {
 
           <div className="mb-8">
             <label className="block text-[10px] font-bold tracking-[0.3em] uppercase mb-2 text-[#C9A86C]" htmlFor="message">
-              Message
+              Message <span aria-hidden="true" className="text-[#FF5A1F]">*</span>
             </label>
             <textarea
               id="message"
