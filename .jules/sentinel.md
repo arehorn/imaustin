@@ -12,3 +12,7 @@
 **Vulnerability:** API routes (`/api/contact`, `/api/revalidate`) lack `Content-Length` limits when parsing JSON, making them vulnerable to Denial of Service via large unbounded payloads.
 **Learning:** `request.json()` loads the full body into memory. Since these routes don't enforce payload sizes, attackers can send massive JSON requests to exhaust server memory and CPU.
 **Prevention:** Always check the `Content-Length` header against a maximum safe limit (e.g., 100KB) and reject the request (413 Payload Too Large) before calling `.json()`.
+## 2024-05-17 - Add Global Security HTTP Headers via Middleware
+**Vulnerability:** Missing global security headers such as `X-Content-Type-Options`, `X-Frame-Options`, and `Referrer-Policy`, which are essential to protect against MIME-type sniffing, clickjacking, and side-channel leakage across the site.
+**Learning:** Astro provides a clean middleware pattern (`src/middleware.ts`) that intercepts the entire application response. This is an optimal place to inject defense-in-depth security headers globally without touching individual pages.
+**Prevention:** Establish a baseline security middleware upon initial project setup that enforces safe defaults (`nosniff`, `DENY` for frames) to protect the application by default.
