@@ -11,3 +11,7 @@
 ## 2026-05-17 - Keyboard Navigation & Surfacing Data Accessibly
 **Learning:** In dark-mode applications, relying solely on hover states or color contrast changes for interactive elements like project links or CTAs is insufficient for keyboard users. Furthermore, having href data in a data model but hiding it or rendering it inaccessible prevents users from easily engaging with external content.
 **Action:** Always provide explicitly defined `focus-visible` styles with a high-contrast ring (e.g., `focus-visible:ring-[#00F2FF]`) for all interactive elements to ensure clear keyboard navigation paths. When rendering data that includes actionable items like URLs, expose them accessibly via interactive elements (e.g., links with `aria-label` stating "opens in new tab") rather than keeping them hidden.
+
+## 2026-05-18 - Decorative Icons and Interactive Element Accessibility
+**Learning:** Decorative icons (like material-symbols-outlined spans or success/loading SVG checks) can add noise for screen reader users if left exposed without `aria-hidden="true"`. Also, external links in repeating components must include specific `aria-label`s and `focus-visible` styling to provide a robust experience for keyboard and screen reader users alike.
+**Action:** Always ensure purely decorative SVGs and span-based icons have `aria-hidden="true"`, and apply standard `focus-visible` ring styling and explicit `aria-label`s to external links.
