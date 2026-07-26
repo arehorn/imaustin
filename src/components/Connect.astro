@@ -69,7 +69,7 @@ const quoteAccent = quoteParts[1]?.trim();
         return (
           <div class="rounded-[2rem] p-7 glass-card flex gap-5 items-center hover:-translate-y-1 transition-transform duration-500">
             <div class="shrink-0 w-14 h-14 rounded-2xl glass-inset border border-white/5 flex items-center justify-center">
-              <svg class={`w-6 h-6 ${accent.glow}`} fill="none" stroke={accent.stroke} viewBox="0 0 24 24">
+              <svg class={`w-6 h-6 ${accent.glow}`} fill="none" stroke={accent.stroke} viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={iconPath} />
               </svg>
             </div>
@@ -80,7 +80,7 @@ const quoteAccent = quoteParts[1]?.trim();
                   href={item.href}
                   target={item.href.startsWith("http") ? "_blank" : undefined}
                   rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  class="font-display font-bold text-sm truncate block text-white hover:text-[#FF5A1F] transition-colors"
+                  class="font-display font-bold text-sm truncate block text-white hover:text-[#FF5A1F] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5A1F]" aria-label={item.href.startsWith("http") ? `${item.label} (opens in a new tab)` : item.label}
                 >
                   {item.value}
                 </a>
