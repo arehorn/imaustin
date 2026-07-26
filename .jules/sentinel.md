@@ -12,3 +12,8 @@
 **Vulnerability:** API routes (`/api/contact`, `/api/revalidate`) lack `Content-Length` limits when parsing JSON, making them vulnerable to Denial of Service via large unbounded payloads.
 **Learning:** `request.json()` loads the full body into memory. Since these routes don't enforce payload sizes, attackers can send massive JSON requests to exhaust server memory and CPU.
 **Prevention:** Always check the `Content-Length` header against a maximum safe limit (e.g., 100KB) and reject the request (413 Payload Too Large) before calling `.json()`.
+
+## 2024-07-26 - [Add Global Security Headers]
+**Vulnerability:** The application was missing basic HTTP security headers (like X-Content-Type-Options, X-Frame-Options), which help mitigate attacks like clickjacking and MIME-type sniffing.
+**Learning:** In an Astro application using Vercel adapter, middleware is an effective way to inject global security headers across all rendered pages and API routes without modifying each route individually.
+**Prevention:** Always implement a centralized middleware (`src/middleware.ts`) to ensure fundamental security headers (HSTS, CSP, Frame Options, etc.) are applied globally by default.
