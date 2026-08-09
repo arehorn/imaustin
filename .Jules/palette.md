@@ -11,3 +11,7 @@
 ## 2026-05-17 - Keyboard Navigation & Surfacing Data Accessibly
 **Learning:** In dark-mode applications, relying solely on hover states or color contrast changes for interactive elements like project links or CTAs is insufficient for keyboard users. Furthermore, having href data in a data model but hiding it or rendering it inaccessible prevents users from easily engaging with external content.
 **Action:** Always provide explicitly defined `focus-visible` styles with a high-contrast ring (e.g., `focus-visible:ring-[#00F2FF]`) for all interactive elements to ensure clear keyboard navigation paths. When rendering data that includes actionable items like URLs, expose them accessibly via interactive elements (e.g., links with `aria-label` stating "opens in new tab") rather than keeping them hidden.
+
+## 2024-11-20 - [ARIA Hidden on Decorative Visuals]
+**Learning:** For forms, it's common to visually denote required fields with an asterisk (*). However, if an input already uses the standard `required` HTML attribute, screen readers will already announce it as required. Adding a text asterisk will cause the screen reader to unnecessarily say "star". Similarly, decorative icons inside buttons and status indicators can create noise.
+**Action:** When adding asterisks for required form labels, always apply `aria-hidden="true"` to the asterisk element to ensure screen readers don't read them aloud. Do the same for purely decorative icons (like SVGs or material symbols) that accompany descriptive text or are inherently visual-only feedback.

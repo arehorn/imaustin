@@ -53,7 +53,7 @@ export default function ContactForm() {
             className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center glass-inset border border-white/10"
             style={{ boxShadow: "0 0 24px rgba(255,90,31,0.3)" }}
           >
-            <svg className="w-8 h-8 glow-cyan" fill="none" stroke="#FF5A1F" viewBox="0 0 24 24">
+            <svg className="w-8 h-8 glow-cyan" fill="none" stroke="#FF5A1F" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
@@ -71,7 +71,7 @@ export default function ContactForm() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
             <div>
               <label className="block text-[10px] font-bold tracking-[0.3em] uppercase mb-2 text-[#FF5A1F]" htmlFor="name">
-                Name
+                Name<span aria-hidden="true" className="text-red-500 ml-1">*</span>
               </label>
               <input
                 id="name"
@@ -86,7 +86,7 @@ export default function ContactForm() {
             </div>
             <div>
               <label className="block text-[10px] font-bold tracking-[0.3em] uppercase mb-2 text-[#FF5A1F]" htmlFor="email">
-                Email
+                Email<span aria-hidden="true" className="text-red-500 ml-1">*</span>
               </label>
               <input
                 id="email"
@@ -103,7 +103,7 @@ export default function ContactForm() {
 
           <div className="mb-8">
             <label className="block text-[10px] font-bold tracking-[0.3em] uppercase mb-2 text-[#C9A86C]" htmlFor="message">
-              Message
+              Message<span aria-hidden="true" className="text-red-500 ml-1">*</span>
             </label>
             <textarea
               id="message"
@@ -130,7 +130,7 @@ export default function ContactForm() {
           >
             {formState === "loading" ? (
               <>
-                <svg className="animate-spin -ml-1 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <svg className="animate-spin -ml-1 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
