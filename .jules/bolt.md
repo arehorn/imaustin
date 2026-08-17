@@ -11,3 +11,6 @@
 ## 2024-05-18 - [Optimize Sanity Data Fetching]
 **Learning:** Making multiple parallel Sanity API requests via `Promise.all` (e.g., 12 separate `client.fetch` calls) incurs unnecessary HTTP overhead, even with HTTP/2 multiplexing. In `src/pages/index.astro`, firing 12 queries concurrently was a bottleneck.
 **Action:** Always batch multiple independent GROQ queries into a single combined GROQ object request (e.g., `{ "hero": *[_type=="hero"][0], "about": ... }`). This dramatically reduces network round-trips and lowers query latency.
+## 2026-08-17 - [Optimize Client Hydration]
+**Learning:** Hydrating heavily interactive React components located below the fold with `client:load` blocks the main thread unnecessarily during initial page load, impacting time-to-interactive.
+**Action:** Use `client:visible` for interactive components located below the fold to defer their hydration until they enter the viewport, reducing initial JavaScript payload execution.
