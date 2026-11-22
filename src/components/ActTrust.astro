@@ -1,0 +1,51 @@
+---
+import type { ExperienceRole } from "../types/emdash";
+import CareerEntry from "./CareerEntry.astro";
+
+interface Props {
+  roles: ExperienceRole[];
+}
+
+const { roles } = Astro.props;
+---
+
+<section id="career" class="scroll-mt-28">
+  <header class="max-w-2xl">
+    <p class="act-kicker">Act one — Trust</p>
+    <h2 class="act-title">The relationship was always the infrastructure.</h2>
+
+    <div class="mt-7 space-y-5 text-lg leading-relaxed text-gray-400">
+      <p>
+        I started at Global Resource Group as one of its first three employees, selling GPS
+        telematics to people who had never heard of it. No brand, no case studies, no obvious
+        reason for anyone to pick up the phone. So the work became the thing it has been ever
+        since: get curious fast, understand what someone is actually trying to fix, and be the
+        person who follows through.
+      </p>
+      <p>
+        That is how a $1M book got built one relationship at a time, how a 500-device nationwide
+        rollout held together, and how I ended up running operations for three companies and a
+        hundred accounts. The systems changed. The job never did.
+      </p>
+    </div>
+
+    <aside class="path-only mt-8" data-path-for="hiring">
+      <p class="path-note">
+        Fifteen years, four companies, one referral engine: a 90% close rate on relationships I
+        earned, 130% quota three years running, and an invitation onto a client&apos;s podcast
+        because the work was worth talking about.
+      </p>
+    </aside>
+
+    <aside class="path-only mt-8" data-path-for="build">
+      <p class="path-note">
+        Every system I have built since started here: sitting with the person who has the
+        problem long enough to know what actually hurts.
+      </p>
+    </aside>
+  </header>
+
+  <div class="mt-14 space-y-16">
+    {roles.map((role) => <CareerEntry role={role} />)}
+  </div>
+</section>
