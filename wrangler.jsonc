@@ -1,0 +1,20 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "imaustin",
+  // Astro 6 + @astrojs/cloudflare v13 use a unified entrypoint instead of dist/_worker.js/index.js.
+  "main": "@astrojs/cloudflare/entrypoints/server",
+  "compatibility_date": "2026-11-22",
+  // Required for node:crypto and for process.env to be populated from vars/secrets.
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS"
+  },
+  "vars": {
+    "PUBLIC_SANITY_PROJECT_ID": "h0f14hm4",
+    "PUBLIC_SANITY_DATASET": "production"
+  },
+  "observability": {
+    "enabled": true
+  }
+}
