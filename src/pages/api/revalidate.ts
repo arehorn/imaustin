@@ -4,9 +4,8 @@
 // Configure a GROQ-powered webhook in Sanity (Manage → API → Webhooks):
 //   - URL:     https://imaustin.me/api/revalidate
 //   - Trigger: Create/Update/Delete on dataset "production"
-//   - Filter:  _type in ["hero","about","experience","connect","statItem",
-//              "personalityCard","offClockNote","serviceColumn",
-//              "projectItem","experienceRole","contactItem","blogPost"]
+//   - Filter:  _type in ["hero","connect","projectItem","experienceRole",
+//              "contactItem","blogPost"]
 //   - Secret:  set to SANITY_REVALIDATE_SECRET (sent as header x-sanity-signature
 //              OR body field "secret" — we accept either for simplicity)
 //

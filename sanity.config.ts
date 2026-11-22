@@ -33,23 +33,11 @@ export default defineConfig({
               .id("hero")
               .child(S.document().schemaType("hero").documentId("hero")),
             S.listItem()
-              .title("About")
-              .id("about")
-              .child(S.document().schemaType("about").documentId("about")),
-            S.listItem()
-              .title("Experience")
-              .id("experience")
-              .child(S.document().schemaType("experience").documentId("experience")),
-            S.listItem()
               .title("Connect")
               .id("connect")
               .child(S.document().schemaType("connect").documentId("connect")),
             S.divider(),
             // Regular document lists.
-            S.documentTypeListItem("personalityCard").title("Personality cards"),
-            S.documentTypeListItem("offClockNote").title("Off-clock notes"),
-            S.documentTypeListItem("statItem").title("Stats"),
-            S.documentTypeListItem("serviceColumn").title("What I Do columns"),
             S.documentTypeListItem("projectItem").title("Projects"),
             S.documentTypeListItem("experienceRole").title("Experience roles"),
             S.documentTypeListItem("contactItem").title("Contact items"),
