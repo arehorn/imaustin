@@ -9,32 +9,6 @@ export const experienceRole = defineType({
     defineField({ name: "company", title: "Company", type: "string", validation: (r) => r.required() }),
     defineField({ name: "division", title: "Division", type: "string" }),
     defineField({ name: "dates", title: "Dates", type: "string" }),
-    defineField({ name: "era", title: "Era label", type: "string" }),
-    defineField({
-      name: "side",
-      title: "Timeline side",
-      type: "string",
-      options: {
-        list: [
-          { title: "Left", value: "left" },
-          { title: "Right", value: "right" },
-        ],
-        layout: "radio",
-      },
-    }),
-    defineField({
-      name: "iconType",
-      title: "Icon",
-      type: "string",
-      options: {
-        list: [
-          { title: "Search", value: "search" },
-          { title: "Team", value: "team" },
-          { title: "Settings", value: "settings" },
-          { title: "Briefcase", value: "briefcase" },
-        ],
-      },
-    }),
     defineField({
       name: "highlights",
       title: "Highlights",
