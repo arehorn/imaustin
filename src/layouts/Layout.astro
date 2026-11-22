@@ -1,20 +1,32 @@
 ---
 import "../styles/globals.css";
 import Nav from "../components/Nav";
+import { sanityClient } from "sanity:client";
+import { HERO_QUERY } from "../lib/queries";
 
 interface Props {
   title?: string;
   description?: string;
+  /** Pass the hero's résumé URL when the page has already fetched it. */
+  resumeUrl?: string;
 }
 const {
-  title = "Austin Rehorn — Enterprise Account Management & AI Automation",
-  description = "Trust and Relationships by choice, AI automation by necessity. Enterprise account manager and AI builder based in Mt. Pleasant, SC.",
+  title = "Austin Rehorn — Trust first. Then systems.",
+  description = "Enterprise account manager and AI builder in Mt. Pleasant, SC. Fifteen years earning trust, then building the systems that make it scale.",
+  resumeUrl: providedResumeUrl,
 } = Astro.props;
 
 const currentYear = new Date().getFullYear();
+
+// Pages that already fetched the hero document hand us its URL; pages that
+// didn't (the blog) still need one fetch to keep the nav link working.
+const resumeUrl: string =
+  providedResumeUrl ??
+  ((await sanityClient.fetch<any>(HERO_QUERY))?.resumeUrl ?? "");
 ---
+
 <!doctype html>
-<html lang="en" class="h-full antialiased">
+<html lang="en" class="h-full antialiased" data-path="curious">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -27,28 +39,34 @@ const currentYear = new Date().getFullYear();
       href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700,800,900&f[]=satoshi@400,500,700&display=swap"
       rel="stylesheet"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      rel="stylesheet"
-    />
+    <script is:inline>
+      // Restore the visitor's chosen door before first paint so the page
+      // doesn't flash the default weighting.
+      try {
+        var path = sessionStorage.getItem("imaustin.path");
+        if (path === "hiring" || path === "build" || path === "curious") {
+          document.documentElement.dataset.path = path;
+        }
+      } catch (e) {}
+    </script>
   </head>
-  <body class="min-h-full flex flex-col bg-[#0E0C09] text-[#F4F0E8] selection:bg-[#FF5A1F] selection:text-[#0E0C09]">
+  <body class="flex min-h-full flex-col bg-[#0E0C09] text-[#F4F0E8] selection:bg-[#FF5A1F] selection:text-[#0E0C09]">
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-[#0E0C09] focus:text-[#FF5A1F]">Skip to main content</a>
-    <!-- Nebula gradient layer -->
-    <div class="fixed inset-0 nebula-bg pointer-events-none z-0" aria-hidden="true"></div>
+    <!-- Warm ambient light -->
+    <div class="nebula-bg pointer-events-none fixed inset-0 z-0" aria-hidden="true"></div>
     <!-- Grain texture overlay -->
-    <div class="fixed inset-0 opacity-[0.07] pointer-events-none z-0 grain-overlay" aria-hidden="true"></div>
+    <div class="grain-overlay pointer-events-none fixed inset-0 z-0 opacity-[0.07]" aria-hidden="true"></div>
 
-    <div class="relative z-10 flex flex-col min-h-full">
-      <Nav client:load />
+    <div class="relative z-10 flex min-h-full flex-col">
+      <Nav client:load resumeUrl={resumeUrl} />
       <slot />
-      <footer class="relative w-full px-6 pt-32 pb-16">
-        <div class="max-w-7xl mx-auto border-t border-white/10 pt-16 flex flex-col items-center space-y-8">
-          <div class="text-2xl font-black text-white font-display tracking-tighter">
-            AUSTIN<span class="bg-clip-text text-transparent bg-gradient-to-r from-[#FF5A1F] to-[#C9A86C]">REHORN</span>
+      <footer class="relative w-full px-6 pb-16 pt-24">
+        <div class="mx-auto flex max-w-6xl flex-col items-center space-y-7 border-t border-white/10 pt-14">
+          <div class="font-display text-2xl font-black tracking-tighter text-white">
+            AUSTIN{" "}<span class="bg-gradient-to-r from-[#FF5A1F] to-[#C9A86C] bg-clip-text text-transparent">REHORN</span>
           </div>
-          <p class="text-gray-600 font-medium text-[10px] uppercase tracking-[0.5em] text-center max-w-sm leading-loose">
-            © {currentYear} Austin Rehorn. <span class="text-gray-400">Forged in the heart of the digital nebula.</span>
+          <p class="max-w-sm text-center text-[10px] font-medium uppercase leading-loose tracking-[0.5em] text-gray-600">
+            © {currentYear} Austin Rehorn. <span class="text-gray-400">Relationship first. Results always.</span>
           </p>
         </div>
       </footer>

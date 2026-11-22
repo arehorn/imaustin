@@ -1,0 +1,50 @@
+---
+import type { ExperienceRole } from "../types/emdash";
+import CareerEntry from "./CareerEntry.astro";
+
+interface Props {
+  roles: ExperienceRole[];
+}
+
+const { roles } = Astro.props;
+---
+
+<section id="systems" class="scroll-mt-28">
+  <header class="max-w-2xl">
+    <p class="act-kicker">Act two — Systems</p>
+    <h2 class="act-title">Then I started building the thing that made it scale.</h2>
+
+    <div class="mt-7 space-y-5 text-lg leading-relaxed text-gray-400">
+      <p>
+        Running operations taught me where the hours go. Reporting rebuilt by hand every month.
+        A spreadsheet only one person understood. Integrations nobody had asked for because
+        nobody knew they were possible. I automated them, lifted margin 25%, and removed $50K of
+        labor a year — and learned that the most useful thing I can do in a room is notice the
+        friction everyone has stopped seeing.
+      </p>
+      <p>
+        By 2021 I was back on the front line with a different toolkit. I built a custom GPT with
+        the company president that cut job-description drafting from 30–40 minutes to under 10.
+        Then a full Claude-powered suite that took a search from intake to live in 90% less time.
+      </p>
+    </div>
+
+    <aside class="path-only mt-8" data-path-for="hiring">
+      <p class="path-note">
+        What I bring to a team: someone who has carried a quota and built the automation behind
+        it. I don&apos;t need a mandate to fix a workflow.
+      </p>
+    </aside>
+
+    <aside class="path-only mt-8" data-path-for="build">
+      <p class="path-note">
+        If a process in your company needs three people and a spreadsheet, that is the kind of
+        thing I have already done four times.
+      </p>
+    </aside>
+  </header>
+
+  <div class="mt-14 space-y-16">
+    {roles.map((role) => <CareerEntry role={role} />)}
+  </div>
+</section>

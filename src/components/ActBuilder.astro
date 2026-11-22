@@ -1,0 +1,106 @@
+---
+import type { ProjectItem } from "../types/emdash";
+import InboxToy from "./InboxToy";
+
+interface Props {
+  projects: ProjectItem[];
+}
+
+const { projects } = Astro.props;
+---
+
+<section id="builder" class="scroll-mt-28">
+  <header class="max-w-2xl">
+    <p class="act-kicker">Act three — Builder</p>
+    <h2 class="act-title">Now I ship the thing instead of describing it.</h2>
+
+    <div class="mt-7 space-y-5 text-lg leading-relaxed text-gray-400">
+      <p>
+        The pattern escaped the job. If a workflow is clunky, I redesign it. If a task repeats
+        twice, I automate it. If an idea keeps rattling around in my head, I build a version of it
+        and find out whether I was right.
+      </p>
+      <p>Some of it is for other people. All of it is the same instinct that started on a sales floor in 2011.</p>
+    </div>
+
+    <aside class="path-only mt-8" data-path-for="hiring">
+      <p class="path-note">
+        The through-line: I find friction, I build, and I stay until it is actually used. That is
+        what I would bring to your team.
+      </p>
+    </aside>
+
+    <aside class="path-only mt-8" data-path-for="build">
+      <p class="path-note">
+        What I would build for you usually looks like this list with different nouns: fewer
+        touches, less retyping, one place where the truth lives.
+      </p>
+    </aside>
+  </header>
+
+  <div class="mt-16 border-t border-white/10">
+    {
+      projects.map((project, i) => (
+        <article class="project-row" data-reveal>
+          <p class="project-index">{String(i + 1).padStart(2, "0")}</p>
+
+          <div>
+            <h3 class="font-display text-xl font-bold tracking-tighter text-white sm:text-2xl">
+              {project.title}
+            </h3>
+            <p class="mt-2 max-w-2xl text-base leading-relaxed text-gray-400">
+              {project.description}
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              {project.tags.map((tag) => (
+                <span class="tag-pill px-3 py-1 text-[10px] font-medium uppercase tracking-[0.14em]">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div class="project-action">
+            {project.href ? (
+              <a
+                href={project.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Open ${project.title} (opens in a new tab)`}
+                class="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.03] px-5 py-2.5 text-xs font-bold uppercase tracking-[0.18em] text-white transition-colors hover:border-[#FF5A1F]/50 hover:bg-[#FF5A1F]/10"
+              >
+                Visit
+                <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 17 17 7M9 7h8v8"
+                  />
+                </svg>
+              </a>
+            ) : null}
+          </div>
+        </article>
+      ))
+    }
+  </div>
+
+  <div class="mt-20 grid grid-cols-1 items-start gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+    <div>
+      <p class="text-[11px] font-bold uppercase tracking-[0.3em] text-[#C9A86C]">
+        Try the one that fixes my own inbox
+      </p>
+      <h3 class="mt-4 font-display text-3xl font-black leading-[1.05] tracking-tighter text-white">
+        You have four emails and one morning.
+      </h3>
+      <p class="mt-5 max-w-md text-base leading-relaxed text-gray-400">
+        The Gmail tagger began as a personal annoyance: too many threads, too few labels that meant
+        anything. It now sorts mail into nine categories, drafts context-aware replies, and learns
+        from the edits I make. This is a stripped-down version of the decision it makes.
+      </p>
+    </div>
+
+    <InboxToy client:idle />
+  </div>
+</section>

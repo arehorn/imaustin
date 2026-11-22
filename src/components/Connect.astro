@@ -1,13 +1,13 @@
 ---
-import type { ConnectData, ContactItem } from "../types/emdash";
+import type { ContactItem } from "../types/emdash";
 import ContactForm from "./ContactForm";
 
 interface Props {
-  connect: ConnectData;
+  quote: string;
   contactItems: ContactItem[];
 }
 
-const { connect, contactItems } = Astro.props;
+const { quote, contactItems } = Astro.props;
 
 const CONTACT_ICON_PATHS: Record<string, string> = {
   email: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
@@ -15,86 +15,74 @@ const CONTACT_ICON_PATHS: Record<string, string> = {
   linkedin: "M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z M4 6a2 2 0 100-4 2 2 0 000 4z",
   location: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z",
 };
-
-const ACCENTS = [
-  { stroke: "#FF5A1F", glow: "glow-cyan" },
-  { stroke: "#C9A86C", glow: "glow-purple" },
-];
-
-const quoteParts = connect.quote.split("—");
-const quoteMain = quoteParts[0];
-const quoteAccent = quoteParts[1]?.trim();
 ---
 
-<section id="connect" class="relative py-28">
-  <div class="max-w-7xl mx-auto px-6">
+<section id="connect" class="scroll-mt-28 py-28">
+  <div class="mx-auto max-w-6xl px-6">
+    <header class="max-w-2xl">
+      <p class="act-kicker">Let&apos;s connect</p>
+      <h2 class="act-title">The next chapter usually starts with a conversation.</h2>
+    </header>
 
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 border-l-4 border-[#FF5A1F] pl-8 mb-20">
-      <div class="space-y-4">
-        <span class="text-[#FF5A1F] font-bold uppercase tracking-[0.4em] text-xs">Let&apos;s Connect</span>
-        <h2 class="text-4xl lg:text-5xl font-extrabold font-display text-white tracking-tighter">
-          Start a conversation.
-        </h2>
-      </div>
-    </div>
+    <blockquote class="mt-10 max-w-3xl border-l-2 border-[#C9A86C]/50 pl-6 font-display text-lg font-medium leading-snug tracking-tight text-gray-200 sm:text-xl">
+      {quote}
+    </blockquote>
 
-    <!-- Photo + quote banner -->
-    <div class="rounded-[3rem] p-10 md:p-14 mb-10 glass-card flex flex-col md:flex-row gap-10 items-center relative overflow-hidden">
-      <div class="absolute -right-16 -top-16 w-72 h-72 bg-[#C9A86C]/20 blur-[100px] rounded-full pointer-events-none" aria-hidden="true"></div>
-      <div class="absolute -left-16 -bottom-16 w-72 h-72 bg-[#FF5A1F]/15 blur-[100px] rounded-full pointer-events-none" aria-hidden="true"></div>
+    <div class="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-[0.85fr_1.15fr]">
+      <div>
+        <aside class="path-only" data-path-for="hiring">
+          <p class="path-note path-note-lg">
+            Send the role, the team, and what a win looks like in the first 90 days. I&apos;ll tell
+            you honestly whether I&apos;m the right person for it.
+          </p>
+        </aside>
+        <aside class="path-only" data-path-for="build">
+          <p class="path-note path-note-lg">
+            Tell me what&apos;s slow, where it breaks, and who it hurts. If I can fix it, I&apos;ll
+            say so. If I can&apos;t, I&apos;ll say that too.
+          </p>
+        </aside>
+        <aside class="path-only" data-path-for="curious">
+          <p class="path-note path-note-lg">
+            No agenda needed. Tell me what you&apos;re working on and I&apos;ll tell you what
+            I&apos;d do with it.
+          </p>
+        </aside>
 
-      <div class="shrink-0 relative">
-        <div class="absolute -inset-3 bg-gradient-to-tr from-[#C9A86C] to-[#FF5A1F] opacity-25 blur-2xl" aria-hidden="true"></div>
-        <div class="relative rounded-[1.5rem] overflow-hidden glass-card p-2" style="width: 220px; height: 260px;">
-          <img
-            src={connect.photo_url}
-            alt={connect.photo_alt || "Austin Rehorn"}
-            width="220"
-            height="260"
-            class="w-full h-full object-cover object-top rounded-[1.2rem] brightness-90 contrast-110"
-          />
+        <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1">
+          {
+            contactItems.map((item) => {
+              const iconPath = CONTACT_ICON_PATHS[item.icon_type] ?? CONTACT_ICON_PATHS.email;
+              return (
+                <div class="glass-card flex items-center gap-4 rounded-2xl p-5">
+                  <div class="glass-inset flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/5">
+                    <svg class="h-5 w-5 glow-purple" fill="none" stroke="#C9A86C" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={iconPath} />
+                    </svg>
+                  </div>
+                  <div class="min-w-0">
+                    <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-gray-500">{item.label}</p>
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        target={item.href.startsWith("http") ? "_blank" : undefined}
+                        rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                        class="mt-1 block break-words text-sm font-bold text-white transition-colors hover:text-[#FF5A1F]"
+                      >
+                        {item.value}
+                      </a>
+                    ) : (
+                      <p class="mt-1 break-words text-sm font-bold text-white">{item.value}</p>
+                    )}
+                  </div>
+                </div>
+              );
+            })
+          }
         </div>
       </div>
-      <p class="relative font-display font-black text-2xl md:text-4xl leading-tight tracking-tighter text-white">
-        {quoteMain}—{" "}
-        <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#FF5A1F] to-[#C9A86C]">{quoteAccent}</span>
-      </p>
+
+      <ContactForm client:visible />
     </div>
-
-    <!-- Contact items grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
-      {contactItems.map((item: ContactItem, i: number) => {
-        const iconPath = CONTACT_ICON_PATHS[item.icon_type] ?? CONTACT_ICON_PATHS.email;
-        const accent = ACCENTS[i % ACCENTS.length];
-        return (
-          <div class="rounded-[2rem] p-7 glass-card flex gap-5 items-center hover:-translate-y-1 transition-transform duration-500">
-            <div class="shrink-0 w-14 h-14 rounded-2xl glass-inset border border-white/5 flex items-center justify-center">
-              <svg class={`w-6 h-6 ${accent.glow}`} fill="none" stroke={accent.stroke} viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={iconPath} />
-              </svg>
-            </div>
-            <div class="min-w-0">
-              <p class="text-[10px] font-bold tracking-[0.3em] uppercase mb-2 text-gray-500">{item.label}</p>
-              {item.href ? (
-                <a
-                  href={item.href}
-                  target={item.href.startsWith("http") ? "_blank" : undefined}
-                  rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  class="font-display font-bold text-sm truncate block text-white hover:text-[#FF5A1F] transition-colors"
-                >
-                  {item.value}
-                </a>
-              ) : (
-                <p class="font-display font-bold text-sm text-white">{item.value}</p>
-              )}
-            </div>
-          </div>
-        );
-      })}
-    </div>
-
-    <!-- Contact form (React island) -->
-    <ContactForm client:load />
-
   </div>
 </section>

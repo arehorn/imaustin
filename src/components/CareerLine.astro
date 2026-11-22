@@ -1,0 +1,13 @@
+---
+// Shared wrapper for Acts One and Two. The rail runs through both, so the
+// career line reads as one continuous thread rather than two timelines.
+---
+
+<div class="mx-auto max-w-6xl px-6">
+  <div class="career-track">
+    <span class="career-line" data-career-line aria-hidden="true"></span>
+    <div class="space-y-24">
+      <slot />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+---
+interface Stat {
+  prefix?: string;
+  value: number;
+  suffix?: string;
+  label: string;
+}
+
+interface Group {
+  path: "hiring" | "build" | "curious";
+  stats: Stat[];
+}
+
+const GROUPS: Group[] = [
+  {
+    path: "hiring",
+    stats: [
+      { prefix: "$", value: 4, suffix: "M+", label: "Gross margin generated across my career" },
+      { value: 130, suffix: "%+", label: "Quota attainment, three years running" },
+      { value: 90, suffix: "%", label: "Referral close rate, built on trust" },
+    ],
+  },
+  {
+    path: "build",
+    stats: [
+      { value: 90, suffix: "%", label: "Less time from search intake to live" },
+      { value: 25, suffix: "%", label: "Margin lift from automating ops reporting" },
+      { prefix: "$", value: 50, suffix: "K", label: "Annual labor cost removed by that automation" },
+    ],
+  },
+  {
+    path: "curious",
+    stats: [
+      { prefix: "$", value: 4, suffix: "M+", label: "Gross margin generated across my career" },
+      { value: 90, suffix: "%", label: "Faster go-live after building the automation" },
+      { value: 15, suffix: "+", label: "Years doing this, in one form or another" },
+    ],
+  },
+];
+---
+
+<section aria-label="By the numbers" class="relative py-10">
+  <div class="mx-auto max-w-6xl px-6">
+    {
+      GROUPS.map((group) => (
+        <div class="path-only" data-path-for={group.path}>
+          <div class="grid grid-cols-1 gap-y-8 border-y border-white/10 py-8 sm:grid-cols-3 sm:divide-x sm:divide-white/10 sm:gap-y-0">
+            {group.stats.map((stat) => (
+              <div class="sm:px-8 sm:first:pl-0 sm:last:pr-0">
+                <p class="font-display text-4xl font-black leading-none tracking-tighter text-white sm:text-5xl">
+                  <span
+                    data-stat
+                    data-prefix={stat.prefix ?? ""}
+                    data-value={stat.value}
+                    data-suffix={stat.suffix ?? ""}
+                  >
+                    {`${stat.prefix ?? ""}${stat.value}${stat.suffix ?? ""}`}
+                  </span>
+                </p>
+                <p class="mt-3 max-w-[15rem] text-[11px] font-bold uppercase leading-relaxed tracking-[0.22em] text-gray-500">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>

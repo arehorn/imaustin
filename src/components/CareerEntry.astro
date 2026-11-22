@@ -1,0 +1,31 @@
+---
+import type { ExperienceRole } from "../types/emdash";
+
+interface Props {
+  role: ExperienceRole;
+}
+
+const { role } = Astro.props;
+const highlights = Array.isArray(role.highlights) ? role.highlights : [role.highlights];
+---
+
+<article class="career-entry" data-entry>
+  <p class="text-[11px] font-bold uppercase tracking-[0.28em] text-[#FF5A1F]">
+    {role.dates} · {role.company}
+  </p>
+  <h3 class="mt-3 font-display text-2xl font-bold leading-tight tracking-tighter text-white sm:text-3xl">
+    {role.title}
+  </h3>
+  {role.division && <p class="mt-1.5 text-sm text-gray-500">{role.division}</p>}
+
+  <ul class="mt-5 max-w-2xl space-y-2.5 text-base leading-relaxed text-gray-400">
+    {
+      highlights.map((highlight: string) => (
+        <li class="flex gap-3">
+          <span class="mt-2 h-1 w-1 shrink-0 rounded-full bg-[#C9A86C]" aria-hidden="true" />
+          <span>{highlight}</span>
+        </li>
+      ))
+    }
+  </ul>
+</article>
