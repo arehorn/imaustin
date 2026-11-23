@@ -54,7 +54,7 @@ npm run build && npx wrangler deploy
 
 `astro build` writes `.wrangler/deploy/config.json`, so plain `wrangler deploy` picks up `dist/server/wrangler.json` — no `--config` flag needed. The first deploy auto-provisions the `SESSION` KV namespace and the `IMAGES` binding the adapter requests. Afterwards, attach `imaustin.me` to the Worker under **Settings → Domains & Routes** and retire the Pages project. The Sanity webhook URL stays `https://imaustin.me/api/revalidate`, so no webhook change is needed while the domain moves.
 
-Locally, both scripts execute requests in workerd: `npm run dev` keeps Astro's Vite dev server in Node but hands the server environment to `@cloudflare/vite-plugin`, which runs it in workerd, while `npm run preview` serves the built Worker. Both read a gitignored `.dev.vars`, so `SANITY_REVALIDATE_SECRET=…` there exercises `/api/revalidate` in either mode.
+Locally, both scripts execute requests in workerd: `npm run dev` keeps Astro's Vite dev server in Node but hands the server environment to `@cloudflare/vite-plugin`, which runs it in workerd, while `npm run preview` serves the built Worker. Both read a gitignored `.dev.vars`, so `SANITY_REVALIDATE_SECRET=…` there exercises `/api/revalidate` in either mode. In `npm run dev`, send a same-origin `Origin` header with the POST (e.g. `-H 'Origin: http://localhost:4321'`); Astro's dev CSRF guard answers 403 for cross-site form posts otherwise.
 
 ## 👀 Want to learn more?
 
