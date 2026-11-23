@@ -1,7 +1,7 @@
 // astro.config.mjs
 import { defineConfig, envField } from "astro/config";
+import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
-import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 import sanity from "@sanity/astro";
 
@@ -10,7 +10,7 @@ const SANITY_DATASET = process.env.PUBLIC_SANITY_DATASET ?? "production";
 
 export default defineConfig({
   output: "server",
-  adapter: vercel(),
+  adapter: cloudflare(),
   integrations: [
     sanity({
       projectId: SANITY_PROJECT_ID,

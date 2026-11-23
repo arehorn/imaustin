@@ -1,5 +1,5 @@
 // src/pages/api/revalidate.ts
-// Sanity webhook → Vercel revalidation endpoint.
+// Sanity webhook → on-demand revalidation endpoint (Cloudflare Workers).
 //
 // Configure a GROQ-powered webhook in Sanity (Manage → API → Webhooks):
 //   - URL:     https://imaustin.me/api/revalidate
@@ -9,11 +9,11 @@
 //   - Secret:  set to SANITY_REVALIDATE_SECRET (sent as header x-sanity-signature
 //              OR body field "secret" — we accept either for simplicity)
 //
-// This endpoint intentionally does not attempt to perform path-level ISR
-// invalidation: with output: "server" on Vercel, the Sanity CDN with
-// `useCdn: true` is the primary cache, and GROQ queries re-run on each request
-// after the CDN TTL expires (~60s). For now we just verify the secret and
-// return 200 so Sanity webhook retries stay green.
+// This endpoint intentionally does not attempt to perform path-level
+// invalidation: with output: "server" on Cloudflare Workers, every page is
+// rendered per request, and the Sanity CDN with `useCdn: true` is the primary
+// cache, so GROQ queries re-fetch once the CDN TTL expires (~60s). For now we
+// just verify the secret and return 200 so Sanity webhook retries stay green.
 
 import type { APIRoute } from "astro";
 import crypto from "node:crypto";
